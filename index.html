@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Muaiyad Al Hasani - Portfolio</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Segoe UI", Arial, sans-serif;
+        background:
+          radial-gradient(900px 520px at 20% -10%, rgba(77, 220, 255, 0.14), transparent 55%),
+          radial-gradient(700px 460px at 90% 10%, rgba(247, 163, 91, 0.14), transparent 55%),
+          #040916;
+        color: #eaf4ff;
+      }
+
+      .fallback-wrap {
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+      }
+
+      .fallback-card {
+        width: min(920px, calc(100% - 20px));
+        border-radius: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        background: rgba(7, 15, 32, 0.86);
+        padding: 20px;
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+        display: grid;
+        gap: 12px;
+      }
+
+      .fallback-title {
+        margin: 0;
+        font-size: 34px;
+        line-height: 1.15;
+      }
+
+      .fallback-subtitle {
+        margin: 0;
+        color: rgba(234, 244, 255, 0.82);
+        line-height: 1.7;
+        max-width: 70ch;
+      }
+
+      .fallback-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .fallback-btn {
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 10px;
+        padding: 8px 12px;
+        background: rgba(255, 255, 255, 0.06);
+        color: #eaf4ff;
+        text-decoration: none;
+        font-family: "JetBrains Mono", Consolas, "Courier New", monospace;
+      }
+
+      .fallback-btn.primary {
+        border-color: rgba(77, 220, 255, 0.5);
+        background: rgba(77, 220, 255, 0.18);
+      }
+
+      .fallback-note {
+        margin: 0;
+        font-size: 13px;
+        opacity: 0.8;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <main class="fallback-wrap">
+        <section class="fallback-card">
+          <h1 class="fallback-title">Muaiyad Al Hasani</h1>
+          <p class="fallback-subtitle">
+            Pre-service Teacher, Instructional Technologist, and AI Builder.
+            This portfolio documents teaching evidence, growth, and innovation.
+          </p>
+
+          <div class="fallback-actions">
+            <a class="fallback-btn primary" href="/about">Enter Portfolio</a>
+            <a class="fallback-btn" href="/cv">Download CV</a>
+            <a class="fallback-btn" href="/contact">Contact</a>
+          </div>
+
+          <p class="fallback-note">
+            If this page is not interactive, run <code>npm run dev</code> in
+            <code>Muaiyad</code> and open the local Vite URL.
+          </p>
+        </section>
+      </main>
+    </div>
+    <script type="module" src="/src/app/main.jsx"></script>
+  </body>
+</html>
