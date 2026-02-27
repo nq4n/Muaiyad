@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-page="unit-5-lessons">
+  <a class="skip-link" href="#main-content" data-i18n="ui.skip">Skip to content</a>
+  <div id="site-header"></div>
+
+  <main id="main-content" class="site-main" tabindex="-1">
+    <section class="terminal-card hero-card">
+      <p class="terminal-path" data-i18n="ui.locationHint">~/portfolio</p>
+      <h1 id="page-title"></h1>
+      <p id="page-subtitle"></p>
+      <p class="typewriter-line"><span id="page-prompt"></span><span class="cursor" aria-hidden="true"></span></p>
+    </section>
+
+    <section class="terminal-card page-content" id="page-sections" aria-live="polite"></section>
+
+    <section id="projects" class="terminal-card projects-shell" hidden>
+      <div class="section-head">
+        <h2 data-i18n="projects.title">Project Showcase</h2>
+        <p data-i18n="projects.subtitle">Filter and inspect selected projects.</p>
+      </div>
+
+      <div class="project-controls" role="region" aria-label="Project controls">
+        <label for="project-search" data-i18n="projects.searchLabel">Search projects</label>
+        <input id="project-search" type="search" autocomplete="off">
+
+        <label for="project-sort" data-i18n="projects.sortLabel">Sort by</label>
+        <select id="project-sort">
+          <option value="featured" data-i18n="projects.sortFeatured">Featured</option>
+          <option value="newest" data-i18n="projects.sortNewest">Newest</option>
+          <option value="complex" data-i18n="projects.sortComplex">Most complex</option>
+        </select>
+
+        <div id="project-tags" class="tag-chips" role="group" aria-label="Project tags"></div>
+      </div>
+
+      <div id="project-list" class="project-grid" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <div id="project-modal" class="modal" hidden aria-hidden="true">
+    <div class="modal-backdrop" data-close-modal="true"></div>
+    <section class="modal-dialog terminal-card" role="dialog" aria-modal="true" aria-labelledby="project-modal-title">
+      <button id="modal-close" class="icon-btn" type="button" aria-label="Close">x</button>
+      <h3 id="project-modal-title"></h3>
+      <p id="project-modal-summary"></p>
+      <p id="project-modal-details"></p>
+      <p id="project-modal-stack"></p>
+      <div class="modal-actions">
+        <a id="project-modal-link" href="#" target="_blank" rel="noopener noreferrer">Open</a>
+        <button id="project-copy-pitch" type="button"></button>
+      </div>
+    </section>
+  </div>
+
+  <div id="guided-root"></div>
+
+  <script src="../assets/js/data.js"></script>
+  <script src="../assets/js/app.js"></script>
+</body>
+</html>
