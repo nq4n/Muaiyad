@@ -15,14 +15,14 @@
   const NAV_IDLE_MS = 2800;
 
   const NAV_ICONS = {
-    home: "H",
-    philosophy: "P",
-    cv: "CV",
-    "unit-plan": "U",
-    "framework-axes": "F",
-    "reflection-papers": "R",
-    "graduation-project": "G",
-    other: "..."
+    home: "&#8962;",
+    philosophy: "&#9673;",
+    cv: "&#9638;",
+    "unit-plan": "&#9635;",
+    "framework-axes": "&#8998;",
+    "reflection-papers": "&#9998;",
+    "graduation-project": "&#11041;",
+    other: "&#8230;"
   };
 
   const route = {
@@ -202,7 +202,7 @@
       .reduce((acc, k) => (acc && Object.prototype.hasOwnProperty.call(acc, k) ? acc[k] : null), tr()) ?? "";
   const hrefFor = (id) => `${rootPrefix}${DATA.pageMap[id]}`;
   const uiText = (en, ar) => (state.lang === "ar" ? ar : en);
-  const navIcon = (id) => NAV_ICONS[id] || (id.startsWith("unit-") ? ">" : id.startsWith("other-") ? ">" : "*");
+  const navIcon = (id) => NAV_ICONS[id] || (id.startsWith("unit-") ? "&#8250;" : id.startsWith("other-") ? "&#8250;" : "&#8226;");
 
   function persistContent() {
     localStorage.setItem(CONTENT_KEY, JSON.stringify(sanitizeContent(state.content)));

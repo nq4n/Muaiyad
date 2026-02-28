@@ -10,8 +10,9 @@
   --border: rgba(57, 255, 143, 0.34);
   --nebula-a: rgba(89, 96, 255, 0.26);
   --nebula-b: rgba(57, 255, 143, 0.14);
+  --nebula-c: rgba(120, 196, 255, 0.2);
   --star: rgba(230, 250, 255, 0.9);
-  --star-opacity: 0.5;
+  --star-opacity: 0.56;
   --surface-btn: rgba(3, 8, 21, 0.55);
   --surface-btn-hover: rgba(7, 14, 32, 0.75);
   --surface-input: rgba(3, 8, 20, 0.62);
@@ -28,6 +29,12 @@
   --veil-b: rgba(0, 0, 0, 0.2);
   --scanline: rgba(255, 255, 255, 0.02);
   --veil-opacity: 0.2;
+  --bg-blur: 8px;
+  --space-speed: 18s;
+  --star-speed: 72s;
+  --twinkle-speed: 5s;
+  --focus-vignette: rgba(2, 6, 16, 0.5);
+  --vignette-edge: rgba(1, 4, 12, 0.62);
   --shadow: 0 16px 44px rgba(2, 5, 14, 0.68);
   --font-ui: "Cascadia Code", "Consolas", "Courier New", monospace;
   --font-ar: "Tahoma", "Segoe UI", sans-serif;
@@ -44,7 +51,9 @@ html[data-theme="amber"] {
   --border: rgba(255, 179, 71, 0.38);
   --nebula-a: rgba(255, 123, 54, 0.3);
   --nebula-b: rgba(255, 194, 118, 0.16);
+  --nebula-c: rgba(255, 154, 102, 0.22);
   --star: rgba(255, 236, 203, 0.95);
+  --vignette-edge: rgba(29, 14, 7, 0.58);
 }
 
 html[data-theme="blue"] {
@@ -58,7 +67,9 @@ html[data-theme="blue"] {
   --border: rgba(77, 201, 255, 0.35);
   --nebula-a: rgba(46, 108, 255, 0.25);
   --nebula-b: rgba(77, 201, 255, 0.16);
+  --nebula-c: rgba(127, 174, 255, 0.2);
   --star: rgba(224, 243, 255, 0.92);
+  --vignette-edge: rgba(4, 10, 24, 0.58);
 }
 
 html[data-theme="light"] {
@@ -73,8 +84,9 @@ html[data-theme="light"] {
   --border: rgba(15, 123, 255, 0.3);
   --nebula-a: rgba(115, 165, 255, 0.35);
   --nebula-b: rgba(119, 237, 255, 0.22);
+  --nebula-c: rgba(167, 189, 255, 0.22);
   --star: rgba(106, 132, 177, 0.75);
-  --star-opacity: 0.35;
+  --star-opacity: 0.48;
   --surface-btn: rgba(255, 255, 255, 0.84);
   --surface-btn-hover: rgba(241, 247, 255, 0.96);
   --surface-input: rgba(255, 255, 255, 0.9);
@@ -90,7 +102,10 @@ html[data-theme="light"] {
   --veil-a: rgba(255, 255, 255, 0.36);
   --veil-b: rgba(130, 173, 230, 0.14);
   --scanline: rgba(56, 111, 184, 0.04);
-  --veil-opacity: 0.32;
+  --veil-opacity: 0.24;
+  --bg-blur: 6px;
+  --focus-vignette: rgba(19, 52, 95, 0.22);
+  --vignette-edge: rgba(29, 61, 102, 0.32);
   --shadow: 0 16px 40px rgba(82, 115, 163, 0.22);
 }
 
@@ -111,15 +126,19 @@ html {
 body {
   font-family: var(--font-ui);
   background:
-    radial-gradient(900px 640px at 10% -14%, var(--nebula-a), transparent 56%),
-    radial-gradient(820px 600px at 92% -10%, var(--nebula-b), transparent 54%),
-    radial-gradient(1000px 700px at 50% 120%, var(--bg-depth), transparent 64%),
+    radial-gradient(1050px 710px at 12% -18%, var(--nebula-a), transparent 58%),
+    radial-gradient(940px 680px at 88% -16%, var(--nebula-b), transparent 56%),
+    radial-gradient(980px 700px at 50% 115%, var(--nebula-c), transparent 62%),
+    radial-gradient(1220px 760px at 50% 132%, var(--bg-depth), transparent 68%),
     linear-gradient(160deg, var(--bg-soft), var(--bg));
+  background-size: 138% 138%, 140% 140%, 136% 136%, 148% 148%, 100% 100%;
+  background-position: 12% -18%, 88% -16%, 50% 115%, 50% 132%, center;
   color: var(--text);
   line-height: 1.55;
   position: relative;
   isolation: isolate;
   overflow-x: hidden;
+  animation: nebulaDrift var(--space-speed) ease-in-out infinite alternate;
 }
 
 html[lang="ar"] body {
@@ -132,14 +151,24 @@ body::before {
   inset: 0;
   pointer-events: none;
   background-image:
+    radial-gradient(700px 430px at 12% 24%, var(--nebula-a), transparent 70%),
+    radial-gradient(620px 410px at 86% 16%, var(--nebula-b), transparent 72%),
+    radial-gradient(760px 450px at 50% 84%, var(--nebula-c), transparent 72%),
     radial-gradient(2px 2px at 12px 18px, var(--star), transparent 70%),
     radial-gradient(1.8px 1.8px at 70px 40px, rgba(190, 235, 255, 0.8), transparent 70%),
     radial-gradient(1.4px 1.4px at 130px 90px, rgba(160, 220, 255, 0.7), transparent 70%),
     radial-gradient(1px 1px at 34px 110px, rgba(220, 245, 255, 0.65), transparent 70%);
-  background-size: 160px 160px, 210px 210px, 250px 250px, 300px 300px;
-  opacity: var(--star-opacity);
+  background-size: auto, auto, auto, 160px 160px, 210px 210px, 250px 250px, 300px 300px;
+  background-repeat: no-repeat, no-repeat, no-repeat, repeat, repeat, repeat, repeat;
+  background-position: 12% 24%, 86% 16%, 50% 84%, 0 0, 0 0, 0 0, 0 0;
+  opacity: calc(var(--star-opacity) + 0.12);
+  filter: blur(0.8px) saturate(122%) brightness(1.06);
+  transform: scale(1.06);
   z-index: -2;
-  animation: starDrift 140s linear infinite;
+  animation:
+    fogFloat calc(var(--space-speed) * 1.35) ease-in-out infinite alternate,
+    starDrift var(--star-speed) linear infinite,
+    starTwinkle var(--twinkle-speed) ease-in-out infinite alternate;
 }
 
 body::after {
@@ -148,10 +177,20 @@ body::after {
   inset: 0;
   pointer-events: none;
   background:
+    radial-gradient(68% 48% at 50% 52%, rgba(255, 255, 255, 0.08), transparent 72%),
+    radial-gradient(120% 90% at 50% 52%, transparent 0 42%, rgba(0, 0, 0, 0.16) 68%, var(--vignette-edge) 100%),
     linear-gradient(180deg, var(--veil-a), transparent 22%, var(--veil-b)),
     repeating-linear-gradient(0deg, var(--scanline) 0 1px, transparent 1px 4px);
-  opacity: var(--veil-opacity);
+  background-size: 122% 122%, 112% 112%, 100% 100%, 100% 100%;
+  background-position: 50% 50%, 50% 50%, 50% 50%, 50% 50%;
+  opacity: calc(var(--veil-opacity) * 0.82);
+  backdrop-filter: blur(calc(var(--bg-blur) * 0.7)) saturate(112%) brightness(0.95);
+  -webkit-backdrop-filter: blur(calc(var(--bg-blur) * 0.7)) saturate(112%) brightness(0.95);
   z-index: -1;
+  will-change: opacity, background-position;
+  animation:
+    focusBreath 9s ease-in-out infinite,
+    vignetteDrift 18s ease-in-out infinite alternate;
 }
 
 .skip-link {
@@ -174,6 +213,8 @@ body::after {
   margin: 1rem auto 3rem;
   display: grid;
   gap: 1rem;
+  position: relative;
+  z-index: 1;
 }
 
 .terminal-card {
@@ -286,6 +327,8 @@ select:focus-visible,
   text-decoration: none;
   border: 1px solid transparent;
   color: var(--text);
+  font: inherit;
+  line-height: 1.2;
   padding: 0.35rem 0.6rem;
   border-radius: 0.55rem;
   display: inline-flex;
@@ -403,6 +446,8 @@ select:focus-visible,
   display: flex;
   align-items: center;
   gap: 0.35rem;
+  direction: ltr;
+  unicode-bidi: isolate;
   border: 1px solid var(--border);
   border-radius: 999px;
   background: var(--surface-input);
@@ -411,6 +456,7 @@ select:focus-visible,
 }
 
 .cmd-prefix {
+  flex: 0 0 auto;
   color: var(--accent);
   font-weight: 700;
   text-shadow: 0 0 10px var(--accent-soft);
@@ -419,6 +465,7 @@ select:focus-visible,
 }
 
 .cmd-enter {
+  flex: 0 0 auto;
   border-radius: 999px;
   padding: 0.22rem 0.52rem;
   min-width: 2rem;
@@ -576,15 +623,23 @@ select:focus-visible,
 }
 
 #command-input {
+  flex: 1 1 auto;
   width: 100%;
   border: 0;
   border-radius: 999px;
   padding: 0.34rem 0.12rem;
   color: var(--text);
   background: transparent;
+  direction: ltr;
+  text-align: left;
   font: inherit;
   box-shadow: none;
   min-width: 0;
+}
+
+html[dir="rtl"] #command-input::placeholder {
+  direction: rtl;
+  text-align: right;
 }
 
 #command-input::placeholder {
@@ -1065,6 +1120,58 @@ select:focus-visible,
 @keyframes starDrift {
   to {
     transform: translate3d(-140px, -80px, 0);
+  }
+}
+
+@keyframes starTwinkle {
+  from {
+    opacity: calc(var(--star-opacity) * 0.8);
+  }
+  to {
+    opacity: calc(var(--star-opacity) * 1.08);
+  }
+}
+
+@keyframes fogFloat {
+  0% {
+    background-position: 12% 24%, 86% 16%, 50% 84%, 0 0, 0 0, 0 0, 0 0;
+  }
+  50% {
+    background-position: 18% 20%, 82% 12%, 45% 78%, 0 0, 0 0, 0 0, 0 0;
+  }
+  100% {
+    background-position: 8% 28%, 90% 20%, 54% 88%, 0 0, 0 0, 0 0, 0 0;
+  }
+}
+
+@keyframes nebulaDrift {
+  0% {
+    background-position: 12% -18%, 88% -16%, 50% 115%, 50% 132%, center;
+  }
+  50% {
+    background-position: 20% -10%, 82% -24%, 44% 106%, 48% 120%, center;
+  }
+  100% {
+    background-position: 2% -24%, 96% -8%, 56% 124%, 52% 140%, center;
+  }
+}
+
+@keyframes focusBreath {
+  0%,
+  100% {
+    opacity: var(--veil-opacity);
+  }
+  50% {
+    opacity: calc(var(--veil-opacity) + 0.08);
+  }
+}
+
+@keyframes vignetteDrift {
+  0% {
+    background-position: 50% 49%, 50% 50%, 50% 50%, 50% 50%;
+  }
+  100% {
+    background-position: 48% 52%, 52% 48%, 50% 50%, 50% 50%;
   }
 }
 
