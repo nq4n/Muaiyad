@@ -171,14 +171,14 @@
         showAi: "AI Projects"
       },
       commands: {
-        help: "Commands: help, home, philosophy, cv, unit, framework, reflections, graduation, other, unit1..unit10, other1..other4, theme [neon|amber|blue], lang [ar|en], clear",
+        help: "Commands: help, home, philosophy, cv, unit, framework, reflections, graduation, other, unit1..unit10, other1..other4, theme [neon|amber|blue|light], lang [ar|en], cli [on|off], clear",
         unknown: "Unknown command",
         moved: "Navigating",
         themeChanged: "Theme changed",
         langChanged: "Language changed",
         cleared: "Cleared"
       },
-      themes: { neon: "Neon Green", amber: "Amber Retro", blue: "Blue Night" }
+      themes: { neon: "Neon Green", amber: "Amber Retro", blue: "Blue Night", light: "Light Orbit" }
     },
     ar: {
       meta: { siteName: "ملف معاياد الشخصي" },
@@ -237,14 +237,14 @@
         showAi: "مشاريع الذكاء الاصطناعي"
       },
       commands: {
-        help: "الأوامر: help, home, philosophy, cv, unit, framework, reflections, graduation, other, unit1..unit10, other1..other4, theme [neon|amber|blue], lang [ar|en], clear",
+        help: "الأوامر: help, home, philosophy, cv, unit, framework, reflections, graduation, other, unit1..unit10, other1..other4, theme [neon|amber|blue|light], lang [ar|en], cli [on|off], clear",
         unknown: "أمر غير معروف",
         moved: "جاري الانتقال",
         themeChanged: "تم تغيير الثيم",
         langChanged: "تم تغيير اللغة",
         cleared: "تم المسح"
       },
-      themes: { neon: "أخضر نيون", amber: "كهرماني كلاسيكي", blue: "ليلة زرقاء" }
+      themes: { neon: "أخضر نيون", amber: "كهرماني كلاسيكي", blue: "ليلة زرقاء", light: "وضع فاتح" }
     }
   };
 
@@ -275,7 +275,7 @@
     pageMap,
     navStructure,
     commandList: ["help", "home", "philosophy", "cv", "unit", "framework", "reflections", "graduation", "other", "unit1", "unit2", "unit3", "unit4", "unit5", "unit6", "unit7", "unit8", "unit9", "unit10", "other1", "other2", "other3", "other4", "theme", "lang", "clear"],
-    themes: ["neon", "amber", "blue"],
+    themes: ["neon", "amber", "blue", "light"],
     defaultTheme: "neon"
   };
 })();
