@@ -1,6 +1,6 @@
 (() => {
   const pages = [
-    ["home", "index.html", "Home", "الرئيسية"],
+    ["home", "index.html", "Portfolio Introduction", "\u0645\u0642\u062f\u0645\u0629 \u0627\u0644\u0645\u0644\u0641"],
     ["philosophy", "pages/philosophy.html", "Educational Philosophy", "الفلسفة التربوية"],
     ["cv", "pages/cv.html", "CV", "السيرة الذاتية"],
     ["unit-plan", "pages/unit-plan.html", "Unit Plan", "خطة الوحدة"],
@@ -14,14 +14,15 @@
     ["unit-8-reflection", "pages/unit-8-reflection.html", "8- Reflection on Teaching Practices", "8- التأمل في الممارسات التدريسية"],
     ["unit-9-references", "pages/unit-9-references.html", "9- References", "9- المراجع العلمية"],
     ["unit-10-appendices", "pages/unit-10-appendices.html", "10- Appendices", "10- الملاحق"],
-    ["framework-axes", "pages/framework-axes.html", "Conceptual Framework Axes", "محاور الإطار المفاهيمي"],
+    ["framework-axes", "pages/framework-axes.html", "Comprehensive Reflection Paper", "\u0627\u0644\u0648\u0631\u0642\u0629 \u0627\u0644\u062a\u0623\u0645\u0644\u064a\u0629 \u0627\u0644\u0634\u0627\u0645\u0644\u0629"],
     ["reflection-papers", "pages/reflection-papers.html", "Reflection Papers", "الأوراق التأملية"],
-    ["graduation-project", "pages/graduation-project.html", "Graduation Project", "مشروع التخرج"],
+    ["graduation-project", "pages/graduation-project.html", "Research Project", "\u0645\u0634\u0631\u0648\u0639 \u0627\u0644\u0628\u062d\u062b"],
     ["other", "pages/other.html", "Other", "أخرى"],
     ["other-values", "pages/other-values.html", "Professional Values Scenarios", "سيناريوهات القيم المهنية"],
     ["other-workshop", "pages/other-workshop.html", "Workshop", "الورشة"],
-    ["other-growth", "pages/other-growth.html", "Professional Growth Evidence", "أدلة النمو المهني"],
-    ["other-peer-visits", "pages/other-peer-visits.html", "Peer Visit Exchange Evidence", "أدلة تبادل الزيارات"]
+    ["other-growth", "pages/other-growth.html", "Professional Development Activities Evidence", "\u0623\u062f\u0644\u0629 \u0623\u0646\u0634\u0637\u0629 \u0627\u0644\u0646\u0645\u0648 \u0627\u0644\u0645\u0647\u0646\u064a"],
+    ["other-peer-visits", "pages/other-peer-visits.html", "Peer Visit Exchange Evidence", "أدلة تبادل الزيارات"],
+    ["other-parent-communication", "pages/other-parent-communication.html", "Parent Communication Form", "\u0627\u0633\u062a\u0645\u0627\u0631\u0629 \u062a\u0648\u0627\u0635\u0644 \u0645\u0639 \u0623\u0648\u0644\u064a\u0627\u0621 \u0623\u0645\u0648\u0631 \u0627\u0644\u0645\u062a\u0639\u0644\u0645\u064a\u0646"]
   ];
 
   const unitChildren = pages.slice(4, 14).map((p) => p[0]);
@@ -171,7 +172,7 @@
         showAi: "AI Projects"
       },
       commands: {
-        help: "Commands: help, home, philosophy, cv, unit, framework, reflections, graduation, other, unit1..unit10, other1..other4, theme [neon|amber|blue|light], lang [ar|en], cli [on|off], clear",
+        help: "Commands: help, home, philosophy, cv, unit, framework, reflections, graduation, other, unit1..unit10, other1..other5, theme [neon|amber|blue|light], lang [ar|en], cli [on|off], clear",
         unknown: "Unknown command",
         moved: "Navigating",
         themeChanged: "Theme changed",
@@ -237,7 +238,7 @@
         showAi: "مشاريع الذكاء الاصطناعي"
       },
       commands: {
-        help: "الأوامر: help, home, philosophy, cv, unit, framework, reflections, graduation, other, unit1..unit10, other1..other4, theme [neon|amber|blue|light], lang [ar|en], cli [on|off], clear",
+        help: "الأوامر: help, home, philosophy, cv, unit, framework, reflections, graduation, other, unit1..unit10, other1..other5, theme [neon|amber|blue|light], lang [ar|en], cli [on|off], clear",
         unknown: "أمر غير معروف",
         moved: "جاري الانتقال",
         themeChanged: "تم تغيير الثيم",
@@ -274,7 +275,7 @@
     projects,
     pageMap,
     navStructure,
-    commandList: ["help", "home", "philosophy", "cv", "unit", "framework", "reflections", "graduation", "other", "unit1", "unit2", "unit3", "unit4", "unit5", "unit6", "unit7", "unit8", "unit9", "unit10", "other1", "other2", "other3", "other4", "theme", "lang", "clear"],
+    commandList: ["help", "home", "philosophy", "cv", "unit", "framework", "reflections", "graduation", "other", "unit1", "unit2", "unit3", "unit4", "unit5", "unit6", "unit7", "unit8", "unit9", "unit10", "other1", "other2", "other3", "other4", "other5", "theme", "lang", "clear"],
     themes: ["neon", "amber", "blue", "light"],
     defaultTheme: "neon"
   };

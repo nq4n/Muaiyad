@@ -47,7 +47,8 @@
     other1: "other-values",
     other2: "other-workshop",
     other3: "other-growth",
-    other4: "other-peer-visits"
+    other4: "other-peer-visits",
+    other5: "other-parent-communication"
   };
 
   const commandList = Array.from(
