@@ -6,8 +6,8 @@
   const path = window.location.pathname.replace(/\\/g, "/");
   const rootPrefix = /\/pages\//i.test(path) ? "../" : "";
   const visualAssetPrefix = `${rootPrefix}assets/vendor/grapesjs/`;
-  const CONTENT_KEY = "portfolio.content.v2";
-  const LEGACY_CONTENT_KEY = "portfolio.content.v1";
+  const CONTENT_KEY = "portfolio.content.v3";
+  const LEGACY_CONTENT_KEYS = ["portfolio.content.v2", "portfolio.content.v1"];
   const SHOW_KEY = "portfolio.show";
   const NAV_CLI_KEY = "portfolio.nav.cli";
   const NAV_IDLE_MS = 2800;
@@ -508,7 +508,8 @@
 
   function loadContent() {
     try {
-      const saved = localStorage.getItem(CONTENT_KEY) || localStorage.getItem(LEGACY_CONTENT_KEY);
+      LEGACY_CONTENT_KEYS.forEach((key) => localStorage.removeItem(key));
+      const saved = localStorage.getItem(CONTENT_KEY);
       return saved ? sanitizeContent(JSON.parse(saved)) : buildDefaultContent();
     } catch (_) {
       return buildDefaultContent();
@@ -583,7 +584,7 @@
 
   function persistContent() {
     localStorage.setItem(CONTENT_KEY, JSON.stringify(sanitizeContent(state.content)));
-    localStorage.removeItem(LEGACY_CONTENT_KEY);
+    LEGACY_CONTENT_KEYS.forEach((key) => localStorage.removeItem(key));
   }
 
   function syncGuidedState() {
@@ -664,7 +665,7 @@
     state.editor.visualDrafts = {};
     state.editor.visualLoadedKey = "";
     localStorage.removeItem(CONTENT_KEY);
-    localStorage.removeItem(LEGACY_CONTENT_KEY);
+    LEGACY_CONTENT_KEYS.forEach((key) => localStorage.removeItem(key));
     syncGuidedState();
     syncEditorPageOptions();
     const pageKeys = getPageKeys();

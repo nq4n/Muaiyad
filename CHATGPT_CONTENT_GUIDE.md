@@ -1,12 +1,37 @@
 # ChatGPT HTML Content Guide
 
-Use this file when you want ChatGPT to write page content for this portfolio.
+Use this file when you want ChatGPT to help you draft page content for this portfolio.
 
 The goal is simple:
 
-- write the body content under the existing navbar
+- help you build the body content under the existing navbar
 - keep the site shell, theme, and layout untouched
-- return HTML content only
+- return HTML content that you can review, edit, and place yourself
+
+## Editing Model
+
+This workflow is:
+
+- human-led editing
+- AI-assisted drafting
+
+That means:
+
+- you decide the final content
+- you choose what stays, what changes, and what gets removed
+- ChatGPT helps you draft, expand, rewrite, or structure the HTML
+- ChatGPT is not the owner of the page content
+
+## No In-Page Editor
+
+There is no edit button in the site UI.
+
+That means:
+
+- content is not edited from inside the page
+- content is prepared with ChatGPT, then reviewed by you
+- final content is pasted directly into the project files
+- the files are the source of truth
 
 ## What ChatGPT Should Return
 
@@ -14,7 +39,7 @@ Ask ChatGPT to return:
 
 - an HTML fragment only
 - semantic content blocks
-- content that fits a terminal-style portfolio
+- draft content that fits a terminal-style portfolio
 
 Do not ask ChatGPT to return:
 
@@ -61,6 +86,8 @@ Recommended length:
 ## Preferred HTML Structure
 
 Use the existing classes so the content inherits the site styling.
+
+The point is to give you a strong draft that is easy for you to adjust manually.
 
 Base section pattern:
 
@@ -207,10 +234,10 @@ That usually works better than:
 
 ## System Prompt
 
-Use this as the system prompt when asking ChatGPT to write page content:
+Use this as the system prompt when asking ChatGPT to help you draft page content:
 
 ```text
-You are writing body content for a bilingual terminal-style portfolio website.
+You are assisting a human editor who is building body content for a bilingual terminal-style portfolio website.
 
 Return HTML fragments only.
 
@@ -230,6 +257,8 @@ Rules:
 - Match a professional portfolio tone.
 - Arabic must read naturally.
 - English must be polished and concise.
+- Treat the human as the final editor.
+- Produce drafts that are easy to revise manually.
 ```
 
 ## User Prompt Template
@@ -237,7 +266,7 @@ Rules:
 Use this as the user prompt:
 
 ```text
-Write the body content for the page "<PAGE_ID>" as an HTML fragment only.
+Help me draft the body content for the page "<PAGE_ID>" as an HTML fragment only.
 
 Context:
 - Topic: <TOPIC>
@@ -254,6 +283,7 @@ Content requirements:
 - Do not change the navbar, theme, or global layout.
 - Do not return JSON.
 - Do not return a full document.
+- Make the output easy for me to edit manually afterward.
 
 Optional source notes:
 <PASTE YOUR RAW NOTES HERE>
@@ -275,3 +305,14 @@ Default rule:
 
 - prefer HTML content only
 - add custom CSS only when the content cannot fit the existing system cleanly
+- do not assume there is an edit button in the site
+
+## Recommended Workflow
+
+1. Write your raw notes first.
+2. Ask ChatGPT to turn those notes into an HTML fragment draft.
+3. Review the structure, tone, and accuracy yourself.
+4. Edit the returned HTML manually as needed.
+5. Paste the final version into the correct `builderHtml` field.
+
+Use ChatGPT as a drafting partner, not as the final editor.
