@@ -661,6 +661,13 @@
     }
   }
 
+  function getMorphDurationMs() {
+    const raw = getComputedStyle(document.documentElement).getPropertyValue("--cli-morph-duration").trim();
+    if (raw.endsWith("ms")) return Number.parseFloat(raw) || 0;
+    if (raw.endsWith("s")) return (Number.parseFloat(raw) || 0) * 1000;
+    return 0;
+  }
+
   function animateHeaderShell(header, applyState) {
     if (!header) {
       applyState();
@@ -671,6 +678,7 @@
       applyState();
       return;
     }
+    const duration = Math.max(getMorphDurationMs(), 320);
 
     wrap.getAnimations().forEach((animation) => animation.cancel());
     const first = wrap.getBoundingClientRect();
@@ -681,6 +689,8 @@
     const last = wrap.getBoundingClientRect();
     const lastStyle = getComputedStyle(wrap);
     if (!first.width || !last.width) return;
+    const midWidth = first.width + (last.width - first.width) * 0.62;
+    const midHeight = first.height + (last.height - first.height) * 0.62;
 
     const prevOverflow = wrap.style.overflow;
     const prevWillChange = wrap.style.willChange;
@@ -696,6 +706,13 @@
           boxShadow: firstStyle.boxShadow
         },
         {
+          width: `${midWidth}px`,
+          height: `${midHeight}px`,
+          borderRadius: lastStyle.borderRadius,
+          boxShadow: lastStyle.boxShadow,
+          offset: 0.62
+        },
+        {
           width: `${last.width}px`,
           height: `${last.height}px`,
           borderRadius: lastStyle.borderRadius,
@@ -703,8 +720,8 @@
         }
       ],
       {
-        duration: 420,
-        easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+        duration,
+        easing: "cubic-bezier(0.18, 0.88, 0.24, 1)",
         fill: "both"
       }
     );

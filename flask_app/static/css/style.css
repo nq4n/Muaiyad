@@ -37,7 +37,7 @@
   --header-control-height: 2.35rem;
   --header-shell-height: calc(var(--header-control-height) + 1.5rem);
   --cli-shell-width: min(380px, 55vw);
-  --cli-morph-duration: 0ms;
+  --cli-morph-duration: 520ms;
 }
 
 html[data-theme="amber"] {
