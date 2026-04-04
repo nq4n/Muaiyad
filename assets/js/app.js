@@ -562,8 +562,21 @@
     const value = readNested(tr(), key);
     return typeof value === "string" ? value : fallback;
   };
+  const nextLang = () => (state.lang === "ar" ? "en" : "ar");
+  const langButtonLabel = () => (nextLang() === "ar" ? "AR" : "EN");
+  const brandLogoSrc = `${rootPrefix}assets/img/squ-logo.webp?v=20260404a`;
+  const brandCardLines = (lang = state.lang) =>
+    lang === "ar"
+      ? ["جامعة السلطان قابوس", "كلية التربية", "تقنيات التعليم والتعلم"]
+      : ["Sultan Qaboos University", "College of Education", "Instructional and Learning Technology"];
+  const loadingName = (lang = state.lang) => {
+    const profile = getProfile();
+    return lang === "ar" ? profile.name_ar || profile.name_en : profile.name_en || profile.name_ar;
+  };
+  const loadingHint = (lang = state.lang) => (lang === "ar" ? "اضغط في أي مكان للدخول" : "Click anywhere to enter");
   const navLabel = (id, lang = state.lang) => getLangPack(lang).nav?.[id] || titleFromId(id);
-  const themeLabel = (id, lang = state.lang) => getLangPack(lang).themes?.[id] || id;
+  const themeLabel = (id, lang = state.lang) =>
+    getLangPack(lang).themes?.[id] || getLangPack("en").themes?.[id] || id;
   const hrefFor = (id) => `${rootPrefix}${getPageMap()[id] || getPageMap().home || "index.html"}`;
   const navIcon = (id) => getNavIcons()[id] || (id.startsWith("unit-") ? "&#8250;" : id.startsWith("other-") ? "&#8250;" : "&#8226;");
   const editorStrings = () => tr().editor || {};
@@ -624,7 +637,25 @@
     localStorage.setItem("portfolio.lang", state.lang);
     document.documentElement.lang = state.lang;
     document.documentElement.dir = state.lang === "ar" ? "rtl" : "ltr";
+    renderLoadingScreenCopy();
     render();
+  }
+
+  function renderLoadingScreenCopy() {
+    const nameEl = document.getElementById("loading-name");
+    const hintEl = document.getElementById("loading-hint");
+    const lang = state.lang === "ar" ? "ar" : "en";
+    const dir = lang === "ar" ? "rtl" : "ltr";
+    if (nameEl) {
+      nameEl.lang = lang;
+      nameEl.dir = dir;
+      nameEl.innerHTML = Array.from(loadingName(lang)).map((char, index) => `<span class="loading-letter" data-index="${index}">${char === " " ? "&nbsp;" : esc(char)}</span>`).join("");
+    }
+    if (hintEl) {
+      hintEl.lang = lang;
+      hintEl.dir = dir;
+      hintEl.textContent = loadingHint(lang);
+    }
   }
 
   function resetContent() {
@@ -687,36 +718,48 @@
     applyState();
 
     const last = wrap.getBoundingClientRect();
-    const lastStyle = getComputedStyle(wrap);
     if (!first.width || !last.width) return;
-    const midWidth = first.width + (last.width - first.width) * 0.62;
-    const midHeight = first.height + (last.height - first.height) * 0.62;
+    const dx = first.left - last.left;
+    const dy = first.top - last.top;
+    const sx = first.width / last.width;
+    const sy = first.height / last.height;
+    if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5 && Math.abs(sx - 1) < 0.01 && Math.abs(sy - 1) < 0.01) return;
 
-    const prevOverflow = wrap.style.overflow;
-    const prevWillChange = wrap.style.willChange;
-    wrap.style.overflow = "hidden";
-    wrap.style.willChange = "width, height, border-radius, box-shadow";
+    document.querySelectorAll(".nav-wrap-morph-proxy").forEach((node) => node.remove());
+    const proxy = document.createElement("div");
+    proxy.setAttribute("aria-hidden", "true");
+    proxy.className = "nav-wrap-morph-proxy";
+    proxy.style.position = "fixed";
+    proxy.style.left = `${last.left}px`;
+    proxy.style.top = `${last.top}px`;
+    proxy.style.width = `${last.width}px`;
+    proxy.style.height = `${last.height}px`;
+    proxy.style.border = firstStyle.border;
+    proxy.style.borderRadius = firstStyle.borderRadius;
+    proxy.style.background = firstStyle.background;
+    proxy.style.boxShadow = firstStyle.boxShadow;
+    proxy.style.backdropFilter = firstStyle.backdropFilter;
+    proxy.style.webkitBackdropFilter = firstStyle.webkitBackdropFilter;
+    proxy.style.pointerEvents = "none";
+    proxy.style.transformOrigin = "top left";
+    proxy.style.willChange = "transform, opacity";
+    proxy.style.zIndex = "60";
+    document.body.appendChild(proxy);
 
-    const animation = wrap.animate(
+    const animation = proxy.animate(
       [
         {
-          width: `${first.width}px`,
-          height: `${first.height}px`,
-          borderRadius: firstStyle.borderRadius,
-          boxShadow: firstStyle.boxShadow
+          transform: `translate(${dx}px, ${dy}px) scale(${sx}, ${sy})`,
+          opacity: 0.96
         },
         {
-          width: `${midWidth}px`,
-          height: `${midHeight}px`,
-          borderRadius: lastStyle.borderRadius,
-          boxShadow: lastStyle.boxShadow,
+          transform: "translate(0, 0) scale(1, 1)",
+          opacity: 0.92,
           offset: 0.62
         },
         {
-          width: `${last.width}px`,
-          height: `${last.height}px`,
-          borderRadius: lastStyle.borderRadius,
-          boxShadow: lastStyle.boxShadow
+          transform: "translate(0, 0) scale(1, 1)",
+          opacity: 0
         }
       ],
       {
@@ -730,9 +773,7 @@
     const cleanup = () => {
       if (cleaned) return;
       cleaned = true;
-      wrap.style.overflow = prevOverflow;
-      wrap.style.willChange = prevWillChange;
-      animation.cancel();
+      proxy.remove();
     };
 
     animation.addEventListener("finish", cleanup, { once: true });
@@ -805,6 +846,7 @@
     const structure = getNavStructure();
     const profile = getProfile();
     const brandName = state.lang === "ar" ? profile.name_ar || profile.name_en : profile.name_en || profile.name_ar;
+    const brandLines = brandCardLines(state.lang);
     const navItem = (id) =>
       `<li><a class="nav-link ${current.has(id) ? "active" : ""}" href="${hrefFor(id)}"><span class="nav-icon" aria-hidden="true">${navIcon(id)}</span><span class="nav-label">${esc(navLabel(id))}</span></a></li>`;
     const navDrop = (id, children) => {
@@ -824,7 +866,15 @@
     document.getElementById("site-header").innerHTML = `
       <header class="site-header ${state.nav.cli ? "cli-mode" : ""}" role="banner">
         <div class="nav-wrap terminal-card">
-          <a class="brand" href="${hrefFor("home")}"><span class="brand-dot">$</span> ${esc(brandName)}</a>
+          <a class="brand" href="${hrefFor("home")}" aria-label="${esc(brandName)}">
+            <span class="brand-logo-shell" aria-hidden="true"><img class="brand-logo" src="${brandLogoSrc}" alt="" decoding="async" loading="eager" /></span>
+            <span class="brand-text"><span class="brand-dot">$</span><span class="brand-name">${esc(brandName)}</span></span>
+            <span class="brand-card" aria-hidden="true">
+              <span class="brand-card-line brand-card-line--primary">${esc(brandLines[0])}</span>
+              <span class="brand-card-line">${esc(brandLines[1])}</span>
+              <span class="brand-card-line">${esc(brandLines[2])}</span>
+            </span>
+          </a>
           <button id="menu-toggle" class="icon-btn nav-action" aria-expanded="false" aria-controls="primary-nav"><span class="btn-icon" aria-hidden="true">&#9776;</span><span class="btn-label">${esc(t("ui.menu"))}</span></button>
           <nav id="primary-nav" class="primary-nav" aria-label="Primary">
             <ul class="nav-list">${parts}</ul>
@@ -840,9 +890,9 @@
               <ul id="command-suggestions" class="suggestions" role="listbox"></ul>
               <div id="command-output" class="cmd-output" aria-live="polite"></div>
             </div>
-            <button id="cli-toggle" class="icon-btn nav-action ${state.nav.cli ? "active" : ""}" aria-pressed="${state.nav.cli ? "true" : "false"}"><span class="btn-icon" aria-hidden="true">&gt;_</span><span class="btn-label">CLI</span></button>
-            <button id="theme-toggle" class="icon-btn nav-action"><span class="btn-icon" aria-hidden="true">&#9680;</span><span class="btn-label">${esc(t("ui.themeButton"))}</span></button>
-            <button id="lang-toggle" class="icon-btn nav-action"><span class="btn-icon" aria-hidden="true">&#127760;</span><span class="btn-label">${esc(t("ui.langButton"))}</span></button>
+            <button id="cli-toggle" class="icon-btn nav-action ${state.nav.cli ? "active" : ""}" aria-label="CLI" aria-pressed="${state.nav.cli ? "true" : "false"}"><span class="btn-icon" aria-hidden="true">&gt;_</span><span class="btn-label">CLI</span></button>
+            <button id="theme-toggle" class="icon-btn nav-action" aria-label="${esc(t("ui.themeButton"))}"><span class="btn-icon" aria-hidden="true">&#9680;</span><span class="btn-label">${esc(t("ui.themeButton"))}</span></button>
+            <button id="lang-toggle" class="icon-btn nav-action" aria-label="${nextLang() === "ar" ? "Switch language to Arabic" : "Switch language to English"}"><span class="btn-icon" aria-hidden="true">&#127760;</span><span class="btn-label">${langButtonLabel()}</span></button>
           </div>
         </div>
       </header>
@@ -1387,18 +1437,24 @@
       if (value) el.textContent = value;
     });
     const page = isLivePagePreviewActive() ? state.editor.draft : getPageContent(state.lang, pageId);
+    const hero = document.querySelector(".hero-card");
     const title = document.getElementById("page-title");
     const subtitle = document.getElementById("page-subtitle");
     const prompt = document.getElementById("page-prompt");
     const wrap = document.getElementById("page-sections");
     if (!title || !subtitle || !prompt || !wrap) return;
-    title.textContent = page.title;
-    subtitle.textContent = page.subtitle;
-    prompt.textContent = page.prompt;
-    if (typeof page.builderHtml === "string" && page.builderHtml.trim()) {
+    const hasHero = Boolean(String(page.title || "").trim() || String(page.subtitle || "").trim() || String(page.prompt || "").trim());
+    const hasBuilder = typeof page.builderHtml === "string" && page.builderHtml.trim();
+    const sections = Array.isArray(page.sections) ? page.sections : [];
+    if (hero) hero.hidden = !hasHero;
+    title.textContent = page.title || "";
+    subtitle.textContent = page.subtitle || "";
+    prompt.textContent = page.prompt || "";
+    wrap.hidden = !hasBuilder && sections.length === 0;
+    if (hasBuilder) {
       wrap.innerHTML = `<style>${page.builderCss || ""}</style>${sanitizeCustomHTML(page.builderHtml)}`;
     } else {
-      wrap.innerHTML = tabsMarkup(page.sections || []);
+      wrap.innerHTML = tabsMarkup(sections);
     }
     attachPageEditorTarget(title, { kind: "title" });
     attachPageEditorTarget(subtitle, { kind: "subtitle" });
