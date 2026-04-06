@@ -51,6 +51,7 @@
     const fallback = getLangPack("en");
     return (active.themes && active.themes[id]) || (fallback.themes && fallback.themes[id]) || id;
   };
+  const usesStaticRender = () => document.body.dataset.staticRender === "true";
   const hrefFor = (id) => `/${id === 'home' ? '' : id}`;
   const navIcon = (id) => getNavIcons()[id] || (id.startsWith("unit-") ? "&#8250;" : id.startsWith("other-") ? "&#8250;" : "&#8226;");
 
@@ -125,6 +126,18 @@
   }
 
   function renderPageContent() {
+    if (usesStaticRender()) {
+      const sections = document.getElementById("page-sections");
+      if (sections) {
+        requestAnimationFrame(() => {
+          sections.querySelectorAll(".reveal").forEach((el, i) => {
+            setTimeout(() => el.classList.add("is-visible"), i * 80);
+          });
+        });
+      }
+      return;
+    }
+
     const page = getPageContent(state.lang, pageId);
     const hero = document.querySelector(".hero-card");
     const title = document.getElementById("page-title");

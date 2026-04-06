@@ -1,9 +1,13 @@
 from flask import Flask, render_template, jsonify, request, redirect, url_for
+from functools import lru_cache
 import json
 import os
+from pathlib import Path
 
 app = Flask(__name__, template_folder='flask_app/templates', static_folder='flask_app/static', static_url_path='/static')
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-key-change-in-production')
+BASE_DIR = Path(__file__).resolve().parent
+DATA_DIR = BASE_DIR / 'flask_app' / 'data'
 
 PAGES = {
     'home': {'path': 'index.html', 'title_en': 'Portfolio Introduction', 'title_ar': 'مقدمة الملف'},
@@ -62,8 +66,14 @@ ROUTE_MAP = {
     'other5': 'other-parent-communication'
 }
 
-THEMES = ['neon', 'amber', 'blue', 'light']
-DEFAULT_THEME = 'neon'
+THEMES = ['arabesque', 'light']
+DEFAULT_THEME = 'arabesque'
+
+
+@lru_cache(maxsize=None)
+def load_json_data(filename):
+    with open(DATA_DIR / filename, encoding='utf-8') as file:
+        return json.load(file)
 
 def get_page_context(page_id, lang='en'):
     return {
@@ -80,7 +90,11 @@ def get_page_context(page_id, lang='en'):
 
 @app.route('/')
 def home():
-    return render_template('pages/home.html', **get_page_context('home'))
+    return render_template(
+        'pages/home.html',
+        achievement_file=load_json_data('field_training_achievement_file.json'),
+        **get_page_context('home')
+    )
 
 @app.route('/<page_id>')
 def page(page_id):

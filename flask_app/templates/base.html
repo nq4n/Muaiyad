@@ -6,7 +6,7 @@
   <title>{{ page_id }} - Portfolio</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-<body data-page="{{ page_id }}">
+<body data-page="{{ page_id }}"{% if static_render %} data-static-render="true"{% endif %}>
 
   <div id="loading-screen">
     <div class="loading-content">
@@ -39,14 +39,18 @@
   <div id="site-header"></div>
 
   <main id="main-content" class="site-main" tabindex="-1">
-    <section class="terminal-card hero-card">
+    {% block hero %}
+    <section class="terminal-card hero-card"{% if hide_default_hero %} hidden{% endif %}>
       <p class="terminal-path">~/portfolio</p>
       <h1 id="page-title"></h1>
       <p id="page-subtitle"></p>
       <p class="typewriter-line"><span id="page-prompt"></span><span class="cursor" aria-hidden="true"></span></p>
     </section>
+    {% endblock %}
 
-    <section class="terminal-card page-content" id="page-sections" aria-live="polite"></section>
+    <section class="terminal-card page-content" id="page-sections" aria-live="polite">
+      {% block page_content %}{% endblock %}
+    </section>
   </main>
 
   <div id="guided-root"></div>

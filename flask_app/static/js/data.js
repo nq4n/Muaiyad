@@ -383,7 +383,7 @@
         }
       },
       commands: {
-        help: "Commands: help, home, philosophy, cv, unit, framework, reflections, graduation, other, unit1..unit10, other1..other5, theme [neon|amber|blue|light], lang [ar|en], cli [on|off], clear",
+        help: "Commands: help, home, philosophy, cv, unit, framework, reflections, graduation, other, unit1..unit10, other1..other5, theme [arabesque|light], lang [ar|en], cli [on|off], clear",
         helpExtra: "extra: cli, edit, studio, savecontent, resetcontent",
         unknown: "Unknown command",
         moved: "Navigating",
@@ -656,7 +656,7 @@
         }
       },
       commands: {
-        help: "الأوامر: help, home, philosophy, cv, unit, framework, reflections, graduation, other, unit1..unit10, other1..other5, theme [neon|amber|blue|light], lang [ar|en], cli [on|off], clear",
+        help: "الأوامر: help, home, philosophy, cv, unit, framework, reflections, graduation, other, unit1..unit10, other1..other5, theme [arabesque|light], lang [ar|en], cli [on|off], clear",
         helpExtra: "إضافي: cli, edit, studio, savecontent, resetcontent",
         unknown: "أمر غير معروف",
         moved: "جاري الانتقال",
