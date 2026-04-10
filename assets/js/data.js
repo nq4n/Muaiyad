@@ -15,6 +15,7 @@
     ["unit-9-references", "pages/unit-9-references.html", "9- References", "9- المراجع العلمية"],
     ["unit-10-appendices", "pages/unit-10-appendices.html", "10- Appendices", "10- الملاحق"],
     ["framework-axes", "pages/framework-axes.html", "Comprehensive Reflection Paper", "الورقة التأملية الشاملة"],
+    ["conceptual-axes", "pages/conceptual-axes.html", "Conceptual Framework Axes", "محاور الإطار المفاهيمي"],
     ["reflection-papers", "pages/reflection-papers.html", "Reflection Papers", "الأوراق التأملية"],
     ["graduation-project", "pages/graduation-project.html", "Research Project", "مشروع البحث"],
     ["other", "pages/other.html", "Other", "أخرى"],
@@ -36,8 +37,8 @@
     { id: "philosophy" },
     { id: "cv" },
     { id: "unit-plan", children: unitChildren },
-    { id: "framework-axes" },
-    { id: "reflection-papers" },
+    { id: "conceptual-axes" },
+    { id: "reflection-papers", children: ["framework-axes"] },
     { id: "graduation-project" },
     { id: "other", children: otherChildren }
   ];
@@ -47,6 +48,7 @@
     philosophy: "&#9673;",
     cv: "&#9638;",
     "unit-plan": "&#9635;",
+    "conceptual-axes": "&#8859;",
     "framework-axes": "&#8998;",
     "reflection-papers": "&#9998;",
     "graduation-project": "&#11041;",
@@ -59,6 +61,7 @@
     cv: "cv",
     unit: "unit-plan",
     framework: "framework-axes",
+    axes: "conceptual-axes",
     reflections: "reflection-papers",
     graduation: "graduation-project",
     other: "other",
@@ -236,14 +239,129 @@
   };
 
   const makePage = (lang, id, label) => {
-    return {
-      title: "",
-      subtitle: "",
-      prompt: "",
-      sections: [],
-      builderHtml: "",
-      builderCss: ""
-    };
+    if (id === "cv") {
+      const cvSections = [
+        { type: "html", html: `<div class="cv-section">
+          <h2>${lang === "en" ? "Curriculum Vitae (CV)" : "السيرة الذاتية"}</h2>
+          <div class="card-grid">
+            <div class="terminal-card cv-card">
+              <h3>${lang === "en" ? "Professional Summary" : "الملخص المهني"}</h3>
+              <div class="card-content"></div>
+            </div>
+            <div class="terminal-card cv-card">
+              <h3>${lang === "en" ? "Educational Qualification" : "المؤهلات العلمية"}</h3>
+              <div class="card-content"></div>
+            </div>
+            <div class="terminal-card cv-card">
+              <h3>${lang === "en" ? "Personal and Academic Information" : "المعلومات الشخصية والأكاديمية"}</h3>
+              <div class="card-content"></div>
+            </div>
+            <div class="terminal-card cv-card">
+              <h3>${lang === "en" ? "Teaching and Training Experience" : "الخبرة في التدريس والتدريب"}</h3>
+              <div class="card-content"></div>
+            </div>
+          </div>
+          <h3>${lang === "en" ? "Skills" : "المهارات"}</h3>
+          <div class="card-grid">
+            <div class="terminal-card skill-card">
+              <h3>${lang === "en" ? "Educational Skills" : "المهارات التعليمية"}</h3>
+              <div class="card-content"></div>
+            </div>
+            <div class="terminal-card skill-card">
+              <h3>${lang === "en" ? "Technological and Digital Skills" : "المهارات التقنية والرقمية"}</h3>
+              <div class="card-content"></div>
+            </div>
+            <div class="terminal-card skill-card">
+              <h3>${lang === "en" ? "Administrative and Organizational Skills" : "المهارات الإدارية والتنظيمية"}</h3>
+              <div class="card-content"></div>
+            </div>
+            <div class="terminal-card skill-card">
+              <h3>${lang === "en" ? "Personal and Leadership Skills" : "المهارات الشخصية والقيادية"}</h3>
+              <div class="card-content"></div>
+            </div>
+          </div>
+          <div class="card-grid">
+            <div class="terminal-card bottom-card">
+              <h3>${lang === "en" ? "Activities and Specialized Courses" : "الأنشطة والدورات المتخصصة"}</h3>
+              <div class="card-content"></div>
+            </div>
+          </div>
+        </div>` }
+      ];
+      return { title: lang === "en" ? "Curriculum Vitae" : "السيرة الذاتية", subtitle: "", prompt: "$ open section", sections: [], builderHtml: cvSections[0].html, builderCss: `.cv-section { padding: 20px; } .cv-section h2 { text-align: center; margin-bottom: 2rem; color: var(--accent); } .cv-section h3 { margin: 2rem 0 1rem; text-align: center; } .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; } .card-content { min-height: 100px; }` };
+    }
+    if (id === "philosophy") {
+      const philTopics = [
+        { en: "Nature of Learning and the Role of Teaching", ar: "طبيعة التعلم ودور التدريس" },
+        { en: "The Teacher as a Learning Designer", ar: "المعلم كمصمم للتعلم" },
+        { en: "The Learner's Role in the Learning Process", ar: "دور المتعلم في عملية التعلم" },
+        { en: "Diversity in Teaching and Addressing Individual Differences", ar: "التنوع في التدريس ومعالجة الفروق الفردية" },
+        { en: "Integrating Technology and Visual Design in Education", ar: "دمج التكنولوجيا والتصميم البصري في التعليم" },
+        { en: "Assessment as a Tool for Improving Learning", ar: "التقييم كأداة لتحسين التعلم" },
+        { en: "Lifelong Learning", ar: "التعلم مدى الحياة" },
+        { en: "Professional Values and Ethics", ar: "القيم والأخلاقيات المهنية" }
+      ];
+      const cardsHtml = philTopics.map(t => `<div class="terminal-card phil-card"><h3>${t.en}<br>${t.ar}</h3><div class="card-content"></div></div>`).join("");
+      const philHtml = `<div class="philosophy-section" style="padding: 20px;">
+        <h2 style="text-align: center; margin-bottom: 2rem; color: var(--accent);">${lang === "en" ? "Educational Philosophy" : "الفلسفة التربوية"}</h2>
+        <div class="card-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">${cardsHtml}</div>
+      </div>`;
+      return { title: lang === "en" ? "Educational Philosophy" : "الفلسفة التربوية", subtitle: "", prompt: "$ open section", sections: [], builderHtml: philHtml, builderCss: `.phil-card { height: 100%; } h3 { font-size: 1.1rem; margin-bottom: 1rem; } .card-content { min-height: 100px; }` };
+    }
+    if (id === "reflection-papers") {
+      const papers = [
+        { en: "Specialized Reflection Paper 1", ar: "الورقة التأملية التخصصية الأولى", link: "unit-8-reflection" },
+        { en: "Specialized Reflection Papers 2 & 3", ar: "الورقة التأملية التخصصية الثانية والثالثة", link: "unit-8-reflection" },
+        { en: "Comprehensive Reflection Paper", ar: "الورقة التأملية التخصصية الشاملة", link: "framework-axes" }
+      ];
+      const pageTitle = lang === "en" ? "Reflection Papers" : "الأوراق التأملية";
+      const introHtml = `<div class="reflection-intro" style="padding: 20px; text-align: center; margin-bottom: 2rem;">
+        <div class="terminal-card" style="padding: 2rem;">
+          <h3>${lang === "en" ? "Introduction" : "مقدمة"}</h3>
+          <div class="card-content"></div>
+        </div>
+      </div>`;
+      const cardsHtml = papers.map(p => `<div class="terminal-card reflection-card"><h3>${p.en}<br>${p.ar}</h3><div class="card-content"><a href="${p.link}" class="access-link" style="display: inline-block; margin-top: 1rem; padding: 0.5rem 1rem; background: var(--accent); color: var(--bg); text-decoration: none; border-radius: 4px;">${lang === "en" ? "Access" : "الوصول"}</a></div></div>`).join("");
+      const refHtml = `<div class="reflection-section" style="padding: 20px;">
+        <h2 style="text-align: center; margin-bottom: 2rem; color: var(--accent);">${pageTitle}</h2>
+        ${introHtml}
+        <div class="card-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">${cardsHtml}</div>
+      </div>`;
+      return { title: pageTitle, subtitle: "", prompt: "$ open section", sections: [], builderHtml: refHtml, builderCss: `.reflection-card { height: 100%; } h3 { font-size: 1.1rem; margin-bottom: 1rem; } .card-content { min-height: 100px; }` };
+    }
+    if (id === "framework-axes") {
+      const pageTitle = lang === "en" ? "Comprehensive Reflection Paper" : "الورقة التأملية الشاملة";
+      const compHtml = `<div class="comprehensive-section" style="padding: 20px;">
+        <h2 style="text-align: center; margin-bottom: 2rem; color: var(--accent);">${pageTitle}</h2>
+        <div class="terminal-card" style="padding: 2rem;">
+          <h3>${lang === "en" ? "Introduction" : "مقدمة"}</h3>
+          <div class="card-content"></div>
+        </div>
+      </div>`;
+      return { title: pageTitle, subtitle: "", prompt: "$ open section", sections: [], builderHtml: compHtml, builderCss: `.card-content { min-height: 100px; }` };
+    }
+    if (id === "conceptual-axes") {
+      const pageTitle = lang === "en" ? "Conceptual Framework Axes" : "محاور الإطار المفاهيمي";
+      const axes = [
+        { en: "Conceptual Framework of the College", ar: "الإطار المفاهيمي للكلية" },
+        { en: "Academic Mastery", ar: "التمكن الأكاديمي" },
+        { en: "Diversity in Teaching", ar: "التنوع في التدريس" },
+        { en: "Professional Values and Attitudes", ar: "القيم والتوجهات المهنية" },
+        { en: "Research Culture and Lifelong Learning", ar: "الثقافة البحثية والتعلم مدى الحياة" },
+        { en: "Technological Skills", ar: "المهارات التكنولوجية" }
+      ];
+      const introHtml = `<div class="terminal-card" style="margin-bottom: 2rem;">
+        <h3>${lang === "en" ? "Introduction" : "مقدمة"}</h3>
+        <div class="card-content"></div>
+      </div>`;
+      const cardsHtml = axes.map(a => `<div class="terminal-card"><h3>${a.en}<br>${a.ar}</h3><div class="card-content"></div></div>`).join("");
+      const axesHtml = `<div class="axes-section" style="padding: 20px;">
+        <h2 style="text-align: center; margin-bottom: 2rem; color: var(--accent);">${pageTitle}</h2>
+        ${introHtml}
+        <div class="card-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">${cardsHtml}</div>
+      </div>`;
+      return { title: pageTitle, subtitle: "", prompt: "$ open section", sections: [], builderHtml: axesHtml, builderCss: `.card-content { min-height: 100px; }` };
+    }
     if (id === "home") {
       return {
         title: lang === "en" ? "CLI Portfolio Terminal" : "واجهة ملف شخصي بنمط الطرفية",

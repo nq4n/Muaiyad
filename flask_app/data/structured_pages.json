@@ -1,0 +1,421 @@
+{
+  "philosophy": {
+    "hero": {
+      "path": "~/portfolio/philosophy",
+      "title": "Educational Philosophy | الفلسفة التربوية",
+      "subtitle": "This page is organized around belief statements, classroom implications, and evidence prompts so the philosophy reads as one coherent narrative.",
+      "prompt": "$ map teaching beliefs"
+    },
+    "sections": [
+      {
+        "type": "intro",
+        "label": "Page Logic",
+        "title": "How this page should be read",
+        "body": [
+          "Open with a short positioning statement that explains the teaching identity behind the portfolio.",
+          "Then move from broad beliefs to concrete practice so every idea is tied to what happens in planning, teaching, and assessment."
+        ],
+        "points": [
+          "Keep one main idea in each card.",
+          "Use examples from lessons, tools, or student interaction to make each belief credible.",
+          "End the page with evidence or reflection rather than abstract statements only."
+        ]
+      },
+      {
+        "type": "cards",
+        "label": "Core Beliefs",
+        "title": "Recommended belief blocks",
+        "description": "Each block below can become one stable subsection with its own short evidence paragraph or linked artifact.",
+        "cards": [
+          {
+            "label": "Belief 01",
+            "title": "Nature of Learning and the Role of Teaching | طبيعة التعلم ودور التدريس",
+            "body": "Explain how learning happens best in your context and what the teacher must design, guide, and monitor."
+          },
+          {
+            "label": "Belief 02",
+            "title": "The Teacher as a Learning Designer | المعلم كمصمم للتعلم",
+            "body": "Show how lesson structure, sequencing, and resources are intentionally chosen rather than added randomly."
+          },
+          {
+            "label": "Belief 03",
+            "title": "The Learner's Role in the Learning Process | دور المتعلم في عملية التعلم",
+            "body": "Describe how learners participate, practice, reflect, and take responsibility inside the learning experience."
+          },
+          {
+            "label": "Belief 04",
+            "title": "Diversity in Teaching and Addressing Individual Differences | التنوع في التدريس ومعالجة الفروق الفردية",
+            "body": "Document how instruction is adapted across readiness levels, learning needs, and classroom differences."
+          },
+          {
+            "label": "Belief 05",
+            "title": "Integrating Technology and Visual Design in Education | دمج التكنولوجيا والتصميم البصري في التعليم",
+            "body": "Clarify when technology improves understanding, interaction, accessibility, or the quality of educational materials."
+          },
+          {
+            "label": "Belief 06",
+            "title": "Assessment as a Tool for Improving Learning | التقييم كأداة لتحسين التعلم",
+            "body": "Frame assessment as feedback and decision-making, not only grading, and connect it to student progress."
+          },
+          {
+            "label": "Belief 07",
+            "title": "Lifelong Learning | التعلم مدى الحياة",
+            "body": "Show how your professional growth and reflective habits shape the way you teach and improve."
+          },
+          {
+            "label": "Belief 08",
+            "title": "Professional Values and Ethics | القيم والأخلاقيات المهنية",
+            "body": "State the values that guide judgement, fairness, responsibility, and communication in educational settings."
+          }
+        ]
+      },
+      {
+        "type": "steps",
+        "label": "Writing Flow",
+        "title": "Suggested order for final content",
+        "description": "Use the same sequence for every belief area so the page stays consistent and easy to review.",
+        "steps": [
+          {
+            "title": "State the belief clearly",
+            "body": "Start with one focused claim in two or three sentences."
+          },
+          {
+            "title": "Connect the belief to practice",
+            "body": "Add a lesson move, classroom routine, or instructional design choice that proves the belief."
+          },
+          {
+            "title": "Attach evidence",
+            "body": "Reference a lesson plan, assessment sample, reflection, or observation note that supports the claim."
+          }
+        ]
+      }
+    ]
+  },
+  "other": {
+    "hero": {
+      "path": "~/portfolio/other",
+      "title": "Other Evidence | أعمال وأنشطة أخرى",
+      "subtitle": "This section now works as a structured hub. Each subsection represents one evidence stream instead of mixing unrelated artifacts on one page.",
+      "prompt": "$ open supporting evidence"
+    },
+    "sections": [
+      {
+        "type": "intro",
+        "label": "Section Purpose",
+        "title": "What belongs here",
+        "body": [
+          "Use this page as an index for supporting evidence that does not fit naturally inside the main teaching-unit sequence.",
+          "Each child page should document one theme only, with a clear purpose, supporting artifacts, and a short reflection on impact."
+        ],
+        "points": [
+          "Separate workshop evidence from growth records.",
+          "Keep peer-visit notes independent from parent communication records.",
+          "Use repeated section headings so the reviewer can scan every page quickly."
+        ]
+      },
+      {
+        "type": "links",
+        "label": "Subsections",
+        "title": "Organized access points",
+        "description": "Each subsection below follows the same content logic: context, evidence, reflection, and follow-up.",
+        "links": [
+          {
+            "label": "Other 01",
+            "title": "Professional Values Scenarios | سيناريوهات القيم المهنية",
+            "body": "Cases that show ethical judgement, professional responsibility, and decision-making in practice.",
+            "href": "/other-values",
+            "link_text": "Open section"
+          },
+          {
+            "label": "Other 02",
+            "title": "Workshop | الورشة",
+            "body": "A dedicated space for workshop context, agenda, proof of participation, and applied outcomes.",
+            "href": "/other-workshop",
+            "link_text": "Open section"
+          },
+          {
+            "label": "Other 03",
+            "title": "Professional Development Activities Evidence | أدلة أنشطة النمو المهني",
+            "body": "Records of courses, certificates, learning activities, and how they influenced teaching practice.",
+            "href": "/other-growth",
+            "link_text": "Open section"
+          },
+          {
+            "label": "Other 04",
+            "title": "Peer Visit Exchange Evidence | أدلة تبادل الزيارات",
+            "body": "Observation notes, feedback exchange, and changes made after professional visits.",
+            "href": "/other-peer-visits",
+            "link_text": "Open section"
+          },
+          {
+            "label": "Other 05",
+            "title": "Parent Communication Form | استمارة تواصل مع أولياء الأمور",
+            "body": "Communication context, summary, response, and follow-up actions documented in a clear sequence.",
+            "href": "/other-parent-communication",
+            "link_text": "Open section"
+          }
+        ]
+      }
+    ]
+  },
+  "other-values": {
+    "hero": {
+      "path": "~/portfolio/other/values",
+      "title": "Professional Values Scenarios | سيناريوهات القيم المهنية",
+      "subtitle": "This page is structured to show the scenario, the professional dilemma, the chosen response, and the reasoning behind it.",
+      "prompt": "$ analyze scenario"
+    },
+    "sections": [
+      {
+        "type": "intro",
+        "label": "Use Pattern",
+        "title": "Recommended structure for each scenario",
+        "body": [
+          "Present one scenario at a time so the reviewer can understand the context before reading the analysis.",
+          "Focus on judgement, accountability, and the professional values that shaped the final decision."
+        ],
+        "points": [
+          "State the situation clearly.",
+          "Identify the tension or risk in the case.",
+          "Explain the action taken and why it was professionally appropriate."
+        ]
+      },
+      {
+        "type": "cards",
+        "label": "Content Blocks",
+        "title": "Suggested evidence blocks",
+        "description": "These blocks keep the scenario page analytical instead of descriptive only.",
+        "cards": [
+          {
+            "label": "Block 01",
+            "title": "Scenario Context",
+            "body": "Who was involved, what happened, and why the case required a professional response."
+          },
+          {
+            "label": "Block 02",
+            "title": "Values in Tension",
+            "body": "List the professional values, responsibilities, or institutional expectations that had to be balanced."
+          },
+          {
+            "label": "Block 03",
+            "title": "Decision and Action",
+            "body": "Describe the response taken, including communication, documentation, or escalation when needed."
+          },
+          {
+            "label": "Block 04",
+            "title": "Reflection and Learning",
+            "body": "Summarize what the case taught you about professional conduct and future decision-making."
+          }
+        ]
+      }
+    ]
+  },
+  "other-workshop": {
+    "hero": {
+      "path": "~/portfolio/other/workshop",
+      "title": "Workshop | الورشة",
+      "subtitle": "The workshop page is now arranged around event context, participation evidence, outputs, and classroom transfer.",
+      "prompt": "$ document workshop"
+    },
+    "sections": [
+      {
+        "type": "intro",
+        "label": "Page Logic",
+        "title": "What the reviewer should find first",
+        "body": [
+          "Start with the workshop title, date, venue, organizer, and your role in the event.",
+          "Then show what was learned, what materials were used, and what changed afterward in practice."
+        ],
+        "points": [
+          "Keep logistical details together.",
+          "Separate proof of participation from reflective commentary.",
+          "Close with outcomes that connect the workshop to teaching practice."
+        ]
+      },
+      {
+        "type": "cards",
+        "label": "Evidence Blocks",
+        "title": "Recommended workshop sections",
+        "description": "This layout makes the page feel complete even before the final artifacts are inserted.",
+        "cards": [
+          {
+            "label": "Block 01",
+            "title": "Workshop Snapshot",
+            "body": "Record the workshop name, focus area, facilitator, and participation details."
+          },
+          {
+            "label": "Block 02",
+            "title": "Agenda and Materials",
+            "body": "Summarize the session topics and attach slides, handouts, or learning materials where relevant."
+          },
+          {
+            "label": "Block 03",
+            "title": "Participation Evidence",
+            "body": "Use certificates, attendance proof, notes, photos, or submitted tasks as direct evidence."
+          },
+          {
+            "label": "Block 04",
+            "title": "Impact on Practice",
+            "body": "Explain what changed afterward in lesson design, communication, assessment, or professional habits."
+          }
+        ]
+      }
+    ]
+  },
+  "other-growth": {
+    "hero": {
+      "path": "~/portfolio/other/growth",
+      "title": "Professional Development Activities Evidence | أدلة أنشطة النمو المهني",
+      "subtitle": "This page is structured as a running record of growth activities, evidence, impact, and next learning targets.",
+      "prompt": "$ track professional growth"
+    },
+    "sections": [
+      {
+        "type": "intro",
+        "label": "Documentation Rule",
+        "title": "How to keep this page organized",
+        "body": [
+          "Treat each activity as one documented entry with a title, date, provider, outcome, and attached evidence.",
+          "Avoid listing certificates only. The strongest version of this page shows how each activity changed practice."
+        ],
+        "points": [
+          "Log activities in a consistent order.",
+          "Attach proof for each entry.",
+          "End each entry with one sentence about classroom or professional impact."
+        ]
+      },
+      {
+        "type": "cards",
+        "label": "Entry Template",
+        "title": "Recommended content blocks",
+        "description": "Use the same blocks repeatedly for courses, seminars, online training, and self-directed learning activities.",
+        "cards": [
+          {
+            "label": "Block 01",
+            "title": "Activity Record",
+            "body": "Document the activity title, provider, date, and the main topic addressed."
+          },
+          {
+            "label": "Block 02",
+            "title": "Evidence Attached",
+            "body": "Add certificates, screenshots, notes, task submissions, or participation records."
+          },
+          {
+            "label": "Block 03",
+            "title": "Impact on Practice",
+            "body": "State what changed in planning, teaching, assessment, or educational technology use after the activity."
+          },
+          {
+            "label": "Block 04",
+            "title": "Next Development Target",
+            "body": "Identify the next area to strengthen so growth appears continuous rather than isolated."
+          }
+        ]
+      }
+    ]
+  },
+  "other-peer-visits": {
+    "hero": {
+      "path": "~/portfolio/other/peer-visits",
+      "title": "Peer Visit Exchange Evidence | أدلة تبادل الزيارات",
+      "subtitle": "This page now separates visit context, observation focus, feedback exchange, and instructional changes made afterward.",
+      "prompt": "$ review peer visits"
+    },
+    "sections": [
+      {
+        "type": "intro",
+        "label": "Visit Pattern",
+        "title": "How to present each peer visit",
+        "body": [
+          "Document one visit at a time, including who was visited, what was observed, and why the visit mattered professionally.",
+          "The strongest evidence here is not the visit itself but the change in practice that followed the feedback exchange."
+        ],
+        "points": [
+          "Record the visit purpose and date.",
+          "List the observation focus areas.",
+          "Show what feedback was received or offered and how it was used."
+        ]
+      },
+      {
+        "type": "cards",
+        "label": "Evidence Blocks",
+        "title": "Suggested peer-visit sections",
+        "description": "These blocks keep observation notes, reflection, and action steps in the right order.",
+        "cards": [
+          {
+            "label": "Block 01",
+            "title": "Visit Details",
+            "body": "Identify the class, teacher, date, and purpose of the observation or exchange."
+          },
+          {
+            "label": "Block 02",
+            "title": "Observation Focus",
+            "body": "State what you were looking for such as classroom management, assessment routines, questioning, or technology use."
+          },
+          {
+            "label": "Block 03",
+            "title": "Feedback Exchange",
+            "body": "Summarize the main feedback points, insights, or professional dialogue from the visit."
+          },
+          {
+            "label": "Block 04",
+            "title": "Applied Change",
+            "body": "Explain what was adjusted in your own practice after the visit and how that change was evaluated."
+          }
+        ]
+      }
+    ]
+  },
+  "other-parent-communication": {
+    "hero": {
+      "path": "~/portfolio/other/parent-communication",
+      "title": "Parent Communication Form | استمارة تواصل مع أولياء الأمور",
+      "subtitle": "The page structure now separates communication context, message summary, response, and follow-up while keeping confidentiality visible.",
+      "prompt": "$ log communication"
+    },
+    "sections": [
+      {
+        "type": "intro",
+        "label": "Communication Logic",
+        "title": "What should be visible on this page",
+        "body": [
+          "Present the reason for communication first, then summarize the message, the parent response, and the agreed next step.",
+          "Keep personal details limited and focus on professional communication quality, clarity, and documented follow-up."
+        ],
+        "points": [
+          "State the communication purpose clearly.",
+          "Summarize the conversation or form content without unnecessary sensitive detail.",
+          "Document the outcome and next action."
+        ]
+      },
+      {
+        "type": "cards",
+        "label": "Form Structure",
+        "title": "Recommended communication blocks",
+        "description": "These blocks help the form read as a professional record rather than an isolated note.",
+        "cards": [
+          {
+            "label": "Block 01",
+            "title": "Communication Context",
+            "body": "Explain the reason for contact, the student issue or update, and the communication channel used."
+          },
+          {
+            "label": "Block 02",
+            "title": "Message Summary",
+            "body": "Capture the core points shared with the parent or guardian in a concise, neutral tone."
+          },
+          {
+            "label": "Block 03",
+            "title": "Response and Agreement",
+            "body": "Record the parent response, clarifications, or decisions reached during the interaction."
+          },
+          {
+            "label": "Block 04",
+            "title": "Follow-up and Professional Notes",
+            "body": "Add the next step, timeline, and any note about confidentiality, sensitivity, or school procedure."
+          }
+        ]
+      }
+    ]
+  }
+}

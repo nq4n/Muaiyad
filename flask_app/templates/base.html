@@ -3,8 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ page_id }} - Portfolio</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  {% set asset_version = "20260410f" %}
+  {% set default_page_title = pages[page_id]["title_ar" if lang == "ar" else "title_en"] if page_id in pages else page_id %}
+  <title>{{ default_page_title }} - Portfolio</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css', v=asset_version) }}">
 </head>
 <body data-page="{{ page_id }}"{% if static_render %} data-static-render="true"{% endif %}>
 
@@ -35,16 +37,16 @@
     </div>
   </div>
 
-  <a class="skip-link" href="#main-content">Skip to content</a>
+  <a class="skip-link" href="#main-content">{{ "تخطي إلى المحتوى" if lang == "ar" else "Skip to content" }}</a>
   <div id="site-header"></div>
 
   <main id="main-content" class="site-main" tabindex="-1">
     {% block hero %}
     <section class="terminal-card hero-card"{% if hide_default_hero %} hidden{% endif %}>
-      <p class="terminal-path">~/portfolio</p>
-      <h1 id="page-title"></h1>
-      <p id="page-subtitle"></p>
-      <p class="typewriter-line"><span id="page-prompt"></span><span class="cursor" aria-hidden="true"></span></p>
+      <p class="terminal-path">~/portfolio/{{ page_id }}</p>
+      <h1 id="page-title">{{ page_title or default_page_title }}</h1>
+      <p id="page-subtitle">{{ page_subtitle or "" }}</p>
+      <p class="typewriter-line"><span id="page-prompt">{{ page_prompt or ('$ open ' ~ page_id) }}</span><span class="cursor" aria-hidden="true"></span></p>
     </section>
     {% endblock %}
 
@@ -55,7 +57,8 @@
 
   <div id="guided-root"></div>
 
-  <script src="{{ url_for('static', filename='js/data.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/data/site.js', v=asset_version) }}"></script>
+  <script src="{{ url_for('static', filename='js/data/pages/' ~ page_id ~ '.js', v=asset_version) }}"></script>
+  <script src="{{ url_for('static', filename='js/app.js', v=asset_version) }}"></script>
 </body>
 </html>

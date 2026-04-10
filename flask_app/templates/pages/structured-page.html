@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% from "partials/page_blueprint_macros.html" import render_copy, render_points, render_cards %}
+
+{% set static_render = true %}
+{% set hide_default_hero = true %}
+{% set blueprint = page_blueprint or {} %}
+{% set hero = blueprint.hero or {} %}
+
+{% block hero %}
+{% if hero %}
+<section class="section-card page-panel page-hero reveal" data-reveal="fade-up" aria-labelledby="structured-page-title">
+  <div class="section-block-inner page-hero-inner">
+    {% if hero.path %}
+    <p class="terminal-path page-kicker">{{ hero.path }}</p>
+    {% endif %}
+    <div class="section-headline">
+      <h1 id="structured-page-title">{{ hero.title }}</h1>
+    </div>
+    {{ render_copy(hero.subtitle, 'section-copy page-hero-copy') }}
+    {% if hero.prompt %}
+    <p class="typewriter-line page-hero-prompt"><span>{{ hero.prompt }}</span></p>
+    {% endif %}
+  </div>
+</section>
+{% endif %}
+{% endblock %}
+
+{% block page_content %}
+<div class="structured-page">
+  {% for section in blueprint.sections or [] %}
+  <section class="section-card page-panel page-section reveal" data-reveal="fade-up" aria-labelledby="structured-section-{{ loop.index }}">
+    <div class="section-block-inner">
+      <header class="page-section-header">
+        {% if section.label %}
+        <p class="page-section-label">{{ section.label }}</p>
+        {% endif %}
+        <h2 id="structured-section-{{ loop.index }}" class="page-section-title">{{ section.title }}</h2>
+        {{ render_copy(section.description, 'section-copy page-section-intro') }}
+      </header>
+
+      {% if section.type == 'intro' %}
+        {{ render_copy(section.body) }}
+        {{ render_points(section.points) }}
+      {% elif section.type == 'cards' %}
+        {{ render_cards(section.cards) }}
+      {% elif section.type == 'links' %}
+        {{ render_cards(section.links, True) }}
+      {% elif section.type == 'steps' %}
+      <ol class="page-step-list">
+        {% for step in section.steps %}
+        <li class="section-card page-step-card">
+          <div class="page-step-index">{{ loop.index }}</div>
+          <div class="page-step-copy">
+            <h3 class="page-step-title">{{ step.title }}</h3>
+            {{ render_copy(step.body, 'page-step-body') }}
+          </div>
+        </li>
+        {% endfor %}
+      </ol>
+      {% endif %}
+    </div>
+  </section>
+  {% else %}
+  <section class="section-card page-panel page-section reveal" data-reveal="fade-up">
+    <div class="section-block-inner">
+      <header class="page-section-header">
+        <p class="page-section-label">No Blueprint</p>
+        <h2 class="page-section-title">No structured content is configured for this page yet.</h2>
+      </header>
+    </div>
+  </section>
+  {% endfor %}
+</div>
+{% endblock %}

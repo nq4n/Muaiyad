@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% set static_render = true %}
+{% set hide_default_hero = true %}
+
+{% block hero %}
+<section class="section-card page-panel page-hero reveal" data-reveal="fade-up" aria-labelledby="static-page-title">
+  <div class="section-block-inner page-hero-inner">
+    <p class="terminal-path page-kicker">~/portfolio/{{ page_id }}</p>
+    <div class="section-headline">
+      <h1 id="static-page-title" data-page-copy="hero.title"></h1>
+    </div>
+    <div class="section-copy page-hero-copy" data-page-paragraphs="hero.subtitle"></div>
+    <p class="typewriter-line page-hero-prompt"><span data-page-copy="hero.prompt"></span><span class="cursor" aria-hidden="true"></span></p>
+  </div>
+</section>
+{% endblock %}
+
+{% block page_content %}
+<div class="structured-page">
+  <section class="section-card page-panel page-section reveal" data-reveal="fade-up" aria-labelledby="page-overview-title">
+    <div class="section-block-inner">
+      <header class="page-section-header">
+        <h2 id="page-overview-title" class="page-section-title" data-page-copy="overview.title"></h2>
+      </header>
+      <div class="section-copy" data-page-paragraphs="overview.body"></div>
+    </div>
+  </section>
+
+  <section class="section-card page-panel page-section reveal" data-reveal="fade-up" aria-labelledby="page-implementation-title">
+    <div class="section-block-inner">
+      <header class="page-section-header">
+        <h2 id="page-implementation-title" class="page-section-title" data-page-copy="implementation.title"></h2>
+      </header>
+      <div class="section-copy" data-page-paragraphs="implementation.body"></div>
+    </div>
+  </section>
+
+  <section class="section-card page-panel page-section reveal" data-reveal="fade-up" aria-labelledby="page-next-action-title">
+    <div class="section-block-inner">
+      <header class="page-section-header">
+        <h2 id="page-next-action-title" class="page-section-title" data-page-copy="next_action.title"></h2>
+      </header>
+      <div class="section-copy" data-page-paragraphs="next_action.body"></div>
+    </div>
+  </section>
+</div>
+{% endblock %}

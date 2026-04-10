@@ -516,10 +516,10 @@
     }
   }
 
+  const initialLang = localStorage.getItem("portfolio.lang") || "en";
+
   const state = {
-    lang:
-      localStorage.getItem("portfolio.lang") ||
-      ((navigator.language || "en").toLowerCase().startsWith("ar") ? "ar" : "en"),
+    lang: initialLang,
     theme: localStorage.getItem("portfolio.theme") || DATA.defaultTheme,
     cmdIndex: -1,
     project: { search: "", sort: "featured", tag: "all", show: localStorage.getItem(SHOW_KEY) || "all" },
@@ -528,7 +528,7 @@
     nav: { cli: localStorage.getItem(NAV_CLI_KEY) === "1", idle: false },
     editor: {
       tab: "page",
-      pageLang: localStorage.getItem("portfolio.lang") || "en",
+      pageLang: initialLang,
       pageId,
       draft: null,
       jsonDraft: null,

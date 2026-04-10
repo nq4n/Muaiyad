@@ -1,101 +1,101 @@
 {
   "file": {
     "id": "field-training-achievement-file",
-    "institution": "جامعة السلطان قابوس - كلية التربية - تكنولوجيا التعليم والتعلم",
-    "title": "ملف الإنجاز للتدريب الميداني"
+    "institution": "Sultan Qaboos University - College of Education - Instructional and Learning Technology",
+    "title": "Field Training Achievement Portfolio"
   },
   "home_page": {
     "welcome": {
       "id": "portfolio-welcome",
-      "heading": "أهلاً بكم في ملف الإنجاز الشامل",
-      "body": "يعرض هذا الملف تجربة المعلم [الاسم] في التدريب الميداني، ويقدّم صورة منظمة عن التطور المهني والممارسات التدريسية والوثائق التربوية المرتبطة بها."
+      "heading": "Welcome to the Comprehensive Achievement Portfolio",
+      "body": "This portfolio presents the field training experience of teacher [Name] and offers an organized view of professional growth, teaching practices, and the related educational documentation."
     },
     "quick_links": {
       "id": "portfolio-links",
-      "label": "روابط التنقل السريع",
+      "label": "Quick navigation links",
       "buttons": [
         {
           "id": "cv",
-          "text": "السيرة الذاتية",
+          "text": "Curriculum Vitae",
           "href": "/cv"
         },
         {
           "id": "philosophy",
-          "text": "الفلسفة التربوية",
+          "text": "Educational Philosophy",
           "href": "/philosophy"
         }
       ]
     },
     "projects": {
       "id": "portfolio-projects",
-      "title": "معاينة المشاريع",
+      "title": "Project Showcase",
       "cards": [
         {
           "id": "project-1",
-          "title": "عنوان المشروع الأول",
-          "description": "وصف مختصر جدًا للمشروع.",
+          "title": "First Project Title",
+          "description": "A very brief description of the project.",
           "href": "#project-1",
-          "link_text": "عرض المشروع"
+          "link_text": "View Project"
         },
         {
           "id": "project-2",
-          "title": "عنوان المشروع الثاني",
-          "description": "وصف مختصر جدًا للمشروع.",
+          "title": "Second Project Title",
+          "description": "A very brief description of the project.",
           "href": "#project-2",
-          "link_text": "عرض المشروع"
+          "link_text": "View Project"
         },
         {
           "id": "project-3",
-          "title": "عنوان المشروع الثالث",
-          "description": "وصف مختصر جدًا للمشروع.",
+          "title": "Third Project Title",
+          "description": "A very brief description of the project.",
           "href": "#project-3",
-          "link_text": "عرض المشروع"
+          "link_text": "View Project"
         }
       ]
     },
     "about": {
       "id": "portfolio-about",
-      "title": "نبذة عن ملف الإنجاز",
+      "title": "About the Achievement Portfolio",
       "paragraphs": [
-        "يمثل هذا الموقع ملف الإنجاز المهني الخاص بالتدريب الميداني، ويوثّق الخبرات التدريسية والتطبيقات العملية التي تم تنفيذها خلال فترة التدريب في البيئة المدرسية.",
-        "ويعكس هذا الملف الربط بين الجانب النظري والتطبيق الميداني من خلال التخطيط للدروس، وتنفيذها، وتوظيف التقنيات التعليمية، وإدارة المواقف الصفية، والتأمل في الممارسة المهنية."
+        "This website serves as a professional achievement portfolio for field training, documenting teaching experiences and practical applications carried out during the training period in the school environment.",
+        "It reflects the connection between theoretical preparation and field practice through lesson planning and delivery, educational technology integration, classroom management, and reflective professional practice."
       ]
     },
     "field_training": {
       "id": "field-training",
-      "title": "بيانات التدريب الميداني"
+      "title": "Field Training Profile"
     },
     "contents": {
       "id": "portfolio-contents",
-      "title": "محتويات ملف الإنجاز",
-      "intro": "يتضمن هذا الموقع:",
+      "title": "Portfolio Contents",
+      "intro": "This website includes:",
       "links": [
         {
-          "text": "السيرة الذاتية",
+          "text": "Curriculum Vitae",
           "href": "/cv"
         },
         {
-          "text": "الفلسفة التربوية",
+          "text": "Educational Philosophy",
           "href": "/philosophy"
         },
         {
-          "text": "خطة الوحدة الدراسية",
+          "text": "Unit Plan",
           "href": "/unit-plan"
         },
         {
-          "text": "أدلة محاور الإطار المفاهيمي",
+          "text": "Conceptual Framework Axes Evidence",
           "href": "/framework-axes"
         },
         {
-          "text": "الأوراق التأملية",
+          "text": "Reflection Papers",
           "href": "/reflection-papers"
         },
         {
-          "text": "مشروع التخرج",
+          "text": "Research Project",
           "href": "/graduation-project"
         },
         {
-          "text": "أعمال وأنشطة أخرى",
+          "text": "Other Works and Activities",
           "href": "/other"
         }
       ]
@@ -103,44 +103,44 @@
   },
   "field_training_profile": [
     {
-      "label": "اسم المرشح",
-      "value": "[يكتب هنا]"
+      "label": "Candidate Name",
+      "value": "[Enter here]"
     },
     {
-      "label": "رقم الميداني",
-      "value": "[يكتب هنا]"
+      "label": "Field Training ID",
+      "value": "[Enter here]"
     },
     {
-      "label": "التخصص",
-      "value": "[يكتب هنا]"
+      "label": "Specialization",
+      "value": "[Enter here]"
     },
     {
-      "label": "الفصل الدراسي",
-      "value": "[يكتب هنا]"
+      "label": "Semester",
+      "value": "[Enter here]"
     },
     {
-      "label": "المدرسة",
-      "value": "[يكتب هنا]"
+      "label": "School",
+      "value": "[Enter here]"
     },
     {
-      "label": "مشرف التدريب الميداني",
-      "value": "[يكتب هنا]"
+      "label": "Field Training Supervisor",
+      "value": "[Enter here]"
     },
     {
-      "label": "معلم متعاون",
-      "value": "[يكتب هنا]"
+      "label": "Cooperating Teacher",
+      "value": "[Enter here]"
     },
     {
-      "label": "فترة التدريب",
-      "value": "[يكتب هنا]"
+      "label": "Training Period",
+      "value": "[Enter here]"
     },
     {
-      "label": "الصفوف المدرسية",
-      "value": "[يكتب هنا]"
+      "label": "School Grades",
+      "value": "[Enter here]"
     },
     {
-      "label": "النصاب من الحصص",
-      "value": "[يكتب هنا]"
+      "label": "Teaching Load",
+      "value": "[Enter here]"
     }
   ]
 }

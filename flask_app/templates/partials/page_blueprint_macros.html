@@ -1,0 +1,44 @@
+{% macro render_copy(content, class_name='section-copy') -%}
+  {% if content %}
+  <div class="{{ class_name }}">
+    {% if content is string %}
+    <p>{{ content }}</p>
+    {% else %}
+      {% for paragraph in content %}
+    <p>{{ paragraph }}</p>
+      {% endfor %}
+    {% endif %}
+  </div>
+  {% endif %}
+{%- endmacro %}
+
+{% macro render_points(points, class_name='page-bullet-list') -%}
+  {% if points %}
+  <ul class="{{ class_name }}">
+    {% for point in points %}
+    <li>{{ point }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+{%- endmacro %}
+
+{% macro render_cards(cards, link_mode=False) -%}
+  <div class="page-card-grid{% if link_mode %} page-card-grid--links{% endif %}">
+    {% for card in cards %}
+    <article class="terminal-card page-card">
+      {% if card.label %}
+      <p class="page-card-label">{{ card.label }}</p>
+      {% endif %}
+      <h3 class="page-card-title">{{ card.title }}</h3>
+      {{ render_copy(card.body, 'page-card-copy') }}
+      {{ render_points(card.points, 'page-card-list') }}
+      {% if card.meta %}
+      <p class="page-card-meta">{{ card.meta }}</p>
+      {% endif %}
+      {% if link_mode and card.href %}
+      <a class="page-card-link" href="{{ card.href }}">{{ card.link_text or 'Open section' }}</a>
+      {% endif %}
+    </article>
+    {% endfor %}
+  </div>
+{%- endmacro %}

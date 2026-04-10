@@ -1,1 +1,10 @@
 {% extends "base.html" %}
+{% set static_render = true %}
+{% set page_prompt = "$ open philosophy" %}
+
+{% block page_content %}
+<section class="philosophy-shell" lang="ar" dir="rtl">
+  <div class="philosophy-selector" id="philosophy-selector" role="tablist" aria-label="Educational philosophy sections"></div>
+  <div class="terminal-card philosophy-display" id="philosophy-display" aria-live="polite"></div>
+</section>
+{% endblock %}

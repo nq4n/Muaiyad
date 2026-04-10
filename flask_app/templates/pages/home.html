@@ -3,111 +3,47 @@
 {% set hide_default_hero = true %}
 
 {% block page_content %}
-{% set home = achievement_file.home_page %}
-
-<div class="home-stack" lang="ar" dir="rtl">
-  <header id="{{ home.welcome.id }}" class="section-card home-panel home-card home-card--welcome reveal" data-reveal="fade-up" aria-labelledby="{{ home.welcome.id }}-heading">
+<div class="home-stack">
+  <section class="section-card home-panel home-card home-card--welcome reveal" data-reveal="fade-up" lang="ar" dir="rtl">
     <div class="home-welcome-layout">
       <div class="section-block-inner home-welcome-copy">
-        <p class="terminal-path home-kicker">{{ achievement_file.file.institution }}</p>
-        <p class="home-welcome-eyebrow">{{ achievement_file.file.title }}</p>
+        <p class="terminal-path home-kicker" data-home-field="institution"></p>
+        <p class="home-welcome-eyebrow" data-home-field="eyebrow"></p>
         <div class="section-headline">
-          <h1 id="{{ home.welcome.id }}-heading">{{ home.welcome.heading }}</h1>
+          <h1 data-home-field="title"></h1>
         </div>
         <div class="section-copy">
-          <p>{{ home.welcome.body }}</p>
+          <p data-home-field="body"></p>
         </div>
-        <nav id="{{ home.quick_links.id }}" class="home-inline-links" aria-label="{{ home.quick_links.label }}">
-          <ul class="home-link-list">
-            {% for button in home.quick_links.buttons %}
-            <li><a id="{{ button.id }}" class="chip" href="{{ button.href }}">{{ button.text }}</a></li>
-            {% endfor %}
-          </ul>
+        <nav class="home-inline-links" id="home-quick-links-nav">
+          <ul class="home-link-list" id="home-quick-links"></ul>
         </nav>
       </div>
 
-      <aside class="home-welcome-aside" aria-label="لمحة سريعة عن الملف">
-        <p class="home-welcome-badge">واجهة الملف</p>
-        <div class="home-welcome-aside-copy">
-          <p class="home-welcome-aside-title">مسارات رئيسية</p>
-          <p class="home-welcome-aside-text">عرض منظم يربط بين الخبرة الميدانية، الوثائق التربوية، والمشروعات التطبيقية.</p>
-        </div>
-        <ul class="home-welcome-points">
-          {% for link in home.contents.links[:3] %}
-          <li>{{ link.text }}</li>
-          {% endfor %}
-        </ul>
+      <aside class="home-journey-panel" id="home-journey-panel">
+        <div class="home-journey-field" id="home-journey-field" aria-hidden="true"></div>
       </aside>
     </div>
-  </header>
+  </section>
 
-  <div class="home-grid home-grid--overview reveal" data-reveal="fade-up">
-    <section id="{{ home.about.id }}" class="section-card home-panel home-card home-card--summary" aria-labelledby="{{ home.about.id }}-heading">
-      <div class="section-block-inner">
-        <div class="section-headline">
-          <h2 id="{{ home.about.id }}-heading">{{ home.about.title }}</h2>
-        </div>
-        <div class="section-copy">
-          {% for paragraph in home.about.paragraphs %}
-          <p>{{ paragraph }}</p>
-          {% endfor %}
-        </div>
+  <section class="section-card home-panel home-card home-card--summary reveal" data-reveal="fade-up" lang="ar" dir="rtl">
+    <div class="section-block-inner">
+      <div class="section-headline">
+        <h2 id="home-about-title"></h2>
       </div>
-    </section>
+      <div class="section-copy home-about-copy" id="home-about-copy"></div>
+    </div>
+  </section>
 
-    <section id="{{ home.contents.id }}" class="section-card home-panel home-card home-card--contents" aria-labelledby="{{ home.contents.id }}-heading">
-      <div class="section-block-inner">
-        <div class="section-headline">
-          <h2 id="{{ home.contents.id }}-heading">{{ home.contents.title }}</h2>
-        </div>
-        <div class="section-copy">
-          <p>{{ home.contents.intro }}</p>
-        </div>
-        <ul class="home-contents-list">
-          {% for link in home.contents.links %}
-          <li><a href="{{ link.href }}">{{ link.text }}</a></li>
-          {% endfor %}
-        </ul>
+  <section class="section-card home-panel home-card home-card--training reveal" data-reveal="fade-up" lang="ar" dir="rtl">
+    <div class="section-block-inner">
+      <div class="section-headline">
+        <h2 id="home-training-title"></h2>
       </div>
-    </section>
-  </div>
-
-  <div class="home-grid home-grid--details reveal" data-reveal="fade-up">
-    <section id="{{ home.field_training.id }}" class="section-card home-panel home-card home-card--training" aria-labelledby="{{ home.field_training.id }}-heading">
-      <div class="section-block-inner">
-        <div class="section-headline">
-          <h2 id="{{ home.field_training.id }}-heading">{{ home.field_training.title }}</h2>
-        </div>
-        <table class="home-training-table">
-          <tbody>
-            {% for entry in achievement_file.field_training_profile %}
-            <tr>
-              <th scope="row">{{ entry.label }}</th>
-              <td>{{ entry.value }}</td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <section id="{{ home.projects.id }}" class="section-card home-panel home-card home-card--projects" aria-labelledby="{{ home.projects.id }}-heading">
-      <div class="section-block-inner">
-        <div class="section-headline">
-          <h2 id="{{ home.projects.id }}-heading">{{ home.projects.title }}</h2>
-        </div>
-        <div class="project-grid">
-          {% for project in home.projects.cards %}
-          <article id="{{ project.id }}" class="project-card">
-            <h3>{{ project.title }}</h3>
-            <p>{{ project.description }}</p>
-            <a href="{{ project.href }}">{{ project.link_text }}</a>
-          </article>
-          {% endfor %}
-        </div>
-      </div>
-    </section>
-  </div>
+      <table class="home-training-table">
+        <tbody id="home-training-rows"></tbody>
+      </table>
+    </div>
+  </section>
 </div>
-
 {% endblock %}

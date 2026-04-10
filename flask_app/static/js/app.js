@@ -9,7 +9,10 @@
   };
   window.PORTFOLIO_UTILS = U;
 
-  const DATA = window.PORTFOLIO_DATA;
+  const SITE_DATA = window.PORTFOLIO_SITE_DATA || null;
+  const LEGACY_DATA = window.PORTFOLIO_DATA || null;
+  const PAGE_DATA = window.PORTFOLIO_PAGE_DATA || {};
+  const DATA = SITE_DATA || LEGACY_DATA;
   if (!DATA) return;
 
   const pageId = document.body.dataset.page || "home";
@@ -54,6 +57,11 @@
   const usesStaticRender = () => document.body.dataset.staticRender === "true";
   const hrefFor = (id) => `/${id === 'home' ? '' : id}`;
   const navIcon = (id) => getNavIcons()[id] || (id.startsWith("unit-") ? "&#8250;" : id.startsWith("other-") ? "&#8250;" : "&#8226;");
+  const getPageDataset = (pid = pageId, lang = state.lang) => {
+    const pageSet = PAGE_DATA[pid];
+    if (!pageSet) return null;
+    return pageSet[lang] || pageSet[lang === "ar" ? "en" : "ar"] || null;
+  };
 
   let appliedThemeVars = [];
   let navIdleTimer = null, navLastActivity = 0, navActivityBound = false;
@@ -61,8 +69,50 @@
 
   function activeSet() {
     const set = new Set([pageId]);
+    if (pageId === "framework-axes") set.add("reflection-papers");
     getNavStructure().forEach((item) => { if (Array.isArray(item.children) && item.children.includes(pageId)) set.add(item.id); });
     return set;
+  }
+
+  function toParagraphs(value) {
+    const parts = Array.isArray(value)
+      ? value
+      : String(value || "")
+          .split(/\n\s*\n/)
+          .map((item) => item.trim())
+          .filter(Boolean);
+    return parts.map((part) => `<p>${U.esc(part)}</p>`).join("");
+  }
+
+  function normalizeStructuredPage(raw, pid = pageId) {
+    if (!U.isObject(raw)) return null;
+    if (U.isObject(raw.hero)) {
+      const sections = Object.entries(raw)
+        .filter(([key]) => key !== "hero")
+        .map(([key, section], index) => {
+          const fallbackTitle = t("ui.sectionFallback", "Section {n}").replace("{n}", String(index + 1));
+          return {
+            id: key,
+            title: section && section.title ? section.title : fallbackTitle,
+            body: Array.isArray(section && section.body) ? section.body : String((section && section.body) || "")
+          };
+        });
+      return {
+        title: raw.hero.title || U.titleFromId(pid),
+        subtitle: raw.hero.subtitle || "",
+        prompt: raw.hero.prompt || `$ open ${pid}`,
+        sections
+      };
+    }
+    if (U.isObject(raw.page) && U.isObject(raw.page.hero)) {
+      return {
+        title: raw.page.hero.title || U.titleFromId(pid),
+        subtitle: Array.isArray(raw.page.hero.body) ? raw.page.hero.body[0] || "" : raw.page.hero.subtitle || "",
+        prompt: raw.page.hero.prompt || `$ open ${pid}`,
+        sections: []
+      };
+    }
+    return null;
   }
 
   function applyThemePalette(themeId) {
@@ -109,6 +159,8 @@
   }
 
   function getPageContent(lang, pid) {
+    const pageData = normalizeStructuredPage(getPageDataset(pid, lang), pid);
+    if (pageData) return { ...pageData, builderHtml: "", builderCss: "" };
     const pack = getLangPack(lang);
     return (pack.pages && pack.pages[pid]) || { title: U.titleFromId(pid), subtitle: "", prompt: "$ open section", sections: [], builderHtml: "", builderCss: "" };
   }
@@ -125,42 +177,173 @@
     return template.innerHTML;
   }
 
-  function renderPageContent() {
-    if (usesStaticRender()) {
-      const sections = document.getElementById("page-sections");
-      if (sections) {
-        requestAnimationFrame(() => {
-          sections.querySelectorAll(".reveal").forEach((el, i) => {
-            setTimeout(() => el.classList.add("is-visible"), i * 80);
-          });
-        });
-      }
-      return;
-    }
-
-    const page = getPageContent(state.lang, pageId);
+  function applyHeroContent(page) {
     const hero = document.querySelector(".hero-card");
     const title = document.getElementById("page-title");
     const subtitle = document.getElementById("page-subtitle");
     const prompt = document.getElementById("page-prompt");
     const hasHero = Boolean(String(page.title || "").trim() || String(page.subtitle || "").trim() || String(page.prompt || "").trim());
-    const sectionList = Array.isArray(page.sections) ? page.sections : [];
-    const hasBuilder = typeof page.builderHtml === "string" && page.builderHtml.trim();
     if (hero) hero.hidden = !hasHero;
     if (title) title.textContent = page.title || "";
     if (subtitle) subtitle.textContent = page.subtitle || "";
     if (prompt) prompt.textContent = page.prompt || "";
+  }
+
+  function revealSections(root) {
+    if (!root) return;
+    requestAnimationFrame(() => {
+      root.querySelectorAll(".reveal").forEach((el, i) => {
+        setTimeout(() => el.classList.add("is-visible"), i * 80);
+      });
+    });
+  }
+
+  function renderHomePage(page) {
+    const wrapper = document.querySelector(".home-stack");
+    const quickLinks = document.getElementById("home-quick-links");
+    const quickLinksNav = document.getElementById("home-quick-links-nav");
+    const aboutTitle = document.getElementById("home-about-title");
+    const aboutCopy = document.getElementById("home-about-copy");
+    const trainingTitle = document.getElementById("home-training-title");
+    const trainingRows = document.getElementById("home-training-rows");
+    const journeyPanel = document.getElementById("home-journey-panel");
+    const hero = page.hero || {};
+    const quick = page.quick_links || {};
+    const about = page.about || {};
+    const training = page.field_training || {};
+    const aside = page.aside || {};
+
+    if (wrapper) {
+      wrapper.lang = state.lang;
+      wrapper.dir = state.lang === "ar" ? "rtl" : "ltr";
+    }
+
+    document.querySelectorAll("[data-home-field]").forEach((node) => {
+      const key = node.dataset.homeField;
+      node.textContent = hero[key] || "";
+    });
+
+    if (quickLinksNav && quick.aria_label) quickLinksNav.setAttribute("aria-label", quick.aria_label);
+    if (quickLinks) {
+      quickLinks.innerHTML = [
+        { id: "cv", label: quick.cv },
+        { id: "philosophy", label: quick.philosophy }
+      ]
+        .filter((item) => item.label)
+        .map((item) => `<li><a class="chip" href="${hrefFor(item.id)}">${U.esc(item.label)}</a></li>`)
+        .join("");
+    }
+
+    if (journeyPanel && aside.paths_aria_label) journeyPanel.setAttribute("aria-label", aside.paths_aria_label);
+    if (aboutTitle) aboutTitle.textContent = about.title || "";
+    if (aboutCopy) aboutCopy.innerHTML = toParagraphs(about.body || []);
+    if (trainingTitle) trainingTitle.textContent = training.title || "";
+    if (trainingRows) {
+      trainingRows.innerHTML = Object.values(training.rows || {})
+        .map((row) => `<tr><th scope="row">${U.esc(row.label || "")}</th><td>${U.esc(row.value || "")}</td></tr>`)
+        .join("");
+    }
+  }
+
+  function renderPhilosophyPage(page) {
+    const shell = document.querySelector(".philosophy-shell");
+    const selector = document.getElementById("philosophy-selector");
+    const display = document.getElementById("philosophy-display");
+    const hero = page.page && page.page.hero ? page.page.hero : {};
+    const cards = page.page && page.page.cards ? page.page.cards : {};
+    const order = ["entry", "learning", "teacher", "learner", "diversity", "technology", "assessment", "growth", "values"];
+    const entries = order
+      .map((key) => ({ key, ...(cards[key] || {}) }))
+      .filter((card) => card && card.title);
+    if (!selector || !display || !entries.length) return;
+
+    if (shell) {
+      shell.lang = state.lang;
+      shell.dir = state.lang === "ar" ? "rtl" : "ltr";
+    }
+
+    applyHeroContent({
+      title: hero.title || U.titleFromId(pageId),
+      subtitle: "",
+      prompt: hero.prompt || `$ open ${pageId}`
+    });
+
+    const currentKey = entries.some((item) => item.key === selector.dataset.activeKey) ? selector.dataset.activeKey : entries[0].key;
+
+    const renderCard = (key) => {
+      const card = entries.find((item) => item.key === key) || entries[0];
+      const badges = [
+        ...(card.chips ? Object.values(card.chips) : []),
+        ...(card.tools ? Object.values(card.tools) : [])
+      ];
+      const points = card.points ? Object.values(card.points) : [];
+      const extraPoints = card.extra_points ? Object.values(card.extra_points) : [];
+      selector.dataset.activeKey = card.key;
+      selector.querySelectorAll(".philosophy-selector-btn").forEach((button) => {
+        const active = button.dataset.key === card.key;
+        button.classList.toggle("active", active);
+        button.setAttribute("aria-selected", active ? "true" : "false");
+      });
+      display.classList.remove("is-visible");
+      display.innerHTML = `
+        <article class="philosophy-display-card">
+          ${card.kicker ? `<p class="philosophy-card-kicker">${U.esc(card.kicker)}</p>` : ""}
+          <div class="section-headline"><h2>${U.esc(card.title)}</h2></div>
+          <div class="section-copy philosophy-copy">${toParagraphs(card.body || [])}</div>
+          ${badges.length ? `<div class="philosophy-tags">${badges.map((item) => `<span class="philosophy-tag">${U.esc(item)}</span>`).join("")}</div>` : ""}
+          ${points.length ? `<ul class="philosophy-points">${points.map((item) => `<li>${U.esc(item)}</li>`).join("")}</ul>` : ""}
+          ${extraPoints.length ? `<div class="philosophy-extra">${card.extra_title ? `<h3>${U.esc(card.extra_title)}</h3>` : ""}<ul class="philosophy-points">${extraPoints.map((item) => `<li>${U.esc(item)}</li>`).join("")}</ul></div>` : ""}
+          ${card.closing_note ? `<p class="philosophy-note">${U.esc(card.closing_note)}</p>` : ""}
+        </article>
+      `;
+      requestAnimationFrame(() => display.classList.add("is-visible"));
+    };
+
+    selector.innerHTML = entries
+      .map((card) => `<button class="philosophy-selector-btn${card.key === currentKey ? " active" : ""}" type="button" role="tab" aria-selected="${card.key === currentKey ? "true" : "false"}" data-key="${card.key}">${U.esc(card.title)}</button>`)
+      .join("");
+
+    selector.onclick = (event) => {
+      const button = event.target.closest(".philosophy-selector-btn");
+      if (!button) return;
+      renderCard(button.dataset.key);
+    };
+
+    renderCard(currentKey);
+  }
+
+  function bindStaticPageCopy() {
+    const rawPage = getPageDataset(pageId, state.lang);
+    if (!rawPage) return;
+    if (pageId === "home") {
+      renderHomePage(rawPage);
+      initHomeJourneyField();
+      return;
+    }
+    if (pageId === "philosophy") {
+      renderPhilosophyPage(rawPage);
+    }
+  }
+
+  function renderPageContent() {
+    if (usesStaticRender()) {
+      const sections = document.getElementById("page-sections");
+      bindStaticPageCopy();
+      revealSections(sections);
+      return;
+    }
+
+    const page = getPageContent(state.lang, pageId);
+    const sectionList = Array.isArray(page.sections) ? page.sections : [];
+    const hasBuilder = typeof page.builderHtml === "string" && page.builderHtml.trim();
+    applyHeroContent(page);
     const sections = document.getElementById("page-sections");
     if (sections) {
       sections.hidden = !hasBuilder && sectionList.length === 0;
       sections.innerHTML = hasBuilder
         ? `<style>${page.builderCss || ""}</style>${sanitizeCustomHTML(page.builderHtml)}`
         : sectionList.map((s, i) => sectionMarkup(s, i)).join("");
-      requestAnimationFrame(() => {
-        sections.querySelectorAll(".reveal").forEach((el, i) => {
-          setTimeout(() => el.classList.add("is-visible"), i * 80);
-        });
-      });
+      revealSections(sections);
     }
   }
 
@@ -171,12 +354,131 @@
     const animAttr = anim === "none" ? "" : `data-reveal="${anim}"`;
     const header = section.title ? `<div class="section-headline"><h2>${U.esc(section.title)}</h2></div>` : "";
     let content = "";
-    if (type === "text") content = `<div class="section-copy"><p>${U.esc(section.body)}</p></div>`;
-    else if (type === "image") content = `<figure class="section-media">${section.imageSrc ? `<img src="${U.esc(section.imageSrc)}" alt="${U.esc(section.imageAlt || section.title)}" loading="lazy" />` : ""}${section.imageCaption ? `<figcaption class="section-caption">${U.esc(section.imageCaption)}</figcaption>` : ""}</figure>${section.body ? `<div class="section-copy"><p>${U.esc(section.body)}</p></div>` : ""}`;
-    else if (type === "video") content = `<figure class="section-media">${section.videoSrc ? `<video class="section-video" controls preload="metadata" ${section.videoPoster ? `poster="${U.esc(section.videoPoster)}"` : ""}><source src="${U.esc(section.videoSrc)}" /></video>` : ""}${section.videoCaption ? `<figcaption class="section-caption">${U.esc(section.videoCaption)}</figcaption>` : ""}</figure>${section.body ? `<div class="section-copy"><p>${U.esc(section.body)}</p></div>` : ""}`;
-    else if (type === "audio") content = `<figure class="section-media">${section.audioSrc ? `<audio class="section-audio" controls preload="metadata"><source src="${U.esc(section.audioSrc)}" /></audio>` : ""}${section.audioCaption ? `<figcaption class="section-caption">${U.esc(section.audioCaption)}</figcaption>` : ""}</figure>${section.body ? `<div class="section-copy"><p>${U.esc(section.body)}</p></div>` : ""}`;
+    if (type === "text") content = `<div class="section-copy">${toParagraphs(section.body)}</div>`;
+    else if (type === "image") content = `<figure class="section-media">${section.imageSrc ? `<img src="${U.esc(section.imageSrc)}" alt="${U.esc(section.imageAlt || section.title)}" loading="lazy" />` : ""}${section.imageCaption ? `<figcaption class="section-caption">${U.esc(section.imageCaption)}</figcaption>` : ""}</figure>${section.body ? `<div class="section-copy">${toParagraphs(section.body)}</div>` : ""}`;
+    else if (type === "video") content = `<figure class="section-media">${section.videoSrc ? `<video class="section-video" controls preload="metadata" ${section.videoPoster ? `poster="${U.esc(section.videoPoster)}"` : ""}><source src="${U.esc(section.videoSrc)}" /></video>` : ""}${section.videoCaption ? `<figcaption class="section-caption">${U.esc(section.videoCaption)}</figcaption>` : ""}</figure>${section.body ? `<div class="section-copy">${toParagraphs(section.body)}</div>` : ""}`;
+    else if (type === "audio") content = `<figure class="section-media">${section.audioSrc ? `<audio class="section-audio" controls preload="metadata"><source src="${U.esc(section.audioSrc)}" /></audio>` : ""}${section.audioCaption ? `<figcaption class="section-caption">${U.esc(section.audioCaption)}</figcaption>` : ""}</figure>${section.body ? `<div class="section-copy">${toParagraphs(section.body)}</div>` : ""}`;
     else if (type === "html") content = `<div class="section-html">${section.html || ""}</div>`;
     return `<section class="section-block ${revealClass}" ${animAttr}><div class="section-block-inner">${header}${content}</div></section>`;
+  }
+
+  function initHomeJourneyField() {
+    const field = document.getElementById("home-journey-field");
+    if (!field || field.dataset.ready === "1") return;
+    field.dataset.ready = "1";
+
+    const prefersReducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d", { alpha: true });
+    if (!context) return;
+    field.appendChild(canvas);
+
+    const pointer = { x: 0.5, y: 0.5, tx: 0.5, ty: 0.5 };
+    let width = 0;
+    let height = 0;
+    let rafId = 0;
+
+    const resize = () => {
+      const rect = field.getBoundingClientRect();
+      width = Math.max(Math.floor(rect.width), 1);
+      height = Math.max(Math.floor(rect.height), 1);
+      canvas.width = width * Math.min(window.devicePixelRatio || 1, 2);
+      canvas.height = height * Math.min(window.devicePixelRatio || 1, 2);
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      context.setTransform(Math.min(window.devicePixelRatio || 1, 2), 0, 0, Math.min(window.devicePixelRatio || 1, 2), 0, 0);
+    };
+
+    const draw = (time) => {
+      if (!width || !height) resize();
+      context.clearRect(0, 0, width, height);
+      pointer.x += (pointer.tx - pointer.x) * 0.06;
+      pointer.y += (pointer.ty - pointer.y) * 0.06;
+
+      const cols = width < 700 ? 10 : 14;
+      const rows = width < 700 ? 6 : 8;
+      const nodes = [];
+      const gapX = width / (cols - 1);
+      const gapY = height / (rows - 1);
+      const waveScale = prefersReducedMotion ? 3 : 10;
+
+      for (let row = 0; row < rows; row += 1) {
+        for (let col = 0; col < cols; col += 1) {
+          const baseX = col * gapX;
+          const baseY = row * gapY;
+          const wave = Math.sin(time * 0.0012 + col * 0.48 + row * 0.22) * waveScale
+            + Math.cos(time * 0.001 + row * 0.4) * waveScale * 0.52;
+          const dx = (pointer.x - baseX) / Math.max(width, 1);
+          const dy = (pointer.y - baseY) / Math.max(height, 1);
+          const influence = Math.max(0, 1 - Math.hypot(dx * 1.8, dy * 1.8));
+          const offsetX = (pointer.x - baseX) * influence * 0.035;
+          const offsetY = wave - influence * 14;
+          nodes.push({
+            x: baseX + offsetX,
+            y: baseY + offsetY,
+            row,
+            col,
+            glow: influence
+          });
+        }
+      }
+
+      context.lineWidth = 1;
+      nodes.forEach((node, index) => {
+        const right = nodes[index + 1];
+        const below = nodes[index + cols];
+        if (right && right.row === node.row) {
+          context.strokeStyle = `rgba(214, 177, 109, ${0.08 + (node.glow + right.glow) * 0.12})`;
+          context.beginPath();
+          context.moveTo(node.x, node.y);
+          context.lineTo(right.x, right.y);
+          context.stroke();
+        }
+        if (below) {
+          context.strokeStyle = `rgba(214, 177, 109, ${0.04 + (node.glow + below.glow) * 0.08})`;
+          context.beginPath();
+          context.moveTo(node.x, node.y);
+          context.lineTo(below.x, below.y);
+          context.stroke();
+        }
+      });
+
+      nodes.forEach((node) => {
+        context.fillStyle = `rgba(247, 241, 229, ${0.45 + node.glow * 0.42})`;
+        context.beginPath();
+        context.arc(node.x, node.y, 1.25 + node.glow * 1.4, 0, Math.PI * 2);
+        context.fill();
+      });
+
+      if (!prefersReducedMotion) rafId = window.requestAnimationFrame(draw);
+    };
+
+    const handleMove = (event) => {
+      const rect = field.getBoundingClientRect();
+      pointer.tx = event.clientX - rect.left;
+      pointer.ty = event.clientY - rect.top;
+    };
+
+    const handleLeave = () => {
+      pointer.tx = width * 0.5;
+      pointer.ty = height * 0.5;
+    };
+
+    const resizeObserver = typeof ResizeObserver === "function" ? new ResizeObserver(resize) : null;
+    resize();
+    handleLeave();
+    field.addEventListener("pointermove", handleMove, { passive: true });
+    field.addEventListener("pointerleave", handleLeave);
+    if (resizeObserver) resizeObserver.observe(field);
+    if (prefersReducedMotion) draw(0);
+    else rafId = window.requestAnimationFrame(draw);
+
+    field._journeyCleanup = () => {
+      window.cancelAnimationFrame(rafId);
+      field.removeEventListener("pointermove", handleMove);
+      field.removeEventListener("pointerleave", handleLeave);
+      resizeObserver?.disconnect();
+    };
   }
 
   function renderHeader() {
@@ -187,7 +489,9 @@
     const brandLines = brandCardLines(state.lang);
     const navItem = (id) => `<li><a class="nav-link ${current.has(id) ? "active" : ""}" href="${hrefFor(id)}"><span class="nav-icon" aria-hidden="true">${navIcon(id)}</span><span class="nav-label">${U.esc(navLabel(id))}</span></a></li>`;
     const navDrop = (id, children) => {
-      const sub = children.map((c) => `<li><a class="submenu-link ${current.has(c) ? "active" : ""}" href="${hrefFor(c)}"><span class="nav-icon" aria-hidden="true">${navIcon(c)}</span><span class="nav-label">${U.esc(navLabel(c))}</span></a></li>`).join("");
+      const childItems = children.filter((c) => c !== id);
+      if (!childItems.length) return navItem(id);
+      const sub = childItems.map((c) => `<li><a class="submenu-link ${current.has(c) ? "active" : ""}" href="${hrefFor(c)}"><span class="nav-icon" aria-hidden="true">${navIcon(c)}</span><span class="nav-label">${U.esc(navLabel(c))}</span></a></li>`).join("");
       return `<li class="dropdown"><button class="drop-btn nav-link ${current.has(id) ? "active" : ""}" aria-expanded="false" aria-haspopup="true"><span class="nav-icon" aria-hidden="true">${navIcon(id)}</span><span class="nav-label">${U.esc(navLabel(id))}</span></button><ul class="submenu" role="menu">${sub}</ul></li>`;
     };
     const parts = structure.map((item) => item.children ? navDrop(item.id, item.children) : navItem(item.id)).join("");
