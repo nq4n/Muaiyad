@@ -3,62 +3,96 @@
 {% set page_subtitle = "مجموعة من الأوراق التأملية التخصصية التي تعكس الوعي المهني والتحليل النقدي للممارسات التدريسية." if lang == "ar" else "A collection of specialized reflective papers." %}
 {% set page_prompt = "$ open reflection-papers" %}
 
+{% set papers = [
+  {
+    "number": "1",
+    "title_ar": "الورقة التأملية التخصصية الأولى",
+    "title_en": "Specialized Reflective Paper 1",
+    "description_ar": "التنوع في التدريس ومعالجة الفروق الفردية",
+    "description_en": "Diversity in Teaching",
+    "href": "#",
+    "platform": "drive"
+  },
+  {
+    "number": "2",
+    "title_ar": "الورقة التأملية التخصصية الثانية",
+    "title_en": "Specialized Reflective Paper 2",
+    "description_ar": "استخدام نتائج التقويم في تحسين التعلم",
+    "description_en": "Using Assessment Results",
+    "href": "#",
+    "platform": "drive"
+  },
+  {
+    "number": "3",
+    "title_ar": "الورقة التأملية التخصصية الثالثة",
+    "title_en": "Specialized Reflective Paper 3",
+    "description_ar": "المسؤولية المهنية والمواطنة الرقمية",
+    "description_en": "Professional Responsibility",
+    "href": "#",
+    "platform": "drive"
+  },
+  {
+    "number": "✓",
+    "title_ar": "الورقة التأملية التخصصية الشاملة",
+    "title_en": "Comprehensive Reflective Paper",
+    "description_ar": "ورقة شاملة تربط بين جميع المحاور",
+    "description_en": "Comprehensive paper",
+    "href": "/framework-axes",
+    "platform": "internal"
+  }
+] %}
+
+{% macro drive_icon() -%}
+<svg class="paper-platform-icon paper-platform-icon--drive" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+  <path d="M8.5 2.2h6.3l5.5 9.5h-6.2z" fill="#4285F4"></path>
+  <path d="M8.5 2.2 3 11.7l3.2 5.6 5.4-9.4z" fill="#0F9D58"></path>
+  <path d="M6.2 17.3h11l3.1-5.6H9.4z" fill="#F4B400"></path>
+</svg>
+{%- endmacro %}
+
+{% macro launch_icon() -%}
+<svg class="paper-platform-icon paper-platform-icon--launch" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+  <path d="M8 8h8v8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+  <path d="m8 16 8-8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+{%- endmacro %}
+
 {% block page_content %}
 <div class="content-container">
     <section class="intro-section">
         <div class="terminal-card intro-card">
-            <h2>{{ 'الأوراق التأملية التخصصية' if lang == 'ar' else 'Specialized Reflective Papers' }}</h2>
+            <h2>{{ "الأوراق التأملية التخصصية" if lang == "ar" else "Specialized Reflective Papers" }}</h2>
             <div class="intro-text">
-                <p>{{ 'تمثل الأوراق التأملية التخصصية جزءًا أساسيًا من ملف الإنجاز المهني، إذ تعكس مدى وعي الطالب المعلم بالقيم المهنية، وقدرته على تحليل المواقف التعليمية الواقعية، واتخاذ قرارات تربوية مسؤولة تستند إلى فهم عميق لمبادئ التعليم الفعّال. وتتناول هذه الأوراق مواقف مستمدة من السياق المدرسي الفعلي، تتطلب التأمل في قضايا جوهرية مثل التنوع في التدريس، واستخدام نتائج التقويم، والمسؤولية المهنية، والمواطنة الرقمية، بما ينسجم مع معايير إعداد المعلم ومتطلبات الممارسة التعليمية. وتهدف هذه الأوراق إلى إبراز قدرة الطالب المعلم على الربط بين المعرفة النظرية والتطبيق العملي، وتحليل المواقف التعليمية من زوايا متعددة، واقتراح حلول تربوية منطقية تسهم في تحسين التعلم وجودة الممارسات التدريسية. كما تعكس هذه الاستجابات الالتزام بأخلاقيات مهنة التعليم، واحترام الفروق الفردية بين المتعلمين، والسعي المستمر للتطوير المهني، بما يدعم بناء هوية مهنية واعية وقادرة على مواجهة التحديات التعليمية في الميدان التربوي' if lang == 'ar' else 'Specialized reflective papers reflect professional awareness and critical analysis of teaching practices.' }}</p>
+                <p>{{ "تمثل الأوراق التأملية التخصصية جزءًا أساسيًا من ملف الإنجاز المهني، إذ تعكس مدى وعي الطالب المعلم بالقيم المهنية، وقدرته على تحليل المواقف التعليمية الواقعية، واتخاذ قرارات تربوية مسؤولة تستند إلى فهم عميق لمبادئ التعليم الفعّال. وتتناول هذه الأوراق مواقف مستمدة من السياق المدرسي الفعلي، وتتطلب التأمل في قضايا جوهرية مثل التنوع في التدريس، واستخدام نتائج التقويم، والمسؤولية المهنية، والمواطنة الرقمية، بما ينسجم مع معايير إعداد المعلم ومتطلبات الممارسة التعليمية." if lang == "ar" else "These papers highlight professional awareness, reflective judgment, and the ability to analyze teaching situations critically through authentic educational contexts." }}</p>
             </div>
         </div>
     </section>
 
     <section class="papers-section">
         <div class="papers-grid">
-            <div class="paper-card">
+            {% for paper in papers %}
+            <article class="paper-card">
                 <div class="terminal-card paper-link-card">
-                    <div class="paper-number">1</div>
-                    <h4>{{ 'الورقة التأملية التخصصية الأولى' if lang == 'ar' else 'Specialized Reflective Paper 1' }}</h4>
-                    <p class="paper-description">{{ 'التنوع في التدريس ومعالجة الفروق الفردية' if lang == 'ar' else 'Diversity in Teaching' }}</p>
-                    <a href="#" class="paper-button">
-                        <span>{{ 'فتح الورقة' if lang == 'ar' else 'Open Paper' }}</span>
+                    <div class="paper-number">{{ paper.number }}</div>
+                    <h4>{{ paper.title_ar if lang == "ar" else paper.title_en }}</h4>
+                    <p class="paper-description">{{ paper.description_ar if lang == "ar" else paper.description_en }}</p>
+                    <a
+                        href="{{ paper.href }}"
+                        class="paper-button {{ 'paper-button--drive' if paper.platform == 'drive' else 'paper-button--internal' }}"
+                        {% if paper.platform == "drive" and paper.href != "#" %}target="_blank" rel="noopener noreferrer"{% endif %}
+                    >
+                        <span class="paper-button-badge" aria-hidden="true">
+                            {% if paper.platform == "drive" %}
+                                {{ drive_icon() }}
+                            {% else %}
+                                {{ launch_icon() }}
+                            {% endif %}
+                        </span>
+                        <span>{{ "فتح الورقة" if lang == "ar" else "Open Paper" }}</span>
                     </a>
                 </div>
-            </div>
-
-            <div class="paper-card">
-                <div class="terminal-card paper-link-card">
-                    <div class="paper-number">2</div>
-                    <h4>{{ 'الورقة التأملية التخصصية الثانية' if lang == 'ar' else 'Specialized Reflective Paper 2' }}</h4>
-                    <p class="paper-description">{{ 'استخدام نتائج التقويم في تحسين التعلم' if lang == 'ar' else 'Using Assessment Results' }}</p>
-                    <a href="#" class="paper-button">
-                        <span>{{ 'فتح الورقة' if lang == 'ar' else 'Open Paper' }}</span>
-                    </a>
-                </div>
-            </div>
-
-            <div class="paper-card">
-                <div class="terminal-card paper-link-card">
-                    <div class="paper-number">3</div>
-                    <h4>{{ 'الورقة التأملية التخصصية الثالثة' if lang == 'ar' else 'Specialized Reflective Paper 3' }}</h4>
-                    <p class="paper-description">{{ 'المسؤولية المهنية والمواطنة الرقمية' if lang == 'ar' else 'Professional Responsibility' }}</p>
-                    <a href="#" class="paper-button">
-                        <span>{{ 'فتح الورقة' if lang == 'ar' else 'Open Paper' }}</span>
-                    </a>
-                </div>
-            </div>
-
-            <div class="paper-card">
-                <div class="terminal-card paper-link-card">
-                    <div class="paper-number">✓</div>
-                    <h4>{{ 'الورقة التأملية التخصصية الشاملة' if lang == 'ar' else 'Comprehensive Reflective Paper' }}</h4>
-                    <p class="paper-description">{{ 'ورقة شاملة تربط بين جميع المحاور' if lang == 'ar' else 'Comprehensive paper' }}</p>
-                    <a href="/framework-axes" class="paper-button">
-                        <span>{{ 'فتح الورقة' if lang == 'ar' else 'Open Paper' }}</span>
-                    </a>
-                </div>
-            </div>
+            </article>
+            {% endfor %}
         </div>
     </section>
 </div>
@@ -66,15 +100,29 @@
 <style>
     .content-container { padding: 0; max-width: none; margin: 0; }
     .intro-section { margin-bottom: 3rem; }
-    .intro-card { background: rgba(0,255,136,0.05); border: 1px solid rgba(0,255,136,0.2); padding: 2rem; border-radius: 8px; }
+    .intro-card { background: rgba(214, 177, 109, 0.06); border: 1px solid rgba(214, 177, 109, 0.22); padding: 2rem; border-radius: 1rem; }
     .intro-card h2 { color: var(--accent); text-align: center; margin-bottom: 1.5rem; }
-    .intro-text { text-align: justify; line-height: 1.8; }
+    .intro-text { text-align: justify; line-height: 1.85; color: var(--muted); }
     .papers-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
-    .paper-link-card { padding: 1.5rem; display: flex; flex-direction: column; align-items: center; text-align: center; }
-    .paper-number { width: 50px; height: 50px; border-radius: 50%; background: var(--accent); color: #000; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-bottom: 1rem; }
-    .paper-link-card h4 { margin-bottom: 0.5rem; }
-    .paper-description { color: rgba(224,224,224,0.7); font-size: 0.9rem; margin-bottom: 1rem; }
-    .paper-button { display: inline-block; padding: 0.7rem 1.5rem; background: var(--accent); color: #000; text-decoration: none; border-radius: 5px; font-weight: bold; }
-    .paper-button:hover { background: #00cc6a; }
+    .paper-card { display: flex; }
+    .paper-link-card { width: 100%; padding: 1.65rem; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.75rem; }
+    .paper-number { width: 3.25rem; height: 3.25rem; border-radius: 999px; background: linear-gradient(180deg, rgba(214, 177, 109, 0.22), rgba(214, 177, 109, 0.08)); color: var(--accent); display: flex; align-items: center; justify-content: center; font-weight: 700; margin-bottom: 0.25rem; border: 1px solid rgba(214, 177, 109, 0.26); }
+    .paper-link-card h4 { margin: 0; }
+    .paper-description { color: var(--muted); font-size: 0.95rem; margin: 0 0 0.35rem; }
+    .paper-button { display: inline-flex; align-items: center; gap: 0.7rem; padding: 0.7rem 1rem; border-radius: 999px; border: 1px solid rgba(214, 177, 109, 0.26); background: rgba(18, 27, 30, 0.74); color: var(--text); text-decoration: none; font-weight: 700; transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease; }
+    .paper-button-badge { width: 1.9rem; height: 1.9rem; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.08); box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.03) inset; }
+    .paper-button--drive .paper-button-badge { background: rgba(255, 255, 255, 0.1); }
+    .paper-button--internal .paper-button-badge { color: var(--accent); }
+    .paper-platform-icon { width: 1rem; height: 1rem; display: block; }
+    .paper-button:hover,
+    .paper-button:focus-visible { transform: translateY(-1px); border-color: var(--accent); box-shadow: 0 12px 22px rgba(0, 0, 0, 0.18); background: rgba(20, 31, 34, 0.92); }
+    .paper-button--drive:hover,
+    .paper-button--drive:focus-visible { box-shadow: 0 12px 22px rgba(66, 133, 244, 0.12); }
+
+    @media (max-width: 700px) {
+        .intro-card { padding: 1.5rem; }
+        .paper-link-card { padding: 1.35rem; }
+        .paper-button { width: 100%; justify-content: center; }
+    }
 </style>
 {% endblock %}

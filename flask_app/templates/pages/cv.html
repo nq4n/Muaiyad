@@ -1,1 +1,20 @@
 {% extends "base.html" %}
+{% set static_render = true %}
+{% set hide_default_hero = true %}
+
+{% block hero %}
+<section class="section-card cv-hero" aria-labelledby="cv-page-title">
+  <div class="section-block-inner cv-hero-inner">
+    <p class="terminal-path cv-kicker">~/portfolio/{{ page_id }}</p>
+    <div class="section-headline">
+      <h1 id="cv-page-title"></h1>
+    </div>
+    <div class="section-copy cv-hero-copy" id="cv-page-subtitle"></div>
+    <p class="typewriter-line cv-hero-prompt"><span id="cv-page-prompt"></span><span class="cursor" aria-hidden="true"></span></p>
+  </div>
+</section>
+{% endblock %}
+
+{% block page_content %}
+<div class="cv-shell" id="cv-shell"></div>
+{% endblock %}

@@ -4,7 +4,7 @@
 
 {% block page_content %}
 <div class="home-stack">
-  <section class="section-card home-panel home-card home-card--welcome reveal" data-reveal="fade-up" lang="ar" dir="rtl">
+  <section class="section-card home-panel home-card home-card--welcome reveal" data-reveal="fade-up">
     <div class="home-welcome-layout">
       <div class="section-block-inner home-welcome-copy">
         <p class="terminal-path home-kicker" data-home-field="institution"></p>
@@ -21,12 +21,15 @@
       </div>
 
       <aside class="home-journey-panel" id="home-journey-panel">
+        <div class="home-journey-overlay">
+          <canvas class="home-journey-wordmark" id="home-journey-wordmark" aria-hidden="true"></canvas>
+        </div>
         <div class="home-journey-field" id="home-journey-field" aria-hidden="true"></div>
       </aside>
     </div>
   </section>
 
-  <section class="section-card home-panel home-card home-card--summary reveal" data-reveal="fade-up" lang="ar" dir="rtl">
+  <section class="section-card home-panel home-card home-card--summary reveal" data-reveal="fade-up">
     <div class="section-block-inner">
       <div class="section-headline">
         <h2 id="home-about-title"></h2>
@@ -35,15 +38,28 @@
     </div>
   </section>
 
-  <section class="section-card home-panel home-card home-card--training reveal" data-reveal="fade-up" lang="ar" dir="rtl">
-    <div class="section-block-inner">
-      <div class="section-headline">
-        <h2 id="home-training-title"></h2>
+  <div class="home-support-grid reveal" data-reveal="fade-up">
+    <section class="section-card home-panel home-card home-card--training">
+      <div class="section-block-inner">
+        <div class="section-headline">
+          <h2 id="home-training-title"></h2>
+        </div>
+        <table class="home-training-table">
+          <tbody id="home-training-rows"></tbody>
+        </table>
       </div>
-      <table class="home-training-table">
-        <tbody id="home-training-rows"></tbody>
-      </table>
-    </div>
-  </section>
+    </section>
+
+    <section class="section-card home-panel home-card home-card--site-map">
+      <div class="section-block-inner">
+        <div class="section-headline">
+          <h2 id="home-site-map-title"></h2>
+        </div>
+        <div class="home-site-map-field" id="home-site-map-field">
+          <div class="home-site-map-nodes" id="home-site-map-nodes"></div>
+        </div>
+      </div>
+    </section>
+  </div>
 </div>
 {% endblock %}
