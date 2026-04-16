@@ -451,6 +451,52 @@
     renderCard(currentKey);
   }
 
+  function renderUnitIntroPage(page) {
+    // Handle all data-page-copy attributes
+    document.querySelectorAll("[data-page-copy]").forEach((el) => {
+      const keys = el.dataset.pageCopy.split(".");
+      let value = page;
+      for (const key of keys) {
+        value = value?.[key];
+      }
+      if (value) {
+        el.textContent = value;
+      }
+    });
+
+    // Handle all data-page-paragraphs attributes
+    document.querySelectorAll("[data-page-paragraphs]").forEach((el) => {
+      const keys = el.dataset.pageParagraphs.split(".");
+      let value = page;
+      for (const key of keys) {
+        value = value?.[key];
+      }
+      if (Array.isArray(value)) {
+        el.innerHTML = toParagraphs(value);
+      }
+    });
+
+    // Populate general data table rows
+    const generalDataRows = document.getElementById("unit-general-data-rows");
+    const general = page.general_data || {};
+    
+    if (generalDataRows && general.table_rows) {
+      generalDataRows.innerHTML = general.table_rows
+        .map((row) => `<tr><th scope="row">${U.esc(row.label || "")}</th><td>${U.esc(row.value || "")}</td></tr>`)
+        .join("");
+    }
+
+    // Populate lesson distribution table rows
+    const lessonDistRows = document.getElementById("unit-lesson-dist-rows");
+    const lessons = page.lesson_distribution || {};
+    
+    if (lessonDistRows && lessons.table_rows) {
+      lessonDistRows.innerHTML = lessons.table_rows
+        .map((row) => `<tr><td>${U.esc(row.num || "")}</td><td>${U.esc(row.lesson || "")}</td><td>${U.esc(row.topics || "")}</td><td>${U.esc(row.sessions || "")}</td></tr>`)
+        .join("");
+    }
+  }
+
   function bindStaticPageCopy() {
     const rawPage = getPageDataset(pageId, state.lang);
     if (!rawPage) return;
@@ -466,6 +512,11 @@
     }
     if (pageId === "philosophy") {
       renderPhilosophyPage(rawPage);
+      return;
+    }
+    if (pageId === "unit-1-intro") {
+      renderUnitIntroPage(rawPage);
+      return;
     }
   }
 
@@ -474,6 +525,11 @@
       const sections = document.getElementById("page-sections");
       bindStaticPageCopy();
       revealSections(sections);
+      // Also reveal hero section if it exists
+      const heroSection = document.querySelector(".page-hero.reveal");
+      if (heroSection) {
+        heroSection.classList.add("is-visible");
+      }
       return;
     }
 

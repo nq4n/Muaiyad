@@ -1,51 +1,30 @@
 {% extends "base.html" %}
 {% set static_render = true %}
-{% set page_subtitle = "صفحة تجمع محاور الإطار المفاهيمي وشواهده بصورة واضحة ومترابطة." if lang == "ar" else "A structured page for the conceptual framework axes and their supporting evidence." %}
-{% set page_prompt = "$ open conceptual-axes" %}
+{% set hide_default_hero = true %}
+
+{% block hero %}
+<section class="section-card axes-hero" aria-labelledby="axes-page-title">
+  <div class="section-block-inner axes-hero-inner">
+    <div class="axes-cli-shell">
+      <div class="axes-cli-topline">
+        <p class="terminal-path axes-hero-path">~/portfolio/{{ page_id }}</p>
+        <p class="axes-cli-note" id="axes-page-note"></p>
+      </div>
+      <div class="section-headline">
+        <h1 id="axes-page-title"></h1>
+      </div>
+      <div class="section-copy axes-hero-copy" id="axes-page-copy"></div>
+      <div class="axes-hero-access">
+        <p class="axes-access-kicker" id="axes-page-nav-label"></p>
+        <p class="axes-access-hint" id="axes-page-nav-hint"></p>
+        <nav class="axes-hero-nav" id="axes-page-nav" aria-label="Conceptual axes unified access"></nav>
+      </div>
+      <p class="typewriter-line axes-hero-prompt"><span id="axes-page-prompt"></span><span class="cursor" aria-hidden="true"></span></p>
+    </div>
+  </div>
+</section>
+{% endblock %}
 
 {% block page_content %}
-<div class="content-container">
-    <section class="axes-section">
-        <h2 class="section-title">Conceptual Framework Axes | محاور الإطار المفاهيمي</h2>
-        
-        <div class="terminal-card">
-            <h3>Introduction | مقدمة</h3>
-            <div class="card-content"></div>
-        </div>
-
-        <div class="card-grid">
-            <div class="terminal-card">
-                <h3>Conceptual Framework of the College<br>الإطار المفاهيمي للكلية</h3>
-                <div class="card-content"></div>
-            </div>
-            <div class="terminal-card">
-                <h3>Academic Mastery<br>التمكن الأكاديمي</h3>
-                <div class="card-content"></div>
-            </div>
-            <div class="terminal-card">
-                <h3>Diversity in Teaching<br>التنوع في التدريس</h3>
-                <div class="card-content"></div>
-            </div>
-            <div class="terminal-card">
-                <h3>Professional Values and Attitudes<br>القيم والتوجهات المهنية</h3>
-                <div class="card-content"></div>
-            </div>
-            <div class="terminal-card">
-                <h3>Research Culture and Lifelong Learning<br>الثقافة البحثية والتعلم مدى الحياة</h3>
-                <div class="card-content"></div>
-            </div>
-            <div class="terminal-card">
-                <h3>Technological Skills<br>المهارات التكنولوجية</h3>
-                <div class="card-content"></div>
-            </div>
-        </div>
-    </section>
-</div>
-
-<style>
-    .content-container { padding: 0; }
-    .section-title { text-align: center; margin-bottom: 2rem; color: var(--accent); }
-    .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
-    .card-content { min-height: 100px; }
-</style>
+<div class="axes-page-stack" id="conceptual-axes-shell"></div>
 {% endblock %}

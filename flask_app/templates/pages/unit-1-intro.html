@@ -1,1 +1,92 @@
 {% extends "base.html" %}
+{% set static_render = true %}
+{% set hide_default_hero = true %}
+
+{% block hero %}
+<section class="section-card page-panel page-hero reveal" data-reveal="fade-up" aria-labelledby="unit-intro-title">
+  <div class="section-block-inner page-hero-inner">
+    <p class="terminal-path page-kicker">~/portfolio/{{ page_id }}</p>
+    <div class="section-headline">
+      <h1 id="unit-intro-title" data-page-copy="hero.title"></h1>
+    </div>
+    <div class="section-copy page-hero-copy" data-page-paragraphs="hero.subtitle"></div>
+    <p class="typewriter-line page-hero-prompt"><span data-page-copy="hero.prompt"></span><span class="cursor" aria-hidden="true"></span></p>
+  </div>
+</section>
+{% endblock %}
+
+{% block page_content %}
+<div class="structured-page">
+  <!-- Overview Section -->
+  <section class="section-card page-panel page-section reveal" data-reveal="fade-up" aria-labelledby="unit-overview-title">
+    <div class="section-block-inner">
+      <header class="page-section-header">
+        <h2 id="unit-overview-title" class="page-section-title" data-page-copy="overview.title"></h2>
+      </header>
+      <div class="section-copy" data-page-paragraphs="overview.body"></div>
+    </div>
+  </section>
+
+  <!-- General Unit Data Section -->
+  <section class="section-card page-panel page-section reveal" data-reveal="fade-up" aria-labelledby="unit-general-data-title">
+    <div class="section-block-inner">
+      <header class="page-section-header">
+        <h2 id="unit-general-data-title" class="page-section-title" data-page-copy="general_data.title"></h2>
+      </header>
+      <table class="home-training-table" id="unit-general-data-table">
+        <tbody id="unit-general-data-rows"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Lesson Distribution Section -->
+  <section class="section-card page-panel page-section reveal" data-reveal="fade-up" aria-labelledby="unit-lesson-dist-title">
+    <div class="section-block-inner">
+      <header class="page-section-header">
+        <h2 id="unit-lesson-dist-title" class="page-section-title" data-page-copy="lesson_distribution.title"></h2>
+      </header>
+      <table class="home-training-table" id="unit-lesson-dist-table">
+        <thead>
+          <tr>
+            <th scope="col" style="width: 5%">م</th>
+            <th scope="col" style="width: 20%">الدروس / Lessons</th>
+            <th scope="col" style="width: 65%">المواضيع / Topics</th>
+            <th scope="col" style="width: 10%">الحصص / Sessions</th>
+          </tr>
+        </thead>
+        <tbody id="unit-lesson-dist-rows"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Interdisciplinary Links Section -->
+  <section class="section-card page-panel page-section reveal" data-reveal="fade-up" aria-labelledby="unit-interdisciplinary-title">
+    <div class="section-block-inner">
+      <header class="page-section-header">
+        <h2 id="unit-interdisciplinary-title" class="page-section-title" data-page-copy="interdisciplinary_links.title"></h2>
+      </header>
+      <div class="section-copy" data-page-paragraphs="interdisciplinary_links.body"></div>
+    </div>
+  </section>
+
+  <!-- Educational Context Section -->
+  <section class="section-card page-panel page-section reveal" data-reveal="fade-up" aria-labelledby="unit-context-title">
+    <div class="section-block-inner">
+      <header class="page-section-header">
+        <h2 id="unit-context-title" class="page-section-title" data-page-copy="learning_context.title"></h2>
+      </header>
+      <div class="section-copy" data-page-paragraphs="learning_context.body"></div>
+    </div>
+  </section>
+
+  <!-- Rationale, Benefits, and Challenges Section -->
+  <section class="section-card page-panel page-section reveal" data-reveal="fade-up" aria-labelledby="unit-rationale-title">
+    <div class="section-block-inner">
+      <header class="page-section-header">
+        <h2 id="unit-rationale-title" class="page-section-title" data-page-copy="rationale.title"></h2>
+      </header>
+      <div class="section-copy" data-page-paragraphs="rationale.body"></div>
+    </div>
+  </section>
+</div>
+{% endblock %}
