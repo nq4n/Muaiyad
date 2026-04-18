@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  {% set asset_version = "20260416u" %}
+  {% set asset_version = "20260416v2" %}
   {% set default_page_title = pages[page_id]["title_ar" if lang == "ar" else "title_en"] if page_id in pages else page_id %}
   <title>{{ default_page_title }} - Portfolio</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css', v=asset_version) }}">
@@ -59,6 +59,12 @@
 
   <script src="{{ url_for('static', filename='js/data/site.js', v=asset_version) }}"></script>
   <script src="{{ url_for('static', filename='js/data/pages/' ~ page_id ~ '.js', v=asset_version) }}"></script>
+  <script src="{{ url_for('static', filename='js/app/core.js', v=asset_version) }}"></script>
+  <script src="{{ url_for('static', filename='js/app/page-renderers.js', v=asset_version) }}"></script>
+  <script src="{{ url_for('static', filename='js/app/conceptual-axes.js', v=asset_version) }}"></script>
+  <script src="{{ url_for('static', filename='js/app/home-journey.js', v=asset_version) }}"></script>
+  <script src="{{ url_for('static', filename='js/app/home-site-map.js', v=asset_version) }}"></script>
+  <script src="{{ url_for('static', filename='js/app/header.js', v=asset_version) }}"></script>
   <script src="{{ url_for('static', filename='js/app.js', v=asset_version) }}"></script>
 </body>
 </html>

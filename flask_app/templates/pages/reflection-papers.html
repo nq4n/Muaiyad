@@ -1,99 +1,18 @@
 {% extends "base.html" %}
 {% set static_render = true %}
-{% set page_subtitle = "مجموعة من الأوراق التأملية التخصصية التي تعكس الوعي المهني والتحليل النقدي للممارسات التدريسية." if lang == "ar" else "A collection of specialized reflective papers." %}
 {% set page_prompt = "$ open reflection-papers" %}
-
-{% set papers = [
-  {
-    "number": "1",
-    "title_ar": "الورقة التأملية التخصصية الأولى",
-    "title_en": "Specialized Reflective Paper 1",
-    "description_ar": "التنوع في التدريس ومعالجة الفروق الفردية",
-    "description_en": "Diversity in Teaching",
-    "href": "#",
-    "platform": "drive"
-  },
-  {
-    "number": "2",
-    "title_ar": "الورقة التأملية التخصصية الثانية",
-    "title_en": "Specialized Reflective Paper 2",
-    "description_ar": "استخدام نتائج التقويم في تحسين التعلم",
-    "description_en": "Using Assessment Results",
-    "href": "#",
-    "platform": "drive"
-  },
-  {
-    "number": "3",
-    "title_ar": "الورقة التأملية التخصصية الثالثة",
-    "title_en": "Specialized Reflective Paper 3",
-    "description_ar": "المسؤولية المهنية والمواطنة الرقمية",
-    "description_en": "Professional Responsibility",
-    "href": "#",
-    "platform": "drive"
-  },
-  {
-    "number": "✓",
-    "title_ar": "الورقة التأملية التخصصية الشاملة",
-    "title_en": "Comprehensive Reflective Paper",
-    "description_ar": "ورقة شاملة تربط بين جميع المحاور",
-    "description_en": "Comprehensive paper",
-    "href": "/framework-axes",
-    "platform": "internal"
-  }
-] %}
-
-{% macro drive_icon() -%}
-<svg class="paper-platform-icon paper-platform-icon--drive" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-  <path d="M8.5 2.2h6.3l5.5 9.5h-6.2z" fill="#4285F4"></path>
-  <path d="M8.5 2.2 3 11.7l3.2 5.6 5.4-9.4z" fill="#0F9D58"></path>
-  <path d="M6.2 17.3h11l3.1-5.6H9.4z" fill="#F4B400"></path>
-</svg>
-{%- endmacro %}
-
-{% macro launch_icon() -%}
-<svg class="paper-platform-icon paper-platform-icon--launch" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-  <path d="M8 8h8v8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-  <path d="m8 16 8-8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-</svg>
-{%- endmacro %}
 
 {% block page_content %}
 <div class="content-container">
     <section class="intro-section">
-        <div class="terminal-card intro-card">
-            <h2>{{ "الأوراق التأملية التخصصية" if lang == "ar" else "Specialized Reflective Papers" }}</h2>
-            <div class="intro-text">
-                <p>{{ "تمثل الأوراق التأملية التخصصية جزءًا أساسيًا من ملف الإنجاز المهني، إذ تعكس مدى وعي الطالب المعلم بالقيم المهنية، وقدرته على تحليل المواقف التعليمية الواقعية، واتخاذ قرارات تربوية مسؤولة تستند إلى فهم عميق لمبادئ التعليم الفعّال. وتتناول هذه الأوراق مواقف مستمدة من السياق المدرسي الفعلي، وتتطلب التأمل في قضايا جوهرية مثل التنوع في التدريس، واستخدام نتائج التقويم، والمسؤولية المهنية، والمواطنة الرقمية، بما ينسجم مع معايير إعداد المعلم ومتطلبات الممارسة التعليمية." if lang == "ar" else "These papers highlight professional awareness, reflective judgment, and the ability to analyze teaching situations critically through authentic educational contexts." }}</p>
-            </div>
+        <div class="terminal-card intro-card reveal" data-reveal="fade-up">
+            <h2 id="reflection-papers-intro-title"></h2>
+            <div class="intro-text" id="reflection-papers-intro-copy"></div>
         </div>
     </section>
 
     <section class="papers-section">
-        <div class="papers-grid">
-            {% for paper in papers %}
-            <article class="paper-card">
-                <div class="terminal-card paper-link-card">
-                    <div class="paper-number">{{ paper.number }}</div>
-                    <h4>{{ paper.title_ar if lang == "ar" else paper.title_en }}</h4>
-                    <p class="paper-description">{{ paper.description_ar if lang == "ar" else paper.description_en }}</p>
-                    <a
-                        href="{{ paper.href }}"
-                        class="paper-button {{ 'paper-button--drive' if paper.platform == 'drive' else 'paper-button--internal' }}"
-                        {% if paper.platform == "drive" and paper.href != "#" %}target="_blank" rel="noopener noreferrer"{% endif %}
-                    >
-                        <span class="paper-button-badge" aria-hidden="true">
-                            {% if paper.platform == "drive" %}
-                                {{ drive_icon() }}
-                            {% else %}
-                                {{ launch_icon() }}
-                            {% endif %}
-                        </span>
-                        <span>{{ "فتح الورقة" if lang == "ar" else "Open Paper" }}</span>
-                    </a>
-                </div>
-            </article>
-            {% endfor %}
-        </div>
+        <div class="papers-grid" id="reflection-papers-grid"></div>
     </section>
 </div>
 
