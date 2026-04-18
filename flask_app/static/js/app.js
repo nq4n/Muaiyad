@@ -8,6 +8,7 @@
     APP.renderHeader();
     APP.syncHeaderState();
     APP.renderPageContent();
+    APP.renderUnitFooterNav?.();
   }
 
   function bindAll() {

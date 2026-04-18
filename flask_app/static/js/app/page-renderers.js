@@ -289,6 +289,56 @@
     }
   }
 
+  function renderUnitFooterNav() {
+    const root = document.getElementById("unit-footer-nav-root");
+    if (!root) return;
+
+    const unitEntry = APP.getNavStructure().find((item) => item.id === "unit-plan");
+    const pageIds = ["unit-plan", ...((Array.isArray(unitEntry?.children) ? unitEntry.children : []).filter((id) => id !== "unit-plan"))];
+    const isUnitPage = pageIds.includes(APP.pageId);
+
+    root.hidden = !isUnitPage;
+    if (!isUnitPage) {
+      root.innerHTML = "";
+      return;
+    }
+
+    const footerTitle = APP.state.lang === "ar" ? "صفحات الوحدة" : "Unit Pages";
+    const footerBody = APP.state.lang === "ar"
+      ? "استخدم الأزرار التالية للتنقل بين خطة الوحدة وأقسامها العشرة."
+      : "Jump between the unit plan and its ten sections from the footer buttons below.";
+    const footerNavLabel = APP.state.lang === "ar"
+      ? "تنقل تذييل صفحات الوحدة"
+      : "Unit pages footer navigation";
+
+    root.lang = APP.state.lang;
+    root.dir = APP.state.lang === "ar" ? "rtl" : "ltr";
+    root.innerHTML = `
+      <div class="terminal-card unit-footer-nav reveal" data-reveal="fade-up">
+        <div class="section-block-inner unit-footer-nav-inner">
+          <header class="unit-footer-nav-head">
+            <div class="section-headline">
+              <h2 id="unit-footer-nav-title">${U.esc(footerTitle)}</h2>
+            </div>
+            <div class="section-copy unit-footer-nav-copy">
+              <p>${U.esc(footerBody)}</p>
+            </div>
+          </header>
+          <nav class="unit-footer-link-grid" aria-label="${U.esc(footerNavLabel)}">
+            ${pageIds
+              .map((id) => `
+                <a class="chip unit-footer-link ${APP.pageId === id ? "active" : ""}" href="${APP.hrefFor(id)}"${APP.pageId === id ? ' aria-current="page"' : ""}>
+                  ${U.esc(APP.navLabel(id))}
+                </a>
+              `)
+              .join("")}
+          </nav>
+        </div>
+      </div>
+    `;
+    APP.revealSections(root);
+  }
+
   function renderReflectionPapersPage(page) {
     const container = document.querySelector(".content-container");
     const introTitle = document.getElementById("reflection-papers-intro-title");
@@ -358,5 +408,6 @@
   APP.renderCvPage = renderCvPage;
   APP.renderPhilosophyPage = renderPhilosophyPage;
   APP.renderUnitIntroPage = renderUnitIntroPage;
+  APP.renderUnitFooterNav = renderUnitFooterNav;
   APP.renderReflectionPapersPage = renderReflectionPapersPage;
 })();

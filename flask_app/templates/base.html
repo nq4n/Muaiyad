@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  {% set asset_version = "20260416v2" %}
+  {% set asset_version = "20260418v1" %}
   {% set default_page_title = pages[page_id]["title_ar" if lang == "ar" else "title_en"] if page_id in pages else page_id %}
   <title>{{ default_page_title }} - Portfolio</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css', v=asset_version) }}">
@@ -53,6 +53,8 @@
     <section class="terminal-card page-content" id="page-sections" aria-live="polite">
       {% block page_content %}{% endblock %}
     </section>
+
+    <section id="unit-footer-nav-root" class="unit-footer-nav-root" hidden></section>
   </main>
 
   <div id="guided-root"></div>
