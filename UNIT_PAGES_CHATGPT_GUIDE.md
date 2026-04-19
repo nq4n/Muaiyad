@@ -33,126 +33,51 @@ This brief is for layout and theme work on the unit pages only. It is based on t
 - `unit-plan`, `unit-9-references`, and `unit-10-appendices` are still placeholder-level pages
 - A shared footer navigator now exists on all unit pages and links across the full unit sequence
 
-## Page-By-Page Content Summary
+## Page Guidance
 
 ### `unit-plan`
 
-- Current state: placeholder only
-- Mentions: overview, implementation notes, next action
-- Layout direction: treat as a gateway / cover page for the unit, not as a dense content page yet
+This page functions as a gateway to the unit. Use a large hero or cover panel with the unit's title and a brief summary. Below, add short notes about the upcoming content and implementation, but keep the page light; avoid dense academic text.
 
 ### `unit-1-intro`
 
-- Purpose: orient the reader to the robotics unit
-Mentions:
-- Unit overview and rationale for teaching robotics through VEXcode VR
-- General unit data table with grade, duration, tool, domains, methods, prerequisites, and assessment types
-- Lesson distribution table for 8 lessons
-- Cross-curricular links with math, science, and life skills
-- Learning context and pedagogical rationale
-- Layout direction: strong introduction/dashboard page with overview first, evidence tables in the middle, rationale/context at the end
+Begin with a strong introductory section explaining why robotics is being taught with VEXcode VR. Follow this with two clearly styled tables: one summarising general unit data (grade, duration, tool, domains, methods, prerequisites and assessment types) and another showing the lesson distribution. After the tables, provide cross-curricular links and a narrative section covering learning context and pedagogical rationale. Use clear headings and group related paragraphs together so readers move smoothly from overview to evidence and then to rationale.
 
 ### `unit-2-framework`
 
-- Purpose: academic and pedagogical foundation
-Mentions:
-- Introduction to the theoretical framework
-- Cognitive theories, developmental considerations, age characteristics
-- Teaching strategies and assessment frameworks
-- Key terms, critical reading, and conclusion
-- Layout direction: scholarly reference page, dense but structured, works well with anchored sections or a formal research-paper feel
+Treat this as a scholarly reference page. Start with an introduction to the theoretical framework, then separate sections for cognitive theories, developmental considerations and age characteristics. Follow with sections on teaching strategies, assessment frameworks, key terms and critical readings, and end with a conclusion. Maintain tight information architecture: use anchored section headings and a formal research-paper rhythm to organise the dense material.
 
 ### `unit-3-objectives`
 
-- Purpose: define learning outcomes clearly
-Mentions:
-- General objectives
-- Specific knowledge objectives
-- Specific skill objectives
-- Specific affective objectives
-- Layout direction: taxonomy page, hierarchy matters more than narrative flow; number-led cards, grouped lists, or a domain-based matrix fit well
+Focus on hierarchy rather than narrative flow. Use separate blocks or lists for general objectives and each set of specific objectives (knowledge, skills and affective). Numbered lists or domain-based groupings help readers scan the objectives quickly.
 
 ### `unit-4-assessment`
 
-- Purpose: explain how student learning is measured
-Mentions:
-- Assessment overview
-- Diagnostic assessment
-- Formative assessment during learning
-- Short quizzes
-- Practical activity
-- Summative assessment
-- Conclusion
-- Layout direction: process / cycle layout; diagnostic-to-formative-to-summative progression should be visually obvious
+This page should illustrate the assessment process. Begin with an overview and then present each assessment type - diagnostic, formative, short quizzes, practical activity and summative - in sequence. A visual flow or cycle diagram can emphasise progression. Conclude with a summary of how these assessments support learning outcomes.
 
 ### `unit-5-lessons`
 
-- Purpose: explain how lesson plans were prepared
-Mentions:
-- Lesson planning approach
-- Required planning elements
-- Educational activities
-- Variety of teaching strategies
-- Assessment inside plans
-- Individual differences and planning flexibility
-- Note about appendices
-- Layout direction: planning board / workflow page with clear instructional-design structure
+Use a planning board or workflow layout. Start by explaining the lesson planning approach, then break the page into sections for required planning elements, educational activities and the variety of teaching strategies. Next, describe assessment embedded within plans and how individual differences and flexibility are handled. End with a brief note pointing to appendices. Card-style panels or a columned layout can support the structured planning feel.
 
 ### `unit-6-feedback`
 
-- Purpose: document feedback as an instructional process
-Mentions:
-- Feedback overview
-- Types and modes of feedback
-- Synchronous oral feedback
-- Asynchronous written feedback
-- Coverage of learning domains
-- Individual differences
-- Self and peer assessment
-- Role of feedback in improving learning
-- Note linking back to appendices
-- Layout direction: feedback loop / support system page; should feel practical and classroom-centered
+Present feedback as an ongoing classroom support system. Begin with a general overview, then separate sections for types and modes (oral vs. written), synchronous and asynchronous feedback, coverage across learning domains, individual differences, self and peer assessment, and the role of feedback in improving learning. A loop or cycle visual can reinforce the notion that feedback is an iterative process.
 
 ### `unit-7-impact`
 
-- Purpose: measure learning impact through data and reflection
-Mentions:
-- Impact overview
-- Assessment data used
-- Analysis methods and use of technology
-- Before/after comparison
-- Interpretation of results
-- Discussion for improvement
-- Graph analysis
-- Conclusion
-- Layout direction: evidence and analytics page; charts, score summaries, comparison blocks, and findings-style sections fit best
+Make this an evidence-driven analytics page. Start with an overview of what was measured, then move to sections on the data used, analysis methods and technology, before/after comparisons, interpretation of results, discussion for improvement and graph analysis. Use charts, score summaries and comparison blocks prominently to make the findings clear. Conclude with a short summary linking back to learning objectives.
 
 ### `unit-8-reflection`
 
-- Purpose: reflective teaching-practice page
-Mentions:
-- Feedback as a teaching practice
-- Feedback types and modes
-- Synchronous oral feedback
-- Asynchronous written feedback
-- Feedback across learning domains
-- Individual differences
-- Self and peer assessment
-- Role of feedback in learning improvement
-- Note
-- Layout direction: reflective companion to `unit-6-feedback`; content overlaps heavily with unit 6, so the visual distinction should come from a more reflective, evaluative framing
+This page mirrors the feedback themes but adopts a more reflective tone. Open with a discussion of feedback as a teaching practice and then revisit the types and modes of feedback, synchronous vs. asynchronous methods, domain coverage, individual differences, self/peer assessment and the role of feedback in learning improvement. Instead of process diagrams, lean on narrative commentary, reflective questions and summarising callouts to encourage evaluation.
 
 ### `unit-9-references`
 
-- Current state: placeholder only
-- Mentions: overview, implementation notes, next action
-- Layout direction: future bibliography / sources page; use minimal, reference-oriented styling when real content is added
+Currently a placeholder. When populated, organise sources in a minimal, reference-oriented style: use clear citations, bibliographic entries and potentially a search/filter widget. Avoid dense prose; the page should support quick reference.
 
 ### `unit-10-appendices`
 
-- Current state: placeholder only
-- Mentions: overview, implementation notes, next action
-- Layout direction: future evidence archive / attachments page; think documents, attachments, proof items, and supporting files
+Also a placeholder. Design this page as an archive for documents and supporting files. Use a simple document list or card gallery for attachments so users can access evidence and supplementary materials easily.
 
 ## Theme Organization Suggestions
 

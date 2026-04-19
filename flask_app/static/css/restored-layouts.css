@@ -152,6 +152,9 @@ body[data-page="home"] .page-content {
 }
 
 .home-journey-field {
+  --journey-word-rgb: 247, 226, 177;
+  --journey-line-rgb: 214, 177, 109;
+  --journey-node-rgb: 247, 241, 229;
   position: relative;
   min-height: 420px;
   height: 100%;
@@ -197,7 +200,7 @@ body[data-page="home"] .page-content {
   margin: 0;
   font-size: 0.98rem;
   line-height: 1.75;
-  color: rgba(247, 241, 229, 0.88);
+  color: var(--home-about-copy-color, rgba(247, 241, 229, 0.88));
   word-wrap: break-word;
   overflow-wrap: break-word;
   word-break: break-word;
@@ -914,4 +917,152 @@ body[data-page="conceptual-axes"] .page-content {
     min-height: 4rem;
     padding: 0.88rem 1rem;
   }
+}
+
+html[data-theme="light"] .site-header::after {
+  background: linear-gradient(90deg, transparent, rgba(184, 139, 74, 0.22), transparent);
+  opacity: 0.6;
+}
+
+html[data-theme="light"] body[data-page="home"] .home-journey-panel {
+  border-color: rgba(184, 139, 74, 0.16);
+  background:
+    linear-gradient(180deg, rgba(255, 248, 241, 0.3), rgba(255, 255, 255, 0.04) 42%, rgba(255, 255, 255, 0) 100%),
+    rgba(249, 243, 236, 0.9);
+  box-shadow: 0 12px 28px rgba(145, 120, 87, 0.08);
+}
+
+html[data-theme="light"] body[data-page="home"] .home-journey-panel::before {
+  border-color: rgba(184, 139, 74, 0.16);
+  opacity: 0.6;
+}
+
+html[data-theme="light"] body[data-page="home"] .home-journey-overlay::before {
+  background: radial-gradient(circle at 50% 50%, rgba(255, 248, 241, 0.08), rgba(184, 139, 74, 0.04) 30%, transparent 70%);
+}
+
+html[data-theme="light"] body[data-page="home"] .home-journey-wordmark {
+  filter: drop-shadow(0 0 0.8rem rgba(184, 139, 74, 0.18));
+}
+
+html[data-theme="light"] body[data-page="home"] .home-journey-field {
+  --journey-word-rgb: 163, 117, 52;
+  --journey-line-rgb: 167, 122, 63;
+  --journey-node-rgb: 104, 82, 59;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(184, 139, 74, 0.08), transparent 24%),
+    radial-gradient(circle at 82% 74%, rgba(143, 98, 119, 0.08), transparent 28%),
+    linear-gradient(180deg, rgba(255, 248, 241, 0.18), rgba(255, 255, 255, 0)),
+    rgba(249, 243, 236, 0.72);
+}
+
+html[data-theme="light"] body[data-page="home"] .home-journey-field::before {
+  background:
+    linear-gradient(90deg, transparent 49.7%, rgba(184, 139, 74, 0.025) 49.7% 50.3%, transparent 50.3%),
+    linear-gradient(0deg, transparent 49.7%, rgba(184, 139, 74, 0.025) 49.7% 50.3%, transparent 50.3%);
+  opacity: 0.24;
+}
+
+html[data-theme="light"] body[data-page="home"] .home-about-copy p {
+  color: var(--home-about-copy-color, rgba(57, 44, 32, 0.9));
+}
+
+html[data-theme="light"] body[data-page="home"] .home-site-map-field {
+  border-color: rgba(184, 139, 74, 0.16);
+  background:
+    radial-gradient(circle at 18% 18%, rgba(184, 139, 74, 0.08), transparent 24%),
+    radial-gradient(circle at 82% 78%, rgba(95, 143, 134, 0.08), transparent 28%),
+    linear-gradient(180deg, rgba(255, 248, 241, 0.24), rgba(255, 255, 255, 0) 44%),
+    rgba(249, 243, 236, 0.84);
+}
+
+html[data-theme="light"] body[data-page="home"] .home-site-map-field::before {
+  opacity: 0.22;
+}
+
+html[data-theme="light"] body[data-page="home"] .home-site-map-node {
+  border-color: rgba(184, 139, 74, 0.18);
+  background:
+    linear-gradient(180deg, rgba(255, 248, 241, 0.28), rgba(255, 255, 255, 0) 100%),
+    rgba(249, 243, 236, 0.92);
+  box-shadow: 0 10px 22px rgba(145, 120, 87, 0.08);
+}
+
+html[data-theme="light"] body[data-page="home"] .home-site-map-node.is-branch {
+  background:
+    linear-gradient(180deg, rgba(95, 143, 134, 0.12), rgba(95, 143, 134, 0.02) 100%),
+    rgba(245, 240, 233, 0.95);
+  border-color: rgba(95, 143, 134, 0.24);
+}
+
+html[data-theme="light"] body[data-page="home"] .home-site-map-node.is-center {
+  background:
+    linear-gradient(180deg, rgba(184, 139, 74, 0.18), rgba(184, 139, 74, 0.06) 100%),
+    rgba(249, 243, 236, 0.98);
+  border-color: rgba(184, 139, 74, 0.32);
+}
+
+html[data-theme="light"] body[data-page="home"] .home-site-map-node:hover,
+html[data-theme="light"] body[data-page="home"] .home-site-map-node:focus-visible,
+html[data-theme="light"] body[data-page="home"] .home-site-map-node.is-active {
+  box-shadow: 0 14px 28px rgba(145, 120, 87, 0.12);
+}
+
+html[data-theme="light"] body[data-page="philosophy"] .philosophy-tag,
+html[data-theme="light"] body[data-page="philosophy"] .philosophy-note {
+  border-color: rgba(184, 139, 74, 0.16);
+  background:
+    linear-gradient(180deg, rgba(255, 248, 241, 0.2), rgba(255, 255, 255, 0) 100%),
+    rgba(249, 243, 236, 0.78);
+}
+
+html[data-theme="light"] body[data-page="philosophy"] .philosophy-extra {
+  border-top-color: rgba(184, 139, 74, 0.14);
+}
+
+html[data-theme="light"] body[data-page="philosophy"] .philosophy-selector-btn.active {
+  box-shadow: 0 0 0 1px rgba(184, 139, 74, 0.1) inset;
+}
+
+html[data-theme="light"] body[data-page="conceptual-axes"] .axes-hero,
+html[data-theme="light"] body[data-page="conceptual-axes"] .axes-card {
+  border-color: rgba(184, 139, 74, 0.18);
+  background:
+    linear-gradient(180deg, rgba(255, 248, 241, 0.28), rgba(255, 255, 255, 0) 44%),
+    rgba(247, 238, 227, 0.92);
+  box-shadow: 0 12px 28px rgba(145, 120, 87, 0.08);
+}
+
+html[data-theme="light"] body[data-page="conceptual-axes"] .axes-nav-chip,
+html[data-theme="light"] body[data-page="conceptual-axes"] .axes-link-button {
+  border-color: rgba(184, 139, 74, 0.16);
+  background:
+    linear-gradient(180deg, rgba(255, 248, 241, 0.24), rgba(255, 255, 255, 0) 100%),
+    rgba(249, 243, 236, 0.88);
+  box-shadow: 0 8px 18px rgba(145, 120, 87, 0.06);
+}
+
+html[data-theme="light"] body[data-page="conceptual-axes"] .axes-nav-chip:hover,
+html[data-theme="light"] body[data-page="conceptual-axes"] .axes-nav-chip:focus-visible,
+html[data-theme="light"] body[data-page="conceptual-axes"] .axes-link-button:hover,
+html[data-theme="light"] body[data-page="conceptual-axes"] .axes-link-button:focus-visible {
+  border-color: rgba(184, 139, 74, 0.3);
+  background: rgba(250, 244, 237, 0.96);
+  box-shadow: 0 12px 24px rgba(145, 120, 87, 0.08);
+}
+
+html[data-theme="light"] body[data-page="conceptual-axes"] .axes-link-button--reflection {
+  background:
+    linear-gradient(180deg, rgba(143, 98, 119, 0.08), rgba(255, 255, 255, 0) 100%),
+    rgba(249, 243, 236, 0.9);
+}
+
+html[data-theme="light"] body[data-page="conceptual-axes"] .axes-nav-index,
+html[data-theme="light"] body[data-page="conceptual-axes"] .axes-link-icon {
+  background: rgba(184, 139, 74, 0.12);
+  box-shadow: 0 0 0 1px rgba(184, 139, 74, 0.08) inset;
+}
+
+html[data-theme="light"] body[data-page="conceptual-axes"] .axes-flow {
+  --axes-line: rgba(184, 139, 74, 0.22);
 }

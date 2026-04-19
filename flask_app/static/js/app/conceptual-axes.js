@@ -299,6 +299,10 @@
       APP.renderReflectionPapersPage(rawPage);
       return;
     }
+    if (APP.pageId === "graduation-project") {
+      APP.renderGraduationProjectPage(rawPage);
+      return;
+    }
   }
 
   function sectionMarkup(section) {

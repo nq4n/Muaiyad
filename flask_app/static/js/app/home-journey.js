@@ -43,6 +43,24 @@
     let lastFrameTime = 0;
     let isPageVisible = !document.hidden;
     let isFieldVisible = true;
+    let themeId = "";
+    let palette = {
+      word: "247, 226, 177",
+      line: "214, 177, 109",
+      node: "247, 241, 229"
+    };
+
+    const syncPalette = () => {
+      const nextTheme = document.documentElement.dataset.theme || "";
+      if (nextTheme === themeId) return;
+      const styles = getComputedStyle(field);
+      palette = {
+        word: styles.getPropertyValue("--journey-word-rgb").trim() || "247, 226, 177",
+        line: styles.getPropertyValue("--journey-line-rgb").trim() || "214, 177, 109",
+        node: styles.getPropertyValue("--journey-node-rgb").trim() || "247, 241, 229"
+      };
+      themeId = nextTheme;
+    };
 
     const buildWordPoints = () => {
       if (!wordSampleContext || !wordWidth || !wordHeight) return;
@@ -89,10 +107,12 @@
 
     const drawFrame = (time) => {
       if (!width || !height) resize();
+      syncPalette();
       context.clearRect(0, 0, width, height);
       wordContext.clearRect(0, 0, wordWidth, wordHeight);
       pointer.x += (pointer.tx - pointer.x) * 0.06;
       pointer.y += (pointer.ty - pointer.y) * 0.06;
+      const isLightTheme = themeId === "light";
 
       if (wordPoints.length) {
         const localPointerX = pointer.x - wordOffsetX;
@@ -108,9 +128,9 @@
           const repel = influence * influence * 18;
           const drawX = point.x + driftX + (dx / distance) * repel;
           const drawY = point.y + driftY + (dy / distance) * repel;
-          const alpha = 0.46 + influence * 0.48;
-          const radius = 1.1 + influence * 0.7;
-          wordContext.fillStyle = `rgba(247, 226, 177, ${alpha})`;
+          const alpha = (isLightTheme ? 0.72 : 0.46) + influence * (isLightTheme ? 0.24 : 0.48);
+          const radius = (isLightTheme ? 1.25 : 1.1) + influence * 0.7;
+          wordContext.fillStyle = `rgba(${palette.word}, ${Math.min(alpha, 0.98)})`;
           wordContext.beginPath();
           wordContext.arc(drawX, drawY, radius, 0, Math.PI * 2);
           wordContext.fill();
@@ -144,14 +164,16 @@
         const right = nodes[index + 1];
         const below = nodes[index + cols];
         if (right && right.row === node.row) {
-          context.strokeStyle = `rgba(214, 177, 109, ${0.08 + (node.glow + right.glow) * 0.12})`;
+          const alpha = (isLightTheme ? 0.16 : 0.08) + (node.glow + right.glow) * (isLightTheme ? 0.14 : 0.12);
+          context.strokeStyle = `rgba(${palette.line}, ${Math.min(alpha, 0.4)})`;
           context.beginPath();
           context.moveTo(node.x, node.y);
           context.lineTo(right.x, right.y);
           context.stroke();
         }
         if (below) {
-          context.strokeStyle = `rgba(214, 177, 109, ${0.04 + (node.glow + below.glow) * 0.08})`;
+          const alpha = (isLightTheme ? 0.1 : 0.04) + (node.glow + below.glow) * (isLightTheme ? 0.1 : 0.08);
+          context.strokeStyle = `rgba(${palette.line}, ${Math.min(alpha, 0.3)})`;
           context.beginPath();
           context.moveTo(node.x, node.y);
           context.lineTo(below.x, below.y);
@@ -160,9 +182,10 @@
       });
 
       nodes.forEach((node) => {
-        context.fillStyle = `rgba(247, 241, 229, ${0.45 + node.glow * 0.42})`;
+        const alpha = (isLightTheme ? 0.62 : 0.45) + node.glow * (isLightTheme ? 0.28 : 0.42);
+        context.fillStyle = `rgba(${palette.node}, ${Math.min(alpha, 0.96)})`;
         context.beginPath();
-        context.arc(node.x, node.y, 1.25 + node.glow * 1.4, 0, Math.PI * 2);
+        context.arc(node.x, node.y, (isLightTheme ? 1.35 : 1.25) + node.glow * 1.4, 0, Math.PI * 2);
         context.fill();
       });
     };
@@ -214,6 +237,7 @@
     const resize = () => {
       const rect = field.getBoundingClientRect();
       const wordRect = wordmark.getBoundingClientRect();
+      syncPalette();
       width = Math.max(Math.floor(rect.width), 1);
       height = Math.max(Math.floor(rect.height), 1);
       const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);

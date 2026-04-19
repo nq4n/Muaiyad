@@ -404,10 +404,136 @@
     }
   }
 
+  function renderGraduationProjectPage(page) {
+    const shell = document.querySelector(".graduation-project-shell");
+    const hero = page.hero || {};
+    const platform = page.platform || {};
+    const purpose = page.purpose || {};
+    const offers = page.offers || {};
+    const reflection = page.reflection || {};
+    const resources = page.resources || {};
+    const actionItems = Array.isArray(hero.actions) ? hero.actions : [];
+    const stats = Array.isArray(hero.stats) ? hero.stats : [];
+    const offerCards = Array.isArray(offers.cards) ? offers.cards : [];
+    const reflectionPoints = Array.isArray(reflection.points) ? reflection.points : [];
+    const resourceItems = Array.isArray(resources.items) ? resources.items : [];
+    const pendingLabel = APP.state.lang === "ar" ? "بانتظار الرابط النهائي" : "Waiting for final file link";
+    const openLabel = APP.state.lang === "ar" ? "فتح الرابط" : "Open link";
+
+    if (!shell) return;
+
+    shell.lang = APP.state.lang;
+    shell.dir = APP.state.lang === "ar" ? "rtl" : "ltr";
+
+    const setText = (id, value) => {
+      const node = document.getElementById(id);
+      if (node) node.textContent = value || "";
+    };
+
+    const setParagraphs = (id, value) => {
+      const node = document.getElementById(id);
+      if (node) node.innerHTML = APP.toParagraphs(value || []);
+    };
+
+    const logo = document.getElementById("graduation-project-logo");
+    if (logo) {
+      logo.src = hero.logo_src || "";
+      logo.alt = hero.logo_alt || hero.title || U.titleFromId(APP.pageId);
+    }
+
+    setText("graduation-project-kicker", hero.kicker || "");
+    setText("graduation-project-title", hero.title || U.titleFromId(APP.pageId));
+    setParagraphs("graduation-project-subtitle", hero.subtitle || []);
+    setText("graduation-project-panel-label", hero.panel_label || "");
+    setText("graduation-project-panel-title", hero.panel_title || "");
+    setParagraphs("graduation-project-panel-copy", hero.panel_body || []);
+    setText("graduation-project-platform-title", platform.title || "");
+    setParagraphs("graduation-project-platform-copy", platform.body || []);
+    setText("graduation-project-purpose-title", purpose.title || "");
+    setParagraphs("graduation-project-purpose-copy", purpose.body || []);
+    setText("graduation-project-offers-title", offers.title || "");
+    setParagraphs("graduation-project-offers-intro", offers.intro || []);
+    setText("graduation-project-reflection-title", reflection.title || "");
+    setParagraphs("graduation-project-reflection-copy", reflection.body || []);
+    setText("graduation-project-links-title", resources.title || "");
+    setParagraphs("graduation-project-links-copy", resources.body || []);
+
+    const actionRoot = document.getElementById("graduation-project-actions");
+    if (actionRoot) {
+      if (hero.actions_label) actionRoot.setAttribute("aria-label", hero.actions_label);
+      actionRoot.innerHTML = actionItems
+        .map((item) => {
+          const href = item.href || "#";
+          const disabled = item.pending || href === "#";
+          const external = !disabled && /^https?:\/\//i.test(href);
+          const extra = external ? ' target="_blank" rel="noopener noreferrer"' : "";
+          const disabledAttrs = disabled ? ' aria-disabled="true" tabindex="-1"' : "";
+          return `
+            <a class="graduation-project-button graduation-project-button--${U.esc(item.kind || "primary")}${disabled ? " is-disabled" : ""}" href="${U.esc(href)}"${extra}${disabledAttrs}>
+              ${U.esc(item.label || "")}
+            </a>
+          `;
+        })
+        .join("");
+    }
+
+    const statsRoot = document.getElementById("graduation-project-stats");
+    if (statsRoot) {
+      statsRoot.innerHTML = stats
+        .map((item) => `
+          <article class="graduation-project-stat">
+            <span class="graduation-project-stat-label">${U.esc(item.label || "")}</span>
+            <strong class="graduation-project-stat-value">${U.esc(item.value || "")}</strong>
+          </article>
+        `)
+        .join("");
+    }
+
+    const offersRoot = document.getElementById("graduation-project-offer-grid");
+    if (offersRoot) {
+      offersRoot.innerHTML = offerCards
+        .map((item) => `
+          <article class="graduation-project-offer-card">
+            <h3>${U.esc(item.title || "")}</h3>
+            <div class="section-copy">${APP.toParagraphs(item.body || [])}</div>
+          </article>
+        `)
+        .join("");
+    }
+
+    const reflectionRoot = document.getElementById("graduation-project-reflection-points");
+    if (reflectionRoot) {
+      reflectionRoot.innerHTML = reflectionPoints.map((item) => `<li>${U.esc(item)}</li>`).join("");
+      reflectionRoot.hidden = reflectionPoints.length === 0;
+    }
+
+    const resourcesRoot = document.getElementById("graduation-project-link-grid");
+    if (resourcesRoot) {
+      resourcesRoot.innerHTML = resourceItems
+        .map((item) => {
+          const href = item.href || "#";
+          const disabled = item.pending || href === "#";
+          const external = !disabled && /^https?:\/\//i.test(href);
+          const extra = external ? ' target="_blank" rel="noopener noreferrer"' : "";
+          const disabledAttrs = disabled ? ' aria-disabled="true" tabindex="-1"' : "";
+          return `
+            <a class="graduation-project-link-card${disabled ? " is-disabled" : ""}" href="${U.esc(href)}"${extra}${disabledAttrs}>
+              <span class="graduation-project-link-kind">${U.esc(item.kind || "")}</span>
+              <h3 class="graduation-project-link-card-title">${U.esc(item.title || "")}</h3>
+              <p class="graduation-project-link-note">${U.esc(item.note || "")}</p>
+              <span class="graduation-project-link-status">${U.esc(disabled ? pendingLabel : openLabel)}</span>
+            </a>
+          `;
+        })
+        .join("");
+    }
+  }
+
   APP.renderHomePage = renderHomePage;
   APP.renderCvPage = renderCvPage;
   APP.renderPhilosophyPage = renderPhilosophyPage;
   APP.renderUnitIntroPage = renderUnitIntroPage;
   APP.renderUnitFooterNav = renderUnitFooterNav;
   APP.renderReflectionPapersPage = renderReflectionPapersPage;
+  APP.renderGraduationProjectPage = renderGraduationProjectPage;
 })();

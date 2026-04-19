@@ -43,7 +43,9 @@
 .golden-spiral {
   width: 100%;
   height: 100%;
-  filter: drop-shadow(0 0 20px var(--accent, #39ff8f));
+  filter:
+    drop-shadow(0 0 20px var(--accent-glow, rgba(57, 255, 143, 0.24)))
+    drop-shadow(0 0 32px var(--accent-2-soft, rgba(120, 196, 255, 0.2)));
 }
 
 .loading-name {
@@ -51,9 +53,14 @@
   font-weight: 300;
   letter-spacing: 0.5em;
   text-transform: uppercase;
-  color: var(--accent, #39ff8f);
+  background: linear-gradient(135deg, var(--accent, #39ff8f), var(--accent-2, #78c4ff) 62%, var(--accent-3, #7e6dff));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   margin: 0;
-  text-shadow: 0 0 30px var(--accent-soft, rgba(57, 255, 143, 0.4));
+  text-shadow:
+    0 0 30px var(--accent-glow, rgba(57, 255, 143, 0.24)),
+    0 0 40px var(--accent-2-soft, rgba(120, 196, 255, 0.2));
 }
 
 .loading-letter {
@@ -106,9 +113,9 @@
 .loading-bar-fill {
   height: 100%;
   width: 0%;
-  background: var(--accent, #39ff8f);
+  background: linear-gradient(90deg, var(--accent, #39ff8f), var(--accent-2, #78c4ff), var(--accent-3, #7e6dff));
   border-radius: 2px;
-  box-shadow: 0 0 10px var(--accent, #39ff8f);
+  box-shadow: 0 0 10px var(--accent-glow, rgba(57, 255, 143, 0.24));
   animation: loading-bar-fill 2s ease 1.5s forwards;
 }
 
@@ -135,7 +142,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--accent, #39ff8f);
+  background: var(--accent-2, #78c4ff);
   margin-left: 8px;
   vertical-align: middle;
   animation: loading-pulse 1.5s ease infinite;
@@ -177,7 +184,9 @@ textarea {
 
 .terminal-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 20px 50px rgba(57, 255, 143, 0.08);
+  box-shadow:
+    0 20px 50px var(--accent-glow, rgba(57, 255, 143, 0.24)),
+    0 0 32px var(--accent-2-soft, rgba(120, 196, 255, 0.2));
 }
 
 /* ===== SMOOTH NAV LINK HOVER ===== */
@@ -193,7 +202,7 @@ textarea {
   left: 50%;
   width: 0;
   height: 1px;
-  background: var(--accent);
+  background: linear-gradient(90deg, var(--accent-3, #7e6dff), var(--accent, #39ff8f), var(--accent-2, #78c4ff));
   transition: width 0.3s ease, left 0.3s ease;
 }
 
@@ -213,7 +222,7 @@ textarea {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at center, var(--accent-soft) 0%, transparent 70%);
+  background: radial-gradient(circle at center, var(--accent-soft) 0%, var(--accent-2-soft) 45%, transparent 74%);
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -288,7 +297,7 @@ textarea {
   left: 0;
   width: 100%;
   height: 2px;
-  background: var(--accent);
+  background: linear-gradient(90deg, var(--accent-3, #7e6dff), var(--accent, #39ff8f), var(--accent-2, #78c4ff));
   transform: scaleX(0);
   transition: transform 0.3s ease;
 }
@@ -314,7 +323,7 @@ textarea {
   position: absolute;
   width: 2px;
   height: 2px;
-  background: var(--accent);
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
   border-radius: 50%;
   opacity: 0;
   animation: particle-float linear infinite;
@@ -361,7 +370,7 @@ textarea {
   left: -100%;
   width: 100%;
   height: 2px;
-  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  background: linear-gradient(90deg, transparent, var(--accent-3), var(--accent), var(--accent-2), transparent);
   transition: left 0.6s ease;
 }
 
@@ -385,7 +394,7 @@ textarea {
 
 /* ===== ENHANCED INPUT FOCUS ===== */
 input:focus, textarea:focus, select:focus {
-  box-shadow: 0 0 0 3px var(--accent-soft);
+  box-shadow: 0 0 0 3px var(--accent-glow);
 }
 
 /* ===== LOADING SCREEN RESPONSIVE ===== */

@@ -3,6 +3,141 @@
 {% set hide_default_hero = true %}
 
 {% block hero %}
+<style>
+  body[data-page="unit-1-intro"] .page-hero {
+    border-color: var(--accent);
+    background:
+      radial-gradient(circle at 16% 18%, rgba(214, 177, 109, 0.12), transparent 24%),
+      radial-gradient(circle at 84% 80%, rgba(90, 143, 142, 0.1), transparent 20%),
+      linear-gradient(135deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0) 42%),
+      var(--panel);
+  }
+
+  body[data-page="unit-1-intro"] .page-content {
+    padding: 0;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+  }
+
+  body[data-page="unit-1-intro"] .structured-page {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  body[data-page="unit-1-intro"] .structured-page > .page-section {
+    flex: 1 1 22rem;
+    width: min(100%, 23rem);
+    max-width: 23rem;
+  }
+
+  body[data-page="unit-1-intro"] .structured-page > .page-section:first-child,
+  body[data-page="unit-1-intro"] .structured-page > .page-section:nth-child(3) {
+    flex-basis: min(100%, 78rem);
+    width: min(100%, 78rem);
+    max-width: 78rem;
+  }
+
+  body[data-page="unit-1-intro"] .structured-page > .page-section:nth-child(2) {
+    flex-basis: 34rem;
+    width: min(100%, 38rem);
+    max-width: 38rem;
+  }
+
+  body[data-page="unit-1-intro"] .structured-page > .page-section {
+    overflow: hidden;
+  }
+
+  body[data-page="unit-1-intro"] .structured-page > .page-section .section-block-inner {
+    height: 100%;
+  }
+
+  body[data-page="unit-1-intro"] #unit-general-data-table,
+  body[data-page="unit-1-intro"] #unit-lesson-dist-table {
+    border-color: rgba(214, 177, 109, 0.18);
+  }
+
+  body[data-page="unit-1-intro"] #unit-lesson-dist-table thead th {
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text);
+  }
+
+  body[data-page="unit-1-intro"] .page-section .section-copy {
+    display: grid;
+    gap: 0.7rem;
+  }
+
+  body[data-page="unit-1-intro"] .page-section .section-copy p {
+    margin: 0;
+    padding: 0.9rem 1rem;
+    border: 1px solid rgba(214, 177, 109, 0.14);
+    border-radius: 0.95rem;
+    background:
+      linear-gradient(135deg, var(--accent-3-soft), var(--accent-2-soft) 58%, rgba(255, 255, 255, 0.03) 100%),
+      var(--surface-field);
+  }
+
+  body[data-page="unit-1-intro"] .home-training-table th,
+  body[data-page="unit-1-intro"] .home-training-table td {
+    padding: 0.85rem 0.95rem;
+  }
+
+  html[data-theme="light"] body[data-page="unit-1-intro"] .page-hero,
+  html[data-theme="light"] body[data-page="unit-1-intro"] .structured-page > .page-section {
+    border-color: rgba(184, 139, 74, 0.18);
+    box-shadow: 0 12px 28px rgba(145, 120, 87, 0.08), 0 0 0 1px rgba(184, 139, 74, 0.04) inset;
+  }
+
+  html[data-theme="light"] body[data-page="unit-1-intro"] .page-hero {
+    background:
+      radial-gradient(circle at 14% 16%, rgba(145, 83, 117, 0.07), transparent 18%),
+      radial-gradient(circle at 86% 80%, rgba(90, 143, 142, 0.07), transparent 18%),
+      linear-gradient(180deg, rgba(255, 248, 241, 0.28), rgba(255, 255, 255, 0) 42%),
+      var(--panel);
+  }
+
+  html[data-theme="light"] body[data-page="unit-1-intro"] .structured-page > .page-section {
+    background:
+      linear-gradient(180deg, rgba(255, 250, 245, 0.32), rgba(255, 255, 255, 0) 44%),
+      var(--panel);
+  }
+
+  html[data-theme="light"] body[data-page="unit-1-intro"] .page-section .section-copy p {
+    border-color: rgba(184, 139, 74, 0.16);
+    background:
+      linear-gradient(135deg, rgba(145, 83, 117, 0.06), rgba(90, 143, 142, 0.06) 58%, rgba(255, 255, 255, 0.3) 100%),
+      var(--surface-field);
+    box-shadow: 0 8px 18px rgba(145, 120, 87, 0.05);
+  }
+
+  html[data-theme="light"] body[data-page="unit-1-intro"] #unit-general-data-table,
+  html[data-theme="light"] body[data-page="unit-1-intro"] #unit-lesson-dist-table {
+    border-color: rgba(184, 139, 74, 0.18);
+    background: rgba(252, 248, 242, 0.78);
+  }
+
+  html[data-theme="light"] body[data-page="unit-1-intro"] #unit-general-data-table th,
+  html[data-theme="light"] body[data-page="unit-1-intro"] #unit-general-data-table td,
+  html[data-theme="light"] body[data-page="unit-1-intro"] #unit-lesson-dist-table th,
+  html[data-theme="light"] body[data-page="unit-1-intro"] #unit-lesson-dist-table td {
+    border-color: rgba(184, 139, 74, 0.14);
+  }
+
+  html[data-theme="light"] body[data-page="unit-1-intro"] #unit-lesson-dist-table thead th {
+    background: rgba(255, 248, 241, 0.32);
+    color: var(--text);
+  }
+
+  @media (max-width: 960px) {
+    body[data-page="unit-1-intro"] .structured-page > .page-section {
+      width: 100%;
+      max-width: none;
+    }
+  }
+</style>
 <section class="section-card page-panel page-hero reveal" data-reveal="fade-up" aria-labelledby="unit-intro-title">
   <div class="section-block-inner page-hero-inner">
     <p class="terminal-path page-kicker">~/portfolio/{{ page_id }}</p>
