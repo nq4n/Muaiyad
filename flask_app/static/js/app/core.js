@@ -13,7 +13,15 @@
   const LEGACY_DATA = window.PORTFOLIO_DATA || null;
   const PAGE_DATA = window.PORTFOLIO_PAGE_DATA || {};
   const DATA = SITE_DATA || LEGACY_DATA;
-  const detectedLang = navigator.language.toLowerCase().startsWith("ar") ? "ar" : "en";
+  const defaultLang = "ar";
+  const defaultTheme = DATA?.defaultTheme || "arabesque";
+  const defaultPreferenceVersion = "20260421-ar-dark";
+
+  if (localStorage.getItem("portfolio.defaults.version") !== defaultPreferenceVersion) {
+    localStorage.setItem("portfolio.lang", defaultLang);
+    localStorage.setItem("portfolio.theme", defaultTheme);
+    localStorage.setItem("portfolio.defaults.version", defaultPreferenceVersion);
+  }
 
   const APP = window.PORTFOLIO_APP || {};
   APP.U = U;
@@ -24,8 +32,8 @@
   APP.isReady = Boolean(DATA);
   APP.pageId = document.body.dataset.page || "home";
   APP.state = {
-    lang: localStorage.getItem("portfolio.lang") || detectedLang,
-    theme: localStorage.getItem("portfolio.theme") || DATA?.defaultTheme || "arabesque",
+    lang: localStorage.getItem("portfolio.lang") || defaultLang,
+    theme: localStorage.getItem("portfolio.theme") || defaultTheme,
     cmdIndex: -1,
     project: { search: "", sort: "featured", tag: "all", show: localStorage.getItem("portfolio.show") || "all" },
     content: DATA ? U.deepClone(DATA) : {},
@@ -169,9 +177,14 @@
     if (nameEl) {
       nameEl.lang = lang;
       nameEl.dir = dir;
-      nameEl.innerHTML = Array.from(APP.loadingName(lang))
-        .map((char, index) => `<span class="loading-letter" data-index="${index}">${char === " " ? "&nbsp;" : U.esc(char)}</span>`)
-        .join("");
+      const name = APP.loadingName(lang);
+      nameEl.innerHTML = lang === "ar"
+        ? `<span class="loading-ar-combo" aria-label="${U.esc(name)}"><span class="loading-ar-build" aria-hidden="true">${Array.from(name)
+            .map((char, index) => `<span class="loading-ar-letter" data-index="${index}">${U.esc(char)}</span>`)
+            .join("")}</span><span class="loading-ar-connected" aria-hidden="true">${U.esc(name)}</span></span>`
+        : Array.from(name)
+            .map((char, index) => `<span class="loading-letter" data-index="${index}">${char === " " ? "&nbsp;" : U.esc(char)}</span>`)
+            .join("");
     }
 
     if (hintEl) {

@@ -340,7 +340,7 @@ body::after {
 
 .nav-wrap {
   display: grid;
-  grid-template-columns: auto auto 1fr auto;
+  grid-template-columns: minmax(7.5rem, auto) auto minmax(0, 1fr) auto;
   gap: 0.8rem;
   align-items: center;
   padding: 0.75rem;
@@ -358,6 +358,8 @@ body::after {
   align-items: center;
   gap: 0.72rem;
   position: relative;
+  min-width: 0;
+  max-width: 100%;
   color: var(--accent);
   font-weight: 700;
   text-decoration: none;
@@ -399,6 +401,9 @@ body::after {
 
 .brand-name {
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: min(14rem, 20vw);
 }
 
 .brand-dot {
@@ -524,6 +529,7 @@ select:focus-visible,
 
 .primary-nav {
   overflow: visible;
+  min-width: 0;
 }
 
 .nav-list {
@@ -533,6 +539,8 @@ select:focus-visible,
   padding: 0;
   margin: 0;
   flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 }
 
 .nav-link {
@@ -548,6 +556,7 @@ select:focus-visible,
   align-items: center;
   gap: 0.38rem;
   background: transparent;
+  max-width: min(15rem, 100%);
 }
 
 .nav-icon {
@@ -556,7 +565,10 @@ select:focus-visible,
 }
 
 .nav-label {
-  white-space: nowrap;
+  min-width: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
 }
 
 .nav-link.active,
@@ -581,7 +593,8 @@ select:focus-visible,
   position: absolute;
   top: calc(100% + 0.35rem);
   inset-inline-start: 0;
-  min-width: 240px;
+  min-width: min(240px, calc(100vw - 2rem));
+  max-width: min(24rem, calc(100vw - 2rem));
   list-style: none;
   margin: 0;
   padding: 0.45rem;
@@ -612,6 +625,11 @@ select:focus-visible,
   text-decoration: none;
   border: 1px solid transparent;
   border-radius: 0.45rem;
+  min-width: 0;
+}
+
+.submenu-link .nav-label {
+  text-wrap: auto;
 }
 
 .tools {
@@ -623,6 +641,104 @@ select:focus-visible,
   min-width: 0;
   position: relative;
   z-index: 1;
+}
+
+@media (max-width: 1180px) {
+  .nav-wrap {
+    grid-template-columns: minmax(6.5rem, auto) auto minmax(0, 1fr) auto;
+    gap: 0.55rem;
+    padding: 0.62rem;
+  }
+
+  .brand-name {
+    max-width: 11rem;
+  }
+
+  .nav-list {
+    gap: 0.22rem;
+  }
+
+  .nav-link {
+    padding-inline: 0.45rem;
+    font-size: 0.86rem;
+    max-width: 11.5rem;
+  }
+
+  .btn-label {
+    display: none;
+  }
+}
+
+@media (max-width: 860px) {
+  .site-header {
+    padding-inline: 0.75rem;
+  }
+
+  .nav-wrap {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+  }
+
+  .primary-nav {
+    display: none;
+    grid-column: 1 / -1;
+  }
+
+  .primary-nav.open {
+    display: block;
+  }
+
+  .nav-list {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .nav-link {
+    width: 100%;
+    max-width: none;
+    justify-content: flex-start;
+  }
+
+  .dropdown {
+    width: 100%;
+  }
+
+  .submenu {
+    position: static;
+    margin-top: 0.28rem;
+    min-width: 0;
+    max-width: none;
+    width: 100%;
+  }
+
+  .tools {
+    gap: 0.3rem;
+  }
+
+  .icon-btn {
+    padding-inline: 0.52rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .nav-wrap {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .brand-logo-shell {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .brand-name {
+    max-width: 8.5rem;
+    font-size: 0.9rem;
+  }
+
+  .tools {
+    grid-column: 1 / -1;
+    justify-self: stretch;
+    justify-content: flex-end;
+  }
 }
 
 .cmd-wrap {

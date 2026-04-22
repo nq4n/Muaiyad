@@ -1,4 +1,97 @@
-@import url("./shell.css?v=20260416v2");
+@import url("./shell.css?v=20260421v6");
 @import url("./content.css?v=20260416v2");
-@import url("./effects.css?v=20260416v2");
+@import url("./effects.css?v=20260421v5");
 @import url("./restored-layouts.css?v=20260416v2");
+
+/* Final header overrides: keep Arabic navigation from colliding on wide screens. */
+@media (min-width: 961px) {
+  .site-header .nav-wrap {
+    height: auto;
+    min-height: var(--header-shell-height);
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-areas:
+      "brand nav tools"
+      ". nav .";
+    align-items: center;
+    column-gap: 0.75rem;
+    row-gap: 0.45rem;
+  }
+
+  .site-header .brand {
+    grid-area: brand;
+    min-width: 4rem;
+    max-width: 10rem;
+  }
+
+  .site-header .brand-name {
+    max-width: 6rem;
+  }
+
+  .site-header #menu-toggle {
+    display: none;
+  }
+
+  .site-header .primary-nav {
+    grid-area: nav;
+    min-width: 0;
+    width: 100%;
+  }
+
+  .site-header .nav-list {
+    justify-content: center;
+    align-items: stretch;
+    gap: 0.28rem;
+  }
+
+  .site-header .nav-list > li,
+  .site-header .dropdown {
+    min-width: 0;
+  }
+
+  .site-header .nav-link {
+    max-width: 12.5rem;
+    min-height: 2.2rem;
+    padding: 0.32rem 0.48rem;
+    font-size: 0.9rem;
+  }
+
+  .site-header .nav-label {
+    white-space: normal;
+    overflow-wrap: anywhere;
+    line-height: 1.28;
+  }
+
+  .site-header .tools {
+    grid-area: tools;
+    justify-self: end;
+    flex: 0 0 auto;
+  }
+}
+
+@media (max-width: 1450px) and (min-width: 961px) {
+  .site-header .nav-wrap {
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas:
+      "brand tools"
+      "nav nav";
+  }
+
+  .site-header .brand-name {
+    display: inline;
+  }
+
+  .site-header .nav-list {
+    justify-content: center;
+  }
+
+  .site-header .nav-link {
+    max-width: 14rem;
+  }
+}
+
+@media (max-width: 1180px) and (min-width: 961px) {
+  .site-header .nav-link {
+    max-width: 11rem;
+    font-size: 0.86rem;
+  }
+}

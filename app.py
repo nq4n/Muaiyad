@@ -113,7 +113,7 @@ THEMES = ["arabesque", "light"]
 DEFAULT_THEME = "arabesque"
 
 
-def get_page_context(page_id, lang="en"):
+def get_page_context(page_id, lang="ar"):
     return {
         "page_id": page_id,
         "lang": lang,

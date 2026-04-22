@@ -18,13 +18,14 @@
 
   function initLoadingScreen() {
     const screen = document.getElementById("loading-screen");
+    const introKey = "portfolio.intro-seen.20260421v5";
     if (!screen) return;
-    if (sessionStorage.getItem("portfolio.intro-seen")) {
+    if (sessionStorage.getItem(introKey)) {
       screen.classList.add("hidden");
       return;
     }
     const dismiss = () => {
-      sessionStorage.setItem("portfolio.intro-seen", "1");
+      sessionStorage.setItem(introKey, "1");
       screen.classList.add("fade-out");
       setTimeout(() => {
         screen.classList.add("hidden");

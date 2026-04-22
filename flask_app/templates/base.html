@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="{{ lang }}" dir="{{ dir }}">
+<html lang="{{ lang }}" dir="{{ dir }}" data-theme="{{ default_theme }}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  {% set asset_version = "20260418v1" %}
+  {% set asset_version = "20260421v6" %}
   {% set default_page_title = pages[page_id]["title_ar" if lang == "ar" else "title_en"] if page_id in pages else page_id %}
   <title>{{ default_page_title }} - Portfolio</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css', v=asset_version) }}">
@@ -21,7 +21,18 @@
           <circle cx="100" cy="100" r="3" fill="var(--accent, #00ff88)"/>
         </svg>
       </div>
-      <h1 class="loading-name" id="loading-name">
+      <h1 class="loading-name" id="loading-name" lang="{{ lang }}" dir="{{ dir }}">
+        {% if lang == "ar" %}
+        <span class="loading-ar-combo" aria-label="مؤيد">
+          <span class="loading-ar-build" aria-hidden="true">
+            <span class="loading-ar-letter" data-index="0">م</span>
+            <span class="loading-ar-letter" data-index="1">ؤ</span>
+            <span class="loading-ar-letter" data-index="2">ي</span>
+            <span class="loading-ar-letter" data-index="3">د</span>
+          </span>
+          <span class="loading-ar-connected" aria-hidden="true">مؤيد</span>
+        </span>
+        {% else %}
         <span class="loading-letter" data-index="0">M</span>
         <span class="loading-letter" data-index="1">u</span>
         <span class="loading-letter" data-index="2">a</span>
@@ -29,11 +40,12 @@
         <span class="loading-letter" data-index="4">y</span>
         <span class="loading-letter" data-index="5">a</span>
         <span class="loading-letter" data-index="6">d</span>
+        {% endif %}
       </h1>
       <div class="loading-bar">
         <div class="loading-bar-fill"></div>
       </div>
-      <p class="loading-hint" id="loading-hint">Click anywhere to enter</p>
+      <p class="loading-hint" id="loading-hint" lang="{{ lang }}" dir="{{ dir }}">{{ "اضغط في أي مكان للدخول" if lang == "ar" else "Click anywhere to enter" }}</p>
     </div>
   </div>
 
