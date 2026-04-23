@@ -24,7 +24,21 @@
       screen.classList.add("hidden");
       return;
     }
+    const reducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+    const minIntroMs = reducedMotion ? 1200 : 3200;
+    const autoDismissMs = reducedMotion ? 2000 : 4400;
+    let readyToDismiss = false;
+    let dismissed = false;
+
+    const armDismiss = () => {
+      readyToDismiss = true;
+      screen.classList.add("is-ready");
+    };
+
     const dismiss = () => {
+      if (!readyToDismiss || dismissed) return;
+      dismissed = true;
+      document.removeEventListener("keydown", handleKeydown);
       sessionStorage.setItem(introKey, "1");
       screen.classList.add("fade-out");
       setTimeout(() => {
@@ -32,10 +46,14 @@
         document.body.style.overflow = "";
       }, 800);
     };
+
+    const handleKeydown = () => dismiss();
+
     document.body.style.overflow = "hidden";
     screen.addEventListener("click", dismiss);
-    document.addEventListener("keydown", dismiss, { once: true });
-    setTimeout(dismiss, 4000);
+    document.addEventListener("keydown", handleKeydown);
+    setTimeout(armDismiss, minIntroMs);
+    setTimeout(dismiss, autoDismissMs);
   }
 
   function createParticles() {
@@ -68,6 +86,8 @@
   }
 
   function init() {
+    const hadPendingPageLoad = APP.hasPendingPageLoad?.();
+    if (hadPendingPageLoad) APP.showPageLoadingShell?.();
     APP.setRenderHandler(render);
     APP.applyTheme(APP.state.theme);
     document.documentElement.lang = APP.state.lang;
@@ -75,8 +95,14 @@
     APP.renderLoadingScreenCopy();
     render();
     bindAll();
+    APP.bindPageTransitions?.();
     initLoadingScreen();
     createParticles();
+    if (hadPendingPageLoad) {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => APP.hidePageLoadingShell?.());
+      });
+    }
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init, { once: true });

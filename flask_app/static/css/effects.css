@@ -7,8 +7,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
+  cursor: wait;
   transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+#loading-screen.is-ready {
+  cursor: pointer;
 }
 
 #loading-screen.fade-out {
@@ -237,6 +241,118 @@
   50% { opacity: 1; transform: scale(1.2); }
 }
 
+/* ===== PAGE TRANSITION SKELETON ===== */
+.page-loading-shell {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  display: none;
+  place-items: center;
+  padding: 1.25rem;
+}
+
+body.is-page-loading .page-loading-shell {
+  display: grid;
+}
+
+.page-loading-shell__backdrop {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.32), rgba(0, 0, 0, 0.16)),
+    var(--bg);
+  backdrop-filter: blur(8px);
+}
+
+.page-loading-shell__panel {
+  position: relative;
+  z-index: 1;
+  width: min(1040px, calc(100vw - 2.5rem));
+  padding: clamp(1.2rem, 2vw, 1.8rem);
+  display: grid;
+  gap: 1rem;
+  overflow: hidden;
+}
+
+.page-loading-shell__hero,
+.page-loading-shell__grid,
+.page-loading-shell__card {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.page-loading-shell__grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.page-loading-shell__card {
+  min-height: 10rem;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0)),
+    var(--surface-section);
+}
+
+.page-loading-shell__eyebrow,
+.page-loading-shell__title,
+.page-loading-shell__subtitle,
+.page-loading-shell__line {
+  display: block;
+  border-radius: 999px;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0.08)),
+    rgba(255, 255, 255, 0.06);
+  background-size: 200% 100%;
+  animation: page-loading-shimmer 1.15s linear infinite;
+}
+
+.page-loading-shell__eyebrow {
+  width: 10rem;
+  max-width: 34%;
+  height: 0.7rem;
+}
+
+.page-loading-shell__title {
+  width: min(30rem, 82%);
+  height: 1.45rem;
+}
+
+.page-loading-shell__subtitle {
+  width: min(42rem, 100%);
+  height: 1rem;
+}
+
+.page-loading-shell__line {
+  width: 100%;
+  height: 0.95rem;
+}
+
+.page-loading-shell__line--short {
+  width: 42%;
+}
+
+.page-loading-shell__line--medium {
+  width: 74%;
+}
+
+@keyframes page-loading-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@media (max-width: 820px) {
+  .page-loading-shell__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .page-loading-shell__panel {
+    width: min(100vw - 1.5rem, 44rem);
+    padding: 1rem;
+  }
+}
+
 /* ===== ENHANCED SMOOTH TRANSITIONS ===== */
 a,
 button {
@@ -439,6 +555,117 @@ textarea {
 .modal[hidden] {
   opacity: 0;
   pointer-events: none;
+}
+
+.embed-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+}
+
+.embed-modal[hidden] {
+  display: none;
+}
+
+.modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(4, 8, 14, 0.68);
+  backdrop-filter: blur(8px);
+}
+
+.modal__dialog {
+  position: relative;
+  z-index: 1;
+  width: min(1160px, calc(100vw - 2rem));
+  max-height: calc(100vh - 2rem);
+  display: grid;
+  gap: 0.9rem;
+  padding: 1rem;
+  overflow: hidden;
+}
+
+.modal__header {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.modal__title-wrap {
+  display: grid;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.modal__eyebrow,
+.modal__status,
+.modal__fallback p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.modal__eyebrow {
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.modal__title-wrap h2 {
+  margin: 0;
+  line-height: 1.3;
+}
+
+.modal__body {
+  min-height: min(70vh, 760px);
+  display: grid;
+}
+
+.modal__iframe,
+.modal__fallback {
+  width: 100%;
+  min-height: min(70vh, 760px);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  background: rgba(6, 12, 19, 0.85);
+}
+
+.modal__iframe {
+  display: block;
+}
+
+.modal__fallback {
+  padding: 1.4rem;
+  align-content: center;
+  justify-items: start;
+  gap: 1rem;
+}
+
+.modal__fallback .unit-footer-link {
+  width: auto;
+  min-width: 12rem;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+@media (max-width: 820px) {
+  .modal__dialog {
+    width: calc(100vw - 1rem);
+    max-height: calc(100vh - 1rem);
+    padding: 0.8rem;
+  }
+
+  .modal__body,
+  .modal__iframe,
+  .modal__fallback {
+    min-height: 62vh;
+  }
 }
 
 /* ===== ENHANCED PROJECT CARDS ===== */

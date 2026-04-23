@@ -87,7 +87,6 @@ ROUTE_MAP = {
     "philosophy": "philosophy",
     "cv": "cv",
     "unit": "unit-plan",
-    "framework": "framework-axes",
     "axes": "conceptual-axes",
     "reflections": "reflection-papers",
     "graduation": "graduation-project",

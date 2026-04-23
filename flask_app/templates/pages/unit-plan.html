@@ -1,18 +1,31 @@
 {% extends "base.html" %}
+{% set static_render = true %}
+{% set hide_default_hero = true %}
 
 {% block hero %}
 <style>
-  body[data-page="unit-plan"] .hero-card {
-    padding: clamp(2rem, 4vw, 3rem);
-    border-color: var(--accent);
-    background:
-      radial-gradient(circle at 16% 18%, var(--accent-soft), transparent 30%),
-      linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0) 42%),
-      var(--panel);
+  body[data-page="unit-plan"] .unit-plan-hero {
+    padding: 0;
   }
 
-  body[data-page="unit-plan"] .hero-card h1 {
-    max-width: 12ch;
+  body[data-page="unit-plan"] .unit-plan-hero .section-block-inner {
+    padding: clamp(1.8rem, 3vw, 2.6rem);
+  }
+
+  body[data-page="unit-plan"] .unit-plan-hero .axes-cli-shell {
+    max-width: none;
+  }
+
+  body[data-page="unit-plan"] .unit-plan-hero .axes-hero-copy {
+    max-width: 72rem;
+  }
+
+  body[data-page="unit-plan"] .unit-plan-hero .axes-hero-copy p {
+    max-width: none;
+  }
+
+  body[data-page="unit-plan"] .unit-plan-hero .axes-hero-nav {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 
   body[data-page="unit-plan"] .page-content {
@@ -22,310 +35,383 @@
     box-shadow: none;
   }
 
-  body[data-page="unit-plan"] #page-sections {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: stretch;
-    gap: 1rem;
+  body[data-page="unit-plan"] .unit-plan-shell {
+    display: grid;
+    gap: 1.15rem;
   }
 
-  body[data-page="unit-plan"] #page-sections .section-block {
-    flex: 1 1 25rem;
-    width: min(100%, 35rem);
-    max-width: 35rem;
-    margin: 0 !important;
-    padding: 1.5rem;
+  body[data-page="unit-plan"] .unit-plan-map,
+  body[data-page="unit-plan"] .unit-plan-section {
     border: 1px solid var(--border);
-    border-radius: 1.25rem;
+    border-radius: 1.2rem;
     background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0) 44%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0) 42%),
       var(--panel);
     box-shadow: var(--lift-shadow);
-    transform: translateY(16px);
-    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
   }
 
-  body[data-page="unit-plan"] #page-sections .section-block:nth-child(odd),
-  body[data-page="unit-plan"] #page-sections .section-block:nth-child(even) {
-    transform: translateY(16px);
-  }
-
-  body[data-page="unit-plan"] #page-sections .section-block.is-visible {
-    transform: none;
-  }
-
-  body[data-page="unit-plan"] #page-sections .section-block:hover {
-    border-color: var(--accent);
-    transform: translateY(-3px);
-  }
-
-  body[data-page="unit-plan"] #page-sections .section-block:first-child {
-    flex-basis: min(100%, 78rem);
-    width: min(100%, 78rem);
-    max-width: 78rem;
-    padding: clamp(1.8rem, 3vw, 2.5rem);
-    background:
-      radial-gradient(circle at 84% 24%, rgba(214, 177, 109, 0.16), transparent 24%),
-      radial-gradient(circle at 18% 86%, rgba(90, 143, 142, 0.12), transparent 22%),
-      linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0) 48%),
-      var(--panel);
-  }
-
-  body[data-page="unit-plan"] #page-sections .section-block:first-child .section-copy {
-    max-width: 58rem;
-  }
-
-  body[data-page="unit-plan"] .unit-layout-board {
-    margin-top: 1rem;
-    padding: 1.2rem;
-  }
-
-  body[data-page="unit-plan"] .unit-layout-grid {
+  body[data-page="unit-plan"] .unit-plan-map .section-block-inner,
+  body[data-page="unit-plan"] .unit-plan-section .section-block-inner {
     display: grid;
-    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.28fr);
     gap: 1rem;
-    align-items: start;
+    padding: clamp(1.2rem, 2vw, 1.65rem);
+    height: 100%;
   }
 
-  body[data-page="unit-plan"] .unit-layout-cards {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.75rem;
+  body[data-page="unit-plan"] .unit-plan-map-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    justify-content: space-between;
+    gap: 0.9rem;
   }
 
-  body[data-page="unit-plan"] .unit-layout-card {
+  body[data-page="unit-plan"] .unit-plan-map-header .section-headline {
     display: grid;
-    gap: 0.35rem;
-    min-height: 6.5rem;
-    padding: 1rem;
-    border: 1px solid var(--border);
+    gap: 0.45rem;
+  }
+
+  body[data-page="unit-plan"] .unit-plan-map-header h2,
+  body[data-page="unit-plan"] .unit-plan-section h2 {
+    margin: 0;
+    font-size: clamp(1.2rem, 1.6vw, 1.6rem);
+    line-height: 1.35;
+  }
+
+  body[data-page="unit-plan"] .unit-plan-map-copy {
+    margin: 0;
+    max-width: 34rem;
+    color: var(--muted);
+    line-height: 1.85;
+  }
+
+  body[data-page="unit-plan"] .unit-plan-map-board {
+    display: grid;
+    grid-template-columns: minmax(0, 18rem) minmax(0, 1fr);
+    gap: 1rem;
+    align-items: stretch;
+  }
+
+  body[data-page="unit-plan"] .unit-plan-map-core {
+    display: grid;
+    gap: 0.8rem;
+    align-content: start;
+    padding: 1.1rem;
+    border: 1px solid rgba(214, 177, 109, 0.16);
     border-radius: 1rem;
     background:
-      linear-gradient(135deg, var(--accent-3-soft), var(--accent-2-soft) 58%, rgba(255, 255, 255, 0.03) 100%),
+      radial-gradient(circle at top, rgba(214, 177, 109, 0.14), transparent 58%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0)),
       var(--surface-field);
   }
 
-  body[data-page="unit-plan"] .unit-layout-card-label {
+  body[data-page="unit-plan"] .unit-plan-map-kicker {
+    margin: 0;
+    color: var(--accent);
+    font-size: 0.84rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+  }
+
+  body[data-page="unit-plan"] .unit-plan-map-core h3 {
+    margin: 0;
+    font-size: clamp(1.25rem, 1.8vw, 1.7rem);
+    line-height: 1.35;
+  }
+
+  body[data-page="unit-plan"] .unit-plan-map-core p {
+    margin: 0;
     color: var(--muted);
-    font-size: 0.78rem;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
+    line-height: 1.8;
   }
 
-  body[data-page="unit-plan"] .unit-layout-card-value {
-    color: var(--text);
-    font-size: clamp(1.05rem, 1.3vw, 1.35rem);
-    line-height: 1.3;
-  }
-
-  body[data-page="unit-plan"] .unit-layout-table-shell {
+  body[data-page="unit-plan"] .unit-plan-map-links {
     display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.8rem;
   }
 
-  body[data-page="unit-plan"] .unit-layout-table-shell .section-headline h2 {
-    margin-bottom: 0;
-    font-size: clamp(1.1rem, 1.6vw, 1.45rem);
+  body[data-page="unit-plan"] .unit-plan-map-link {
+    display: grid;
+    gap: 0.4rem;
+    min-height: 100%;
+    padding: 0.95rem 1rem;
+    border: 1px solid rgba(214, 177, 109, 0.14);
+    border-radius: 1rem;
+    text-decoration: none;
+    color: var(--text);
+    background:
+      linear-gradient(135deg, var(--accent-3-soft), var(--accent-2-soft) 58%, rgba(255, 255, 255, 0.03) 100%),
+      var(--surface-field);
+    transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
   }
 
-  body[data-page="unit-plan"] .unit-layout-table th,
-  body[data-page="unit-plan"] .unit-layout-table td {
-    padding: 0.85rem 0.95rem;
+  body[data-page="unit-plan"] .unit-plan-map-link:hover,
+  body[data-page="unit-plan"] .unit-plan-map-link:focus-visible {
+    transform: translateY(-2px);
+    border-color: var(--accent);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.16);
   }
 
-  body[data-page="unit-plan"] .unit-layout-table tbody th {
-    width: 42%;
+  body[data-page="unit-plan"] .unit-plan-map-link-index {
+    color: var(--accent);
+    font-size: 0.82rem;
+    font-weight: 700;
   }
 
-  body[data-page="unit-plan"] #page-sections .section-copy {
+  body[data-page="unit-plan"] .unit-plan-map-link-label {
+    line-height: 1.65;
+  }
+
+  body[data-page="unit-plan"] .unit-plan-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  body[data-page="unit-plan"] .unit-plan-section .section-copy {
     display: grid;
     gap: 0.7rem;
   }
 
-  body[data-page="unit-plan"] #page-sections .section-copy p {
+  body[data-page="unit-plan"] .unit-plan-section .section-copy p {
     margin: 0;
-    padding: 0.88rem 1rem;
+    padding: 0.85rem 0.95rem;
     border: 1px solid rgba(214, 177, 109, 0.14);
-    border-bottom: 0;
     border-radius: 0.95rem;
     background:
       linear-gradient(135deg, var(--accent-3-soft), var(--accent-2-soft) 58%, rgba(255, 255, 255, 0.03) 100%),
       var(--surface-field);
+    line-height: 1.9;
   }
 
-  html[data-theme="light"] body[data-page="unit-plan"] .hero-card,
-  html[data-theme="light"] body[data-page="unit-plan"] #page-sections .section-block,
-  html[data-theme="light"] body[data-page="unit-plan"] .unit-layout-board {
+  html[data-theme="light"] body[data-page="unit-plan"] .unit-plan-hero,
+  html[data-theme="light"] body[data-page="unit-plan"] .unit-plan-map,
+  html[data-theme="light"] body[data-page="unit-plan"] .unit-plan-section {
     border-color: rgba(184, 139, 74, 0.18);
     box-shadow: 0 12px 28px rgba(145, 120, 87, 0.08), 0 0 0 1px rgba(184, 139, 74, 0.04) inset;
   }
 
-  html[data-theme="light"] body[data-page="unit-plan"] .hero-card {
+  html[data-theme="light"] body[data-page="unit-plan"] .unit-plan-hero,
+  html[data-theme="light"] body[data-page="unit-plan"] .unit-plan-map,
+  html[data-theme="light"] body[data-page="unit-plan"] .unit-plan-section {
     background:
-      radial-gradient(circle at 14% 16%, rgba(145, 83, 117, 0.08), transparent 20%),
-      radial-gradient(circle at 86% 82%, rgba(90, 143, 142, 0.08), transparent 20%),
-      linear-gradient(180deg, rgba(255, 248, 241, 0.28), rgba(255, 255, 255, 0) 42%),
+      linear-gradient(180deg, rgba(255, 250, 245, 0.34), rgba(255, 255, 255, 0) 44%),
       var(--panel);
   }
 
-  html[data-theme="light"] body[data-page="unit-plan"] .unit-layout-board,
-  html[data-theme="light"] body[data-page="unit-plan"] #page-sections .section-block {
-    background:
-      linear-gradient(180deg, rgba(255, 250, 245, 0.32), rgba(255, 255, 255, 0) 44%),
-      var(--panel);
-  }
-
-  html[data-theme="light"] body[data-page="unit-plan"] #page-sections .section-block:first-child {
-    background:
-      radial-gradient(circle at 82% 22%, rgba(184, 139, 74, 0.1), transparent 20%),
-      radial-gradient(circle at 16% 84%, rgba(90, 143, 142, 0.07), transparent 18%),
-      linear-gradient(180deg, rgba(255, 249, 244, 0.34), rgba(255, 255, 255, 0) 44%),
-      var(--panel);
-  }
-
-  html[data-theme="light"] body[data-page="unit-plan"] .unit-layout-card,
-  html[data-theme="light"] body[data-page="unit-plan"] #page-sections .section-copy p {
+  html[data-theme="light"] body[data-page="unit-plan"] .unit-plan-map-core,
+  html[data-theme="light"] body[data-page="unit-plan"] .unit-plan-map-link,
+  html[data-theme="light"] body[data-page="unit-plan"] .unit-plan-section .section-copy p {
     border-color: rgba(184, 139, 74, 0.16);
     background:
       linear-gradient(135deg, rgba(145, 83, 117, 0.06), rgba(90, 143, 142, 0.06) 58%, rgba(255, 255, 255, 0.3) 100%),
       var(--surface-field);
-    box-shadow: 0 8px 18px rgba(145, 120, 87, 0.05);
   }
 
-  html[data-theme="light"] body[data-page="unit-plan"] .unit-layout-card-label {
-    color: rgba(96, 77, 58, 0.78);
-  }
-
-  html[data-theme="light"] body[data-page="unit-plan"] .unit-layout-table {
-    background: rgba(252, 248, 242, 0.75);
-    border-color: rgba(184, 139, 74, 0.16);
-  }
-
-  html[data-theme="light"] body[data-page="unit-plan"] .unit-layout-table th,
-  html[data-theme="light"] body[data-page="unit-plan"] .unit-layout-table td {
-    border-color: rgba(184, 139, 74, 0.14);
-  }
-
-  html[data-theme="light"] body[data-page="unit-plan"] .unit-layout-table thead th {
-    background: rgba(255, 248, 241, 0.32);
-    color: var(--text);
-  }
-
-  @media (max-width: 900px) {
-    body[data-page="unit-plan"] .unit-layout-grid,
-    body[data-page="unit-plan"] .unit-layout-cards {
-      grid-template-columns: 1fr;
+  @media (max-width: 980px) {
+    body[data-page="unit-plan"] .unit-plan-hero .axes-hero-nav {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    body[data-page="unit-plan"] #page-sections .section-block {
-      width: 100%;
-      max-width: none;
+    body[data-page="unit-plan"] .unit-plan-map-board,
+    body[data-page="unit-plan"] .unit-plan-grid,
+    body[data-page="unit-plan"] .unit-plan-map-links {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 640px) {
+    body[data-page="unit-plan"] .unit-plan-hero .axes-hero-nav {
+      grid-template-columns: 1fr;
     }
   }
 </style>
-{{ super() }}
-<section class="section-card unit-layout-board" aria-labelledby="unit-plan-board-title">
-  <div class="section-block-inner unit-layout-grid">
-    <div class="unit-layout-cards">
-      <article class="unit-layout-card">
-        <span class="unit-layout-card-label" data-unit-card-label="0"></span>
-        <strong class="unit-layout-card-value" data-unit-card-value="0"></strong>
-      </article>
-      <article class="unit-layout-card">
-        <span class="unit-layout-card-label" data-unit-card-label="1"></span>
-        <strong class="unit-layout-card-value" data-unit-card-value="1"></strong>
-      </article>
-      <article class="unit-layout-card">
-        <span class="unit-layout-card-label" data-unit-card-label="2"></span>
-        <strong class="unit-layout-card-value" data-unit-card-value="2"></strong>
-      </article>
-    </div>
-    <div class="unit-layout-table-shell">
-      <div class="section-headline">
-        <h2 id="unit-plan-board-title" data-unit-table-title></h2>
+
+<section class="section-card axes-hero unit-plan-hero" aria-labelledby="unit-plan-hero-title">
+  <div class="section-block-inner axes-hero-inner">
+    <div class="axes-cli-shell">
+      <div class="axes-cli-topline">
+        <p class="terminal-path axes-hero-path">~/portfolio/{{ page_id }}</p>
+        <p class="axes-cli-note" id="unit-plan-hero-note"></p>
       </div>
-      <table class="home-training-table unit-layout-table">
-        <thead>
-          <tr>
-            <th scope="col" data-unit-table-head="0"></th>
-            <th scope="col" data-unit-table-head="1"></th>
-            <th scope="col" data-unit-table-head="2"></th>
-          </tr>
-        </thead>
-        <tbody data-unit-table-body></tbody>
-      </table>
+      <div class="section-headline">
+        <h1 id="unit-plan-hero-title" data-unit-plan-copy="hero.title"></h1>
+      </div>
+      <div class="section-copy axes-hero-copy" id="unit-plan-hero-copy"></div>
+      <div class="axes-hero-access">
+        <p class="axes-access-kicker" id="unit-plan-hero-nav-label"></p>
+        <p class="axes-access-hint" id="unit-plan-hero-nav-hint"></p>
+        <nav class="axes-hero-nav" id="unit-plan-hero-nav" aria-label="Unit pages access"></nav>
+      </div>
+      <p class="typewriter-line axes-hero-prompt"><span id="unit-plan-hero-prompt"></span><span class="cursor" aria-hidden="true"></span></p>
     </div>
   </div>
 </section>
+{% endblock %}
+
+{% block page_content %}
+<div class="unit-plan-shell">
+  <section class="section-card unit-plan-map reveal" data-reveal="fade-up" aria-labelledby="unit-plan-map-title">
+    <div class="section-block-inner">
+      <div class="unit-plan-map-header">
+        <div class="section-headline">
+          <h2 id="unit-plan-map-title"></h2>
+        </div>
+        <p class="unit-plan-map-copy" id="unit-plan-map-copy"></p>
+      </div>
+
+      <div class="unit-plan-map-board">
+        <article class="unit-plan-map-core">
+          <p class="unit-plan-map-kicker" id="unit-plan-map-kicker"></p>
+          <h3 id="unit-plan-map-core-title"></h3>
+          <p id="unit-plan-map-core-copy"></p>
+        </article>
+        <nav class="unit-plan-map-links" id="unit-plan-map-links"></nav>
+      </div>
+    </div>
+  </section>
+
+  <div class="unit-plan-grid">
+    <section class="section-card unit-plan-section reveal" data-reveal="fade-up" aria-labelledby="unit-plan-overview-title">
+      <div class="section-block-inner">
+        <div class="section-headline">
+          <h2 id="unit-plan-overview-title" data-unit-plan-copy="overview.title"></h2>
+        </div>
+        <div class="section-copy" data-unit-plan-paragraphs="overview.body"></div>
+      </div>
+    </section>
+
+    <section class="section-card unit-plan-section reveal" data-reveal="fade-up" aria-labelledby="unit-plan-implementation-title">
+      <div class="section-block-inner">
+        <div class="section-headline">
+          <h2 id="unit-plan-implementation-title" data-unit-plan-copy="implementation.title"></h2>
+        </div>
+        <div class="section-copy" data-unit-plan-paragraphs="implementation.body"></div>
+      </div>
+    </section>
+
+    <section class="section-card unit-plan-section reveal" data-reveal="fade-up" aria-labelledby="unit-plan-next-title">
+      <div class="section-block-inner">
+        <div class="section-headline">
+          <h2 id="unit-plan-next-title" data-unit-plan-copy="next_action.title"></h2>
+        </div>
+        <div class="section-copy" data-unit-plan-paragraphs="next_action.body"></div>
+      </div>
+    </section>
+  </div>
+</div>
+
 <script>
   (() => {
-    const config = {
+    const unitPlanMapCopy = {
       en: {
-        cardLabels: ["Sections", "Points", "Reading Mode"],
-        tableTitle: "Page Structure",
-        tableHeadings: ["Section", "Purpose", "Density"],
-        focus: "Gateway",
-        roles: ["Orientation", "Implementation", "Next Step"],
-        density: { brief: "Brief", focused: "Focused", detailed: "Detailed" },
-        fallback: "Section"
+        heroNote: "portfolio/unit-plan/~",
+        heroNavLabel: "Unified Access",
+        heroNavHint: "Use these links to move directly to any unit section.",
+        title: "Unit Mind Map",
+        description: "Use this page as the entry point to the full unit. Each card below opens one section so the unit can be reviewed in a clear sequence.",
+        kicker: "Map",
+        coreTitle: "Unit Structure",
+        coreCopy: "Start with the introduction, then move through framework, objectives, assessment, lessons, feedback, impact, reflection, references, and appendices."
       },
       ar: {
-        cardLabels: ["الأقسام", "النقاط", "نمط القراءة"],
-        tableTitle: "هيكل الصفحة",
-        tableHeadings: ["القسم", "الغرض", "الكثافة"],
-        focus: "تمهيدي",
-        roles: ["تمهيد", "تنفيذ", "خطوة تالية"],
-        density: { brief: "موجز", focused: "مركز", detailed: "تفصيلي" },
-        fallback: "قسم"
+        heroNote: "portfolio/unit-plan/~",
+        heroNavLabel: "الوصول الموحد",
+        heroNavHint: "استخدم هذه الروابط للانتقال مباشرة إلى أي قسم من أقسام الوحدة.",
+        title: "الخريطة الذهنية للوحدة",
+        description: "تعمل هذه الصفحة كبوابة مختصرة للوحدة كاملة. افتح كل بطاقة بالترتيب للوصول إلى أقسام الوحدة بصورة واضحة ومنظمة.",
+        kicker: "الخريطة",
+        coreTitle: "بنية الوحدة",
+        coreCopy: "ابدأ بمقدمة الوحدة، ثم انتقل إلى الإطار النظري والأهداف والتقويم والدروس والتغذية الراجعة وقياس الأثر والتأمل والمراجع والملاحق."
       }
     };
 
-    const esc = (value) => String(value || "").replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char]));
-    const densityLabel = (count, pack) => (count > 2 ? pack.density.detailed : count > 1 ? pack.density.focused : pack.density.brief);
-
-    function updateBoard() {
-      const blocks = [...document.querySelectorAll("#page-sections .section-block")];
-      if (!blocks.length) return;
-      const pack = config[document.documentElement.lang === "ar" ? "ar" : "en"];
-      const pointCount = blocks.reduce((total, block) => total + block.querySelectorAll(".section-copy p").length, 0);
-
-      document.querySelectorAll("[data-unit-card-label]").forEach((node, index) => {
-        node.textContent = pack.cardLabels[index] || "";
-      });
-
-      [String(blocks.length), String(pointCount), pack.focus].forEach((value, index) => {
-        const target = document.querySelector(`[data-unit-card-value="${index}"]`);
-        if (target) target.textContent = value;
-      });
-
-      const tableTitle = document.querySelector("[data-unit-table-title]");
-      if (tableTitle) tableTitle.textContent = pack.tableTitle;
-
-      document.querySelectorAll("[data-unit-table-head]").forEach((node, index) => {
-        node.textContent = pack.tableHeadings[index] || "";
-      });
-
-      const tableBody = document.querySelector("[data-unit-table-body]");
-      if (!tableBody) return;
-
-      tableBody.innerHTML = blocks.map((block, index) => {
-        const title = block.querySelector(".section-headline h2")?.textContent.trim() || `${pack.fallback} ${index + 1}`;
-        const density = densityLabel(block.querySelectorAll(".section-copy p").length, pack);
-        return `<tr><th scope="row">${esc(title)}</th><td>${esc(pack.roles[index] || pack.fallback)}</td><td>${esc(density)}</td></tr>`;
-      }).join("");
+    function readPath(source, path) {
+      return path.split(".").reduce((value, key) => (value && Object.prototype.hasOwnProperty.call(value, key) ? value[key] : ""), source);
     }
 
-    function initBoard() {
-      updateBoard();
-      const target = document.getElementById("page-sections");
-      if (!target) return;
-      const observer = new MutationObserver(() => requestAnimationFrame(updateBoard));
-      observer.observe(target, { childList: true, subtree: true });
+    function toParagraphs(value) {
+      const list = Array.isArray(value) ? value : [value];
+      return list.filter(Boolean).map((item) => `<p>${String(item)}</p>`).join("");
     }
 
-    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", initBoard, { once: true });
-    else initBoard();
+    function renderUnitPlanPage() {
+      const APP = window.PORTFOLIO_APP;
+      const dataSet = window.PORTFOLIO_PAGE_DATA?.["unit-plan"];
+      if (!APP || !dataSet) return;
+
+      const lang = APP.state?.lang === "en" ? "en" : "ar";
+      const page = dataSet[lang] || dataSet.ar || dataSet.en || {};
+      const mapCopy = unitPlanMapCopy[lang];
+
+      document.querySelectorAll("[data-unit-plan-copy]").forEach((node) => {
+        const value = readPath(page, node.dataset.unitPlanCopy);
+        node.textContent = value || "";
+      });
+
+      document.querySelectorAll("[data-unit-plan-paragraphs]").forEach((node) => {
+        const value = readPath(page, node.dataset.unitPlanParagraphs);
+        node.innerHTML = toParagraphs(value);
+      });
+
+      const heroCopy = document.getElementById("unit-plan-hero-copy");
+      const heroNote = document.getElementById("unit-plan-hero-note");
+      const heroNavLabel = document.getElementById("unit-plan-hero-nav-label");
+      const heroNavHint = document.getElementById("unit-plan-hero-nav-hint");
+      const heroNav = document.getElementById("unit-plan-hero-nav");
+      const heroPrompt = document.getElementById("unit-plan-hero-prompt");
+
+      const title = document.getElementById("unit-plan-map-title");
+      const description = document.getElementById("unit-plan-map-copy");
+      const kicker = document.getElementById("unit-plan-map-kicker");
+      const coreTitle = document.getElementById("unit-plan-map-core-title");
+      const coreCopy = document.getElementById("unit-plan-map-core-copy");
+      const links = document.getElementById("unit-plan-map-links");
+
+      if (title) title.textContent = mapCopy.title;
+      if (description) description.textContent = mapCopy.description;
+      if (kicker) kicker.textContent = mapCopy.kicker;
+      if (coreTitle) coreTitle.textContent = mapCopy.coreTitle;
+      if (coreCopy) coreCopy.textContent = mapCopy.coreCopy;
+      if (heroCopy) heroCopy.innerHTML = toParagraphs(page.hero?.subtitle || "");
+      if (heroNote) heroNote.textContent = mapCopy.heroNote;
+      if (heroNavLabel) heroNavLabel.textContent = mapCopy.heroNavLabel;
+      if (heroNavHint) heroNavHint.textContent = mapCopy.heroNavHint;
+      if (heroPrompt) heroPrompt.textContent = page.hero?.prompt || "";
+
+      if (links || heroNav) {
+        const unitEntry = APP.getNavStructure?.().find((item) => item.id === "unit-plan");
+        const pages = Array.isArray(unitEntry?.children) ? unitEntry.children : [];
+        const heroNavMarkup = pages.map((id, index) => `
+          <a class="axes-nav-chip" href="${APP.hrefFor(id)}">
+            <span class="axes-nav-index">${String(index + 1).padStart(2, "0")}</span>
+            <span>${APP.U.esc(APP.navLabel(id, lang))}</span>
+          </a>
+        `).join("");
+        const mapMarkup = pages.map((id, index) => `
+          <a class="unit-plan-map-link" href="${APP.hrefFor(id)}">
+            <span class="unit-plan-map-link-index">${String(index + 1).padStart(2, "0")}</span>
+            <strong class="unit-plan-map-link-label">${APP.U.esc(APP.navLabel(id, lang))}</strong>
+          </a>
+        `).join("");
+        if (heroNav) {
+          heroNav.setAttribute("aria-label", mapCopy.heroNavLabel);
+          heroNav.innerHTML = heroNavMarkup;
+        }
+        if (links) {
+          links.setAttribute("aria-label", mapCopy.title);
+          links.innerHTML = mapMarkup;
+        }
+      }
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", renderUnitPlanPage, { once: true });
+    } else {
+      renderUnitPlanPage();
+    }
   })();
 </script>
 {% endblock %}

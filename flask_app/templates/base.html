@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  {% set asset_version = "20260421v6" %}
+  {% set asset_version = "20260422v3" %}
   {% set default_page_title = pages[page_id]["title_ar" if lang == "ar" else "title_en"] if page_id in pages else page_id %}
   <title>{{ default_page_title }} - Portfolio</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css', v=asset_version) }}">
@@ -68,6 +68,212 @@
 
     <section id="unit-footer-nav-root" class="unit-footer-nav-root" hidden></section>
   </main>
+
+  <div id="page-loading-shell" class="page-loading-shell" hidden aria-hidden="true">
+    <div class="page-loading-shell__backdrop"></div>
+    <div class="page-loading-shell__panel terminal-card">
+      <div class="page-loading-shell__hero">
+        <span class="page-loading-shell__eyebrow"></span>
+        <span class="page-loading-shell__title"></span>
+        <span class="page-loading-shell__subtitle"></span>
+      </div>
+      <div class="page-loading-shell__grid">
+        <article class="page-loading-shell__card">
+          <span class="page-loading-shell__line page-loading-shell__line--short"></span>
+          <span class="page-loading-shell__line"></span>
+          <span class="page-loading-shell__line page-loading-shell__line--medium"></span>
+        </article>
+        <article class="page-loading-shell__card">
+          <span class="page-loading-shell__line page-loading-shell__line--short"></span>
+          <span class="page-loading-shell__line"></span>
+          <span class="page-loading-shell__line page-loading-shell__line--medium"></span>
+        </article>
+        <article class="page-loading-shell__card">
+          <span class="page-loading-shell__line page-loading-shell__line--short"></span>
+          <span class="page-loading-shell__line"></span>
+          <span class="page-loading-shell__line page-loading-shell__line--medium"></span>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <div id="project-modal" class="modal embed-modal" hidden aria-hidden="true" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="modal__backdrop" data-close-modal></div>
+    <div class="modal__dialog terminal-card">
+      <div class="modal__header">
+        <div class="modal__title-wrap">
+          <p class="modal__eyebrow" id="modal-eyebrow"></p>
+          <h2 id="modal-title"></h2>
+        </div>
+        <button id="modal-close" class="icon-btn" type="button" aria-label="Close">&times;</button>
+      </div>
+      <p class="modal__status" id="modal-status"></p>
+      <div class="modal__body">
+        <iframe id="modal-iframe" class="modal__iframe" title="Embedded content" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        <div id="modal-fallback" class="modal__fallback" hidden>
+          <p id="modal-fallback-copy"></p>
+          <a id="modal-fallback-link" class="chip unit-footer-link" href="#" target="_blank" rel="noopener noreferrer" data-bypass-embed="true"></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    html[lang="ar"] body {
+      font-family: var(--font-ar), var(--font-ui);
+      text-rendering: optimizeLegibility;
+    }
+
+    html body[data-page^="unit-"] .hero-card,
+    html body[data-page="unit-1-intro"] .page-hero {
+      padding: clamp(1.5rem, 2.4vw, 2.5rem);
+    }
+
+    html body[data-page^="unit-"] #page-sections,
+    html body[data-page="unit-1-intro"] .structured-page {
+      gap: clamp(1rem, 1.8vw, 1.35rem);
+      align-items: stretch;
+    }
+
+    html body[data-page^="unit-"] #page-sections .section-block,
+    html body[data-page="unit-1-intro"] .structured-page > .page-section {
+      overflow: hidden;
+      padding: clamp(1.3rem, 1.7vw, 1.8rem);
+    }
+
+    html body[data-page^="unit-"] #page-sections .section-block .section-block-inner,
+    html body[data-page="unit-1-intro"] .structured-page > .page-section .section-block-inner {
+      display: grid;
+      gap: 0.95rem;
+      height: 100%;
+    }
+
+    html body[data-page^="unit-"] #page-sections .section-headline,
+    html body[data-page="unit-1-intro"] .structured-page > .page-section .page-section-header,
+    html body[data-page="unit-1-intro"] .page-hero .section-headline {
+      display: grid;
+      gap: 0.5rem;
+      align-content: start;
+    }
+
+    html body[data-page^="unit-"] #page-sections .section-headline h2,
+    html body[data-page^="unit-"] .hero-card h1,
+    html body[data-page="unit-1-intro"] .structured-page > .page-section .page-section-title,
+    html body[data-page="unit-1-intro"] .page-hero h1 {
+      line-height: 1.25;
+      text-wrap: balance;
+    }
+
+    html[lang="ar"] body[data-page^="unit-"] #page-sections .section-headline h2,
+    html[lang="ar"] body[data-page^="unit-"] .hero-card h1,
+    html[lang="ar"] body[data-page="unit-1-intro"] .structured-page > .page-section .page-section-title,
+    html[lang="ar"] body[data-page="unit-1-intro"] .page-hero h1 {
+      font-family: var(--font-ar), var(--font-ui);
+      letter-spacing: normal;
+      line-height: 1.4;
+    }
+
+    html body[data-page^="unit-"] #page-sections .section-copy,
+    html body[data-page="unit-1-intro"] .structured-page > .page-section .section-copy,
+    html body[data-page="unit-1-intro"] .page-hero .section-copy {
+      display: grid;
+      gap: 0.8rem;
+      align-content: start;
+    }
+
+    html body[data-page^="unit-"] #page-sections .section-copy p,
+    html body[data-page="unit-1-intro"] .structured-page > .page-section .section-copy p,
+    html body[data-page="unit-1-intro"] .page-hero .section-copy p {
+      margin: 0;
+      max-width: none;
+      font-size: clamp(1rem, 0.88rem + 0.28vw, 1.08rem);
+      line-height: 1.9;
+      text-wrap: pretty;
+    }
+
+    html[lang="ar"] body[data-page^="unit-"] #page-sections .section-copy p,
+    html[lang="ar"] body[data-page="unit-1-intro"] .structured-page > .page-section .section-copy p,
+    html[lang="ar"] body[data-page="unit-1-intro"] .page-hero .section-copy p,
+    html[lang="ar"] body[data-page^="unit-"] #page-sections .section-headline h2,
+    html[lang="ar"] body[data-page^="unit-"] .hero-card h1,
+    html[lang="ar"] body[data-page^="unit-"] #page-sections .home-training-table th,
+    html[lang="ar"] body[data-page^="unit-"] #page-sections .home-training-table td,
+    html[lang="ar"] body[data-page="unit-1-intro"] .home-training-table th,
+    html[lang="ar"] body[data-page="unit-1-intro"] .home-training-table td {
+      font-family: var(--font-ar), var(--font-ui);
+    }
+
+    html body[data-page^="unit-"] #page-sections .home-training-table,
+    html body[data-page="unit-1-intro"] .home-training-table {
+      table-layout: fixed;
+    }
+
+    html body[data-page^="unit-"] #page-sections .home-training-table th,
+    html body[data-page^="unit-"] #page-sections .home-training-table td,
+    html body[data-page="unit-1-intro"] .home-training-table th,
+    html body[data-page="unit-1-intro"] .home-training-table td {
+      padding: 0.95rem 1rem;
+      font-size: clamp(0.94rem, 0.9rem + 0.16vw, 1rem);
+      line-height: 1.75;
+      overflow-wrap: anywhere;
+    }
+
+    html body[data-page^="unit-"] .unit-layout-board {
+      margin-top: 1.15rem;
+      padding: clamp(1rem, 1.8vw, 1.35rem);
+    }
+
+    html body[data-page^="unit-"] .unit-layout-grid {
+      gap: 1rem;
+      align-items: stretch;
+    }
+
+    html body[data-page^="unit-"] .unit-layout-cards {
+      gap: 0.85rem;
+    }
+
+    html body[data-page^="unit-"] .unit-layout-card {
+      min-height: 7rem;
+      align-content: start;
+      padding: 1rem 1.05rem;
+    }
+
+    html body[data-page^="unit-"] .unit-layout-card-label {
+      line-height: 1.5;
+    }
+
+    html body[data-page^="unit-"] .unit-layout-card-value {
+      line-height: 1.45;
+    }
+
+    @media (min-width: 961px) {
+      html body[data-page^="unit-"] #page-sections .section-block:not(:first-child):not(:last-child) {
+        width: min(100%, 38rem);
+        max-width: 38rem;
+      }
+
+      html body[data-page="unit-1-intro"] .structured-page > .page-section:not(:first-child):not(:nth-child(3)) {
+        width: min(100%, 28rem);
+        max-width: 28rem;
+      }
+    }
+
+    @media (max-width: 960px) {
+      html body[data-page^="unit-"] .hero-card,
+      html body[data-page="unit-1-intro"] .page-hero,
+      html body[data-page^="unit-"] #page-sections .section-block,
+      html body[data-page="unit-1-intro"] .structured-page > .page-section,
+      html body[data-page^="unit-"] .unit-layout-board {
+        border-radius: 1rem;
+      }
+
+      html body[data-page="unit-1-intro"] .structured-page > .page-section,
+      html body[data-page^="unit-"] #page-sections .section-block {
+        width: 100%;
+        max-width: none;
+      }
+    }
+  </style>
 
   <div id="guided-root"></div>
 

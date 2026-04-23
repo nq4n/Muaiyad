@@ -263,7 +263,8 @@
       const text = raw.trim().toLowerCase();
       if (!text) return;
       const [command, arg] = text.split(/\s+/, 2);
-      const routes = APP.getRouteMap();
+      const routes = APP.getCliRouteMap ? APP.getCliRouteMap() : APP.getRouteMap();
+      const pageIds = new Set(APP.getCliPageIds ? APP.getCliPageIds() : Object.keys(APP.getPageMap?.() || {}));
       if (command === "help") out.textContent = `${APP.t("commands.help")} | ${APP.t("commands.helpExtra")}`;
       else if (command === "clear") {
         cmd.value = "";
@@ -278,8 +279,16 @@
         const next = arg === "on" ? true : arg === "off" ? false : !APP.state.nav.cli;
         setCliMode(next);
         out.textContent = APP.state.nav.cli ? APP.t("commands.cliEnabled") : APP.t("commands.cliDisabled");
-      } else if (command === "home") window.location.href = APP.hrefFor("home");
-      else if (routes[command]) window.location.href = APP.hrefFor(routes[command]);
+      } else if (command === "home") {
+        out.textContent = `${APP.t("commands.moved")}: home`;
+        window.location.href = APP.hrefFor("home");
+      } else if (routes[command]) {
+        out.textContent = `${APP.t("commands.moved")}: ${routes[command]}`;
+        window.location.href = APP.hrefFor(routes[command]);
+      } else if (pageIds.has(command)) {
+        out.textContent = `${APP.t("commands.moved")}: ${command}`;
+        window.location.href = APP.hrefFor(command);
+      }
       else out.textContent = APP.t("commands.unknown");
       suggestions.innerHTML = "";
     };
@@ -377,21 +386,13 @@
   function bindModalClose() {
     document.querySelectorAll("[data-close-modal]").forEach((element) => {
       element.addEventListener("click", () => {
-        const modal = element.closest(".modal") || document.getElementById("project-modal");
-        if (modal) {
-          modal.hidden = true;
-          modal.setAttribute("aria-hidden", "true");
-        }
+        APP.closeExternalModal?.();
       });
     });
     const closeBtn = document.getElementById("modal-close");
     if (closeBtn) {
       closeBtn.addEventListener("click", () => {
-        const modal = document.getElementById("project-modal");
-        if (modal) {
-          modal.hidden = true;
-          modal.setAttribute("aria-hidden", "true");
-        }
+        APP.closeExternalModal?.();
       });
     }
   }

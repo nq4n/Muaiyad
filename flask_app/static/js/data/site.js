@@ -98,8 +98,8 @@
         }
       },
       "commands": {
-        "help": "Commands: help, home, philosophy, cv, unit, framework, reflections, graduation, other, unit1..unit10, other1..other5, theme [arabesque|light], lang [ar|en], cli [on|off], clear",
-        "helpExtra": "extra: cli, edit, studio, savecontent, resetcontent",
+        "help": "Commands: help, home, philosophy, cv, unit, axes, reflections, graduation, other, unit1..unit10, other1..other5, theme [arabesque|light], lang [ar|en], cli [on|off], clear",
+        "helpExtra": "Page ids also work: unit-plan, conceptual-axes, reflection-papers, graduation-project, other-values and the other route page ids.",
         "unknown": "Unknown command",
         "moved": "Navigating",
         "themeChanged": "Theme changed",
@@ -398,8 +398,8 @@
         }
       },
       "commands": {
-        "help": "الأوامر: help, home, philosophy, cv, unit, framework, reflections, graduation, other, unit1..unit10, other1..other5, theme [arabesque|light], lang [ar|en], cli [on|off], clear",
-        "helpExtra": "إضافي: cli, edit, studio, savecontent, resetcontent",
+        "help": "الأوامر: help, home, philosophy, cv, unit, axes, reflections, graduation, other, unit1..unit10, other1..other5, theme [arabesque|light], lang [ar|en], cli [on|off], clear",
+        "helpExtra": "تعمل أيضاً معرفات الصفحات مباشرة مثل: unit-plan و conceptual-axes و reflection-papers و graduation-project و other-values وبقية معرفات الصفحات المرتبطة.",
         "unknown": "أمر غير معروف",
         "moved": "جاري الانتقال",
         "themeChanged": "تم تغيير الثيم",
@@ -904,7 +904,6 @@
     "philosophy": "philosophy",
     "cv": "cv",
     "unit": "unit-plan",
-    "framework": "framework-axes",
     "axes": "conceptual-axes",
     "reflections": "reflection-papers",
     "graduation": "graduation-project",
@@ -931,7 +930,7 @@
     "philosophy",
     "cv",
     "unit",
-    "framework",
+    "axes",
     "reflections",
     "graduation",
     "other",
@@ -950,8 +949,18 @@
     "other3",
     "other4",
     "other5",
+    "unit-plan",
+    "conceptual-axes",
+    "reflection-papers",
+    "graduation-project",
+    "other-values",
+    "other-workshop",
+    "other-growth",
+    "other-peer-visits",
+    "other-parent-communication",
     "theme",
     "lang",
+    "cli",
     "clear"
   ],
   "themes": [
@@ -1004,7 +1013,7 @@
       "--vignette-edge": "rgba(1, 4, 12, 0.62)",
       "--shadow": "0 16px 44px rgba(2, 5, 14, 0.68)",
       "--font-ui": "\"Cascadia Code\", \"Consolas\", \"Courier New\", monospace",
-      "--font-ar": "\"Tahoma\", \"Segoe UI\", sans-serif"
+      "--font-ar": "\"Tajawal\", \"Tahoma\", \"Segoe UI\", sans-serif"
     },
     "amber": {
       "--bg": "#140b07",

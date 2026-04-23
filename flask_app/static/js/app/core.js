@@ -48,12 +48,24 @@
   APP.getPageMap = () => APP.state.content.pageMap || DATA?.pageMap || {};
   APP.getNavStructure = () => APP.state.content.navStructure || DATA?.navStructure || [];
   APP.getRouteMap = () => APP.state.content.routeMap || DATA?.routeMap || {};
+  APP.getCliRouteMap = () => Object.fromEntries(
+    Object.entries(APP.getRouteMap()).filter(([, target]) => target && target !== "framework-axes")
+  );
+  APP.getCliPageIds = () => Object.keys(APP.getPageMap()).filter((id) => id && id !== "framework-axes");
   APP.getThemes = () => APP.state.content.themes || DATA?.themes || [];
   APP.getDefaultTheme = () => APP.getThemes().includes(APP.state.content.defaultTheme) ? APP.state.content.defaultTheme : (DATA?.defaultTheme || "arabesque");
   APP.getThemePalettes = () => APP.state.content.themePalettes || DATA?.themePalettes || {};
   APP.getNavIcons = () => APP.state.content.navIcons || DATA?.navIcons || {};
   APP.getProfile = () => APP.state.content.profile || DATA?.profile || {};
-  APP.getCommandList = () => [...new Set([...(APP.state.content.commandList || DATA?.commandList || []), "edit", "studio", "cli", "savecontent", "resetcontent"])];
+  APP.getCommandList = () => U.uniqueStrings([
+    "help",
+    ...Object.keys(APP.getCliRouteMap()),
+    ...APP.getCliPageIds(),
+    "theme",
+    "lang",
+    "cli",
+    "clear"
+  ]);
   APP.getLangPack = (lang = APP.state.lang) => (APP.state.content.translations && APP.state.content.translations[lang]) || DATA?.translations?.[lang] || {};
   APP.tr = () => APP.getLangPack(APP.state.lang);
   APP.t = (key, fallback = "") => {
@@ -231,6 +243,197 @@
       root.querySelectorAll(".reveal").forEach((element, index) => {
         setTimeout(() => element.classList.add("is-visible"), index * 80);
       });
+    });
+  };
+
+  const pendingPageLoadKey = "portfolio.pending-page-load";
+
+  APP.hasPendingPageLoad = () => sessionStorage.getItem(pendingPageLoadKey) === "1";
+
+  APP.showPageLoadingShell = function showPageLoadingShell() {
+    const shell = document.getElementById("page-loading-shell");
+    if (!shell) return;
+    document.body.classList.add("is-page-loading");
+    shell.hidden = false;
+  };
+
+  APP.hidePageLoadingShell = function hidePageLoadingShell() {
+    const shell = document.getElementById("page-loading-shell");
+    document.body.classList.remove("is-page-loading");
+    sessionStorage.removeItem(pendingPageLoadKey);
+    if (shell) shell.hidden = true;
+  };
+
+  APP.beginPageTransition = function beginPageTransition(href) {
+    if (!href) return;
+    sessionStorage.setItem(pendingPageLoadKey, "1");
+    APP.showPageLoadingShell();
+    window.setTimeout(() => {
+      window.location.href = href;
+    }, 60);
+  };
+
+  APP.isExternalHref = function isExternalHref(href) {
+    if (!href) return false;
+    try {
+      const url = new URL(href, window.location.href);
+      return url.origin !== window.location.origin;
+    } catch (error) {
+      return false;
+    }
+  };
+
+  APP.embedUrlFor = function embedUrlFor(href) {
+    if (!href) return "";
+    let url;
+    try {
+      url = new URL(href, window.location.href);
+    } catch (error) {
+      return href;
+    }
+
+    if (/drive\.google\.com$/i.test(url.hostname)) {
+      const fileMatch = url.pathname.match(/\/file\/d\/([^/]+)/i);
+      if (fileMatch) return `https://drive.google.com/file/d/${fileMatch[1]}/preview`;
+      const docMatch = url.pathname.match(/\/document\/d\/([^/]+)/i);
+      if (docMatch) return `https://docs.google.com/document/d/${docMatch[1]}/preview`;
+      const slideMatch = url.pathname.match(/\/presentation\/d\/([^/]+)/i);
+      if (slideMatch) return `https://docs.google.com/presentation/d/${slideMatch[1]}/preview`;
+      const sheetMatch = url.pathname.match(/\/spreadsheets\/d\/([^/]+)/i);
+      if (sheetMatch) return `https://docs.google.com/spreadsheets/d/${sheetMatch[1]}/preview`;
+    }
+
+    if (/docs\.google\.com$/i.test(url.hostname)) {
+      const docMatch = url.pathname.match(/\/document\/d\/([^/]+)/i);
+      if (docMatch) return `https://docs.google.com/document/d/${docMatch[1]}/preview`;
+      const slideMatch = url.pathname.match(/\/presentation\/d\/([^/]+)/i);
+      if (slideMatch) return `https://docs.google.com/presentation/d/${slideMatch[1]}/preview`;
+      const sheetMatch = url.pathname.match(/\/spreadsheets\/d\/([^/]+)/i);
+      if (sheetMatch) return `https://docs.google.com/spreadsheets/d/${sheetMatch[1]}/preview`;
+      if (url.searchParams.get("embedded") === "true") return url.toString();
+    }
+
+    return url.toString();
+  };
+
+  APP.openExternalInModal = function openExternalInModal(href, options = {}) {
+    const modal = document.getElementById("project-modal");
+    const titleEl = document.getElementById("modal-title");
+    const eyebrowEl = document.getElementById("modal-eyebrow");
+    const statusEl = document.getElementById("modal-status");
+    const frameEl = document.getElementById("modal-iframe");
+    const fallbackEl = document.getElementById("modal-fallback");
+    const fallbackCopyEl = document.getElementById("modal-fallback-copy");
+    const fallbackLinkEl = document.getElementById("modal-fallback-link");
+    if (!modal || !frameEl || !fallbackEl || !fallbackCopyEl || !fallbackLinkEl) return;
+
+    const lang = APP.state?.lang === "en" ? "en" : "ar";
+    const copy = {
+      en: {
+        eyebrow: "Embedded View",
+        loading: "Loading external content inside the page.",
+        fallback: "This source cannot be displayed inside the site because the provider blocks iframe embedding.",
+        action: "Open In New Tab"
+      },
+      ar: {
+        eyebrow: "عرض مضمّن",
+        loading: "جار تحميل المحتوى الخارجي داخل الصفحة.",
+        fallback: "لا يمكن عرض هذا المصدر داخل الموقع لأن الجهة المزودة تمنع تضمينه داخل إطار iframe.",
+        action: "فتح في تبويب جديد"
+      }
+    }[lang];
+
+    const embeddedHref = APP.embedUrlFor(href);
+    const modalTitle = options.title || options.label || href;
+
+    if (titleEl) titleEl.textContent = modalTitle;
+    if (eyebrowEl) eyebrowEl.textContent = copy.eyebrow;
+    if (statusEl) statusEl.textContent = copy.loading;
+    if (fallbackCopyEl) fallbackCopyEl.textContent = copy.fallback;
+    if (fallbackLinkEl) {
+      fallbackLinkEl.href = href;
+      fallbackLinkEl.textContent = copy.action;
+    }
+
+    fallbackEl.hidden = true;
+    frameEl.hidden = false;
+    frameEl.onload = () => {
+      if (statusEl) statusEl.textContent = "";
+      window.clearTimeout(APP.externalEmbedFallbackTimer);
+    };
+    frameEl.onerror = () => {
+      if (statusEl) statusEl.textContent = "";
+      fallbackEl.hidden = false;
+    };
+    frameEl.src = embeddedHref;
+    modal.hidden = false;
+    modal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("modal-open");
+
+    window.clearTimeout(APP.externalEmbedFallbackTimer);
+    APP.externalEmbedFallbackTimer = window.setTimeout(() => {
+      if (!frameEl.hidden) {
+        fallbackEl.hidden = false;
+      }
+    }, 2200);
+  };
+
+  APP.closeExternalModal = function closeExternalModal() {
+    const modal = document.getElementById("project-modal");
+    const frameEl = document.getElementById("modal-iframe");
+    const fallbackEl = document.getElementById("modal-fallback");
+    const statusEl = document.getElementById("modal-status");
+    if (!modal || !frameEl) return;
+    window.clearTimeout(APP.externalEmbedFallbackTimer);
+    frameEl.src = "about:blank";
+    frameEl.hidden = false;
+    if (fallbackEl) fallbackEl.hidden = true;
+    if (statusEl) statusEl.textContent = "";
+    modal.hidden = true;
+    modal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("modal-open");
+  };
+
+  APP.bindPageTransitions = function bindPageTransitions() {
+    if (APP.pageTransitionsBound) return;
+    APP.pageTransitionsBound = true;
+
+    document.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0) return;
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+
+      const link = event.target.closest("a[href]");
+      if (!link) return;
+      if (link.dataset.bypassEmbed === "true") return;
+      if (link.hasAttribute("download")) return;
+
+      const href = link.getAttribute("href");
+      if (!href || href.startsWith("#") || href.startsWith("mailto:") || href.startsWith("tel:")) return;
+
+      if (APP.isExternalHref(href)) {
+        event.preventDefault();
+        APP.openExternalInModal(href, {
+          title: link.dataset.embedTitle || link.getAttribute("aria-label") || link.textContent.trim()
+        });
+        return;
+      }
+
+      if (link.target && link.target !== "_self") return;
+
+      const url = new URL(link.href, window.location.href);
+      if (url.origin !== window.location.origin) return;
+      if (url.pathname === window.location.pathname && url.search === window.location.search && url.hash === window.location.hash) return;
+
+      event.preventDefault();
+      APP.beginPageTransition(url.href);
+    }, true);
+
+    window.addEventListener("pageshow", () => {
+      APP.hidePageLoadingShell();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") APP.closeExternalModal();
     });
   };
 
