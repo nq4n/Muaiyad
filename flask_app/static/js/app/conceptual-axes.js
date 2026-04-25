@@ -310,6 +310,7 @@
     const anim = section.animation || "fade-up";
     const revealClass = anim === "none" ? "" : " reveal";
     const animAttr = anim === "none" ? "" : `data-reveal="${anim}"`;
+    const idAttr = section.id ? ` id="${U.esc(section.id)}"` : "";
     const header = section.title ? `<div class="section-headline"><h2>${U.esc(section.title)}</h2></div>` : "";
     let content = "";
 
@@ -317,9 +318,9 @@
     else if (type === "image") content = `<figure class="section-media">${section.imageSrc ? `<img src="${U.esc(section.imageSrc)}" alt="${U.esc(section.imageAlt || section.title)}" loading="lazy" />` : ""}${section.imageCaption ? `<figcaption class="section-caption">${U.esc(section.imageCaption)}</figcaption>` : ""}</figure>${section.body ? `<div class="section-copy">${APP.toParagraphs(section.body)}</div>` : ""}`;
     else if (type === "video") content = `<figure class="section-media">${section.videoSrc ? `<video class="section-video" controls preload="metadata" ${section.videoPoster ? `poster="${U.esc(section.videoPoster)}"` : ""}><source src="${U.esc(section.videoSrc)}" /></video>` : ""}${section.videoCaption ? `<figcaption class="section-caption">${U.esc(section.videoCaption)}</figcaption>` : ""}</figure>${section.body ? `<div class="section-copy">${APP.toParagraphs(section.body)}</div>` : ""}`;
     else if (type === "audio") content = `<figure class="section-media">${section.audioSrc ? `<audio class="section-audio" controls preload="metadata"><source src="${U.esc(section.audioSrc)}" /></audio>` : ""}${section.audioCaption ? `<figcaption class="section-caption">${U.esc(section.audioCaption)}</figcaption>` : ""}</figure>${section.body ? `<div class="section-copy">${APP.toParagraphs(section.body)}</div>` : ""}`;
-    else if (type === "html") content = `<div class="section-html">${section.html || ""}</div>`;
+    else if (type === "html") content = `<div class="section-html">${APP.sanitizeCustomHTML(section.html || "")}</div>`;
 
-    return `<section class="section-block ${revealClass}" ${animAttr}><div class="section-block-inner">${header}${content}</div></section>`;
+    return `<section${idAttr} class="section-block ${revealClass}" ${animAttr}><div class="section-block-inner">${header}${content}</div></section>`;
   }
 
   function renderPageContent() {

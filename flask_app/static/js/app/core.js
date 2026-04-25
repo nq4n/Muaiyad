@@ -128,11 +128,16 @@
         .filter(([key]) => key !== "hero")
         .map(([key, section], index) => {
           const fallbackTitle = APP.t("ui.sectionFallback", "Section {n}").replace("{n}", String(index + 1));
-          return {
-            id: key,
-            title: section && section.title ? section.title : fallbackTitle,
-            body: Array.isArray(section && section.body) ? section.body : String((section && section.body) || "")
-          };
+          const normalized = U.isObject(section)
+            ? U.deepClone(section)
+            : { body: Array.isArray(section) ? section : String(section || "") };
+          normalized.id = normalized.id || key;
+          normalized.title = normalized.title || fallbackTitle;
+          if (!Object.prototype.hasOwnProperty.call(normalized, "body")) normalized.body = "";
+          if (!Array.isArray(normalized.body) && typeof normalized.body !== "string") {
+            normalized.body = String(normalized.body || "");
+          }
+          return normalized;
         });
       return {
         title: raw.hero.title || U.titleFromId(pid),

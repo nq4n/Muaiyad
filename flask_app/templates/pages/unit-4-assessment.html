@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+﻿{% extends "base.html" %}
 
 {% block hero %}
 <style>
@@ -18,18 +18,17 @@
   }
 
   body[data-page="unit-4-assessment"] #page-sections {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: stretch;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
     gap: 1rem;
     counter-reset: assessment-step;
   }
 
   body[data-page="unit-4-assessment"] #page-sections .section-block {
-    flex: 1 1 21rem;
-    width: min(100%, 24rem);
-    max-width: 24rem;
+    width: auto;
+    max-width: none;
+    min-width: 0;
     position: relative;
     margin: 0 !important;
     padding: 1.5rem;
@@ -40,6 +39,12 @@
       var(--panel);
     box-shadow: var(--lift-shadow);
     transform: translateY(16px);
+    align-self: start;
+    height: auto;
+  }
+
+  body[data-page="unit-4-assessment"] #page-sections .section-block .section-block-inner {
+    height: auto;
   }
 
   body[data-page="unit-4-assessment"] #page-sections .section-block:nth-child(odd),
@@ -52,10 +57,9 @@
   }
 
   body[data-page="unit-4-assessment"] #page-sections .section-block:first-child,
+  body[data-page="unit-4-assessment"] #page-sections .section-block:nth-child(6),
   body[data-page="unit-4-assessment"] #page-sections .section-block:last-child {
-    flex-basis: min(100%, 78rem);
-    width: min(100%, 78rem);
-    max-width: 78rem;
+    grid-column: 1 / -1;
   }
 
   body[data-page="unit-4-assessment"] #page-sections .section-block:nth-child(n+2):nth-child(-n+6)::before {
@@ -207,6 +211,12 @@
     color: var(--text);
   }
 
+  @media (max-width: 1180px) {
+    body[data-page="unit-4-assessment"] #page-sections {
+      grid-template-columns: 1fr;
+    }
+  }
+
   @media (max-width: 960px) {
     body[data-page="unit-4-assessment"] .unit-layout-grid,
     body[data-page="unit-4-assessment"] .unit-layout-cards {
@@ -221,106 +231,12 @@
 </style>
 {{ super() }}
 <section class="section-card unit-layout-board" aria-labelledby="unit-assessment-board-title">
-  <div class="section-block-inner unit-layout-grid">
-    <div class="unit-layout-cards">
-      <article class="unit-layout-card">
-        <span class="unit-layout-card-label" data-unit-card-label="0"></span>
-        <strong class="unit-layout-card-value" data-unit-card-value="0"></strong>
-      </article>
-      <article class="unit-layout-card">
-        <span class="unit-layout-card-label" data-unit-card-label="1"></span>
-        <strong class="unit-layout-card-value" data-unit-card-value="1"></strong>
-      </article>
-      <article class="unit-layout-card">
-        <span class="unit-layout-card-label" data-unit-card-label="2"></span>
-        <strong class="unit-layout-card-value" data-unit-card-value="2"></strong>
-      </article>
+  <div class="section-block-inner unit-sections-map" data-unit-sections-map>
+    <div class="section-headline">
+      <h2 id="unit-assessment-board-title">{{ "الخريطة الذهنية للأقسام" if lang == "ar" else "Section Mind Map" }}</h2>
     </div>
-    <div class="unit-layout-table-shell">
-      <div class="section-headline">
-        <h2 id="unit-assessment-board-title" data-unit-table-title></h2>
-      </div>
-      <table class="home-training-table unit-layout-table">
-        <thead>
-          <tr>
-            <th scope="col" data-unit-table-head="0"></th>
-            <th scope="col" data-unit-table-head="1"></th>
-            <th scope="col" data-unit-table-head="2"></th>
-          </tr>
-        </thead>
-        <tbody data-unit-table-body></tbody>
-      </table>
-    </div>
+    <ul class="unit-sections-map-list" data-unit-map-list></ul>
   </div>
 </section>
-<script>
-  (() => {
-    const config = {
-      en: {
-        cardLabels: ["Stages", "Points", "Reading Mode"],
-        tableTitle: "Assessment Sequence",
-        tableHeadings: ["Section", "Purpose", "Density"],
-        focus: "Process",
-        roles: ["Overview", "Diagnosis", "Monitoring", "Checks", "Practice", "Outcome", "Close"],
-        density: { brief: "Brief", focused: "Focused", detailed: "Detailed" },
-        fallback: "Stage"
-      },
-      ar: {
-        cardLabels: ["المراحل", "النقاط", "نمط القراءة"],
-        tableTitle: "تسلسل التقويم",
-        tableHeadings: ["القسم", "الغرض", "الكثافة"],
-        focus: "إجرائي",
-        roles: ["مدخل", "تشخيص", "متابعة", "اختبارات", "تطبيق", "نتيجة", "خاتمة"],
-        density: { brief: "موجز", focused: "مركز", detailed: "تفصيلي" },
-        fallback: "مرحلة"
-      }
-    };
-
-    const esc = (value) => String(value || "").replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char]));
-    const densityLabel = (count, pack) => (count > 2 ? pack.density.detailed : count > 1 ? pack.density.focused : pack.density.brief);
-
-    function updateBoard() {
-      const blocks = [...document.querySelectorAll("#page-sections .section-block")];
-      if (!blocks.length) return;
-      const pack = config[document.documentElement.lang === "ar" ? "ar" : "en"];
-      const pointCount = blocks.reduce((total, block) => total + block.querySelectorAll(".section-copy p").length, 0);
-
-      document.querySelectorAll("[data-unit-card-label]").forEach((node, index) => {
-        node.textContent = pack.cardLabels[index] || "";
-      });
-
-      [String(blocks.length), String(pointCount), pack.focus].forEach((value, index) => {
-        const target = document.querySelector(`[data-unit-card-value="${index}"]`);
-        if (target) target.textContent = value;
-      });
-
-      const tableTitle = document.querySelector("[data-unit-table-title]");
-      if (tableTitle) tableTitle.textContent = pack.tableTitle;
-
-      document.querySelectorAll("[data-unit-table-head]").forEach((node, index) => {
-        node.textContent = pack.tableHeadings[index] || "";
-      });
-
-      const tableBody = document.querySelector("[data-unit-table-body]");
-      if (!tableBody) return;
-
-      tableBody.innerHTML = blocks.map((block, index) => {
-        const title = block.querySelector(".section-headline h2")?.textContent.trim() || `${pack.fallback} ${index + 1}`;
-        const density = densityLabel(block.querySelectorAll(".section-copy p").length, pack);
-        return `<tr><th scope="row">${esc(title)}</th><td>${esc(pack.roles[index] || pack.fallback)}</td><td>${esc(density)}</td></tr>`;
-      }).join("");
-    }
-
-    function initBoard() {
-      updateBoard();
-      const target = document.getElementById("page-sections");
-      if (!target) return;
-      const observer = new MutationObserver(() => requestAnimationFrame(updateBoard));
-      observer.observe(target, { childList: true, subtree: true });
-    }
-
-    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", initBoard, { once: true });
-    else initBoard();
-  })();
-</script>
 {% endblock %}
+

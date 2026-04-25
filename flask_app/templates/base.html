@@ -129,19 +129,31 @@
       padding: clamp(1.5rem, 2.4vw, 2.5rem);
     }
 
-    html body[data-page^="unit-"] #page-sections,
+    html body[data-page^="unit-"] #page-sections {
+      gap: clamp(1rem, 1.8vw, 1.35rem);
+      align-items: start;
+      align-content: start;
+    }
+
     html body[data-page="unit-1-intro"] .structured-page {
       gap: clamp(1rem, 1.8vw, 1.35rem);
       align-items: stretch;
+      align-content: start;
     }
 
     html body[data-page^="unit-"] #page-sections .section-block,
     html body[data-page="unit-1-intro"] .structured-page > .page-section {
+      min-width: 0;
       overflow: hidden;
       padding: clamp(1.3rem, 1.7vw, 1.8rem);
     }
 
-    html body[data-page^="unit-"] #page-sections .section-block .section-block-inner,
+    html body[data-page^="unit-"] #page-sections .section-block .section-block-inner {
+      display: grid;
+      gap: 0.95rem;
+      height: auto;
+    }
+
     html body[data-page="unit-1-intro"] .structured-page > .page-section .section-block-inner {
       display: grid;
       gap: 0.95rem;
@@ -224,12 +236,15 @@
     }
 
     html body[data-page^="unit-"] .unit-layout-grid {
-      gap: 1rem;
+      gap: clamp(1rem, 1.8vw, 1.35rem);
+      grid-template-columns: minmax(0, 20rem) minmax(0, 1fr);
       align-items: stretch;
     }
 
     html body[data-page^="unit-"] .unit-layout-cards {
       gap: 0.85rem;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 10.5rem), 1fr));
+      align-content: start;
     }
 
     html body[data-page^="unit-"] .unit-layout-card {
@@ -246,16 +261,133 @@
       line-height: 1.45;
     }
 
+    html body[data-page^="unit-"] .unit-sections-map {
+      display: grid;
+      gap: 1rem;
+    }
+
+    html body[data-page^="unit-"] .unit-sections-map-list {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+      gap: 1rem;
+      margin: 0;
+      padding: 1.25rem 0 0;
+      list-style: none;
+    }
+
+    html body[data-page^="unit-"] .unit-sections-map-list::before {
+      content: "";
+      position: absolute;
+      top: 0.25rem;
+      inset-inline: clamp(1rem, 4vw, 3rem);
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(214, 177, 109, 0.28), transparent);
+    }
+
+    html body[data-page^="unit-"] .unit-sections-map-item {
+      position: relative;
+      padding-top: 1rem;
+    }
+
+    html body[data-page^="unit-"] .unit-sections-map-item::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      inset-inline-start: 50%;
+      width: 1px;
+      height: 1rem;
+      transform: translateX(-50%);
+      background: rgba(214, 177, 109, 0.24);
+    }
+
+    html body[data-page^="unit-"] .unit-sections-map-node {
+      display: grid;
+      min-height: 4.75rem;
+      padding: 1rem 1.1rem;
+      border: 1px solid rgba(214, 177, 109, 0.14);
+      border-radius: 1rem;
+      background:
+        linear-gradient(135deg, var(--accent-3-soft), var(--accent-2-soft) 58%, rgba(255, 255, 255, 0.03) 100%),
+        var(--surface-field);
+      color: var(--text);
+      font-weight: 600;
+      line-height: 1.65;
+      text-align: center;
+      align-items: center;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+    }
+
+    html[data-theme="light"] body[data-page^="unit-"] .unit-sections-map-list::before {
+      background: linear-gradient(90deg, transparent, rgba(184, 139, 74, 0.28), transparent);
+    }
+
+    html[data-theme="light"] body[data-page^="unit-"] .unit-sections-map-item::before {
+      background: rgba(184, 139, 74, 0.24);
+    }
+
+    html[data-theme="light"] body[data-page^="unit-"] .unit-sections-map-node {
+      border-color: rgba(184, 139, 74, 0.16);
+      background:
+        linear-gradient(135deg, rgba(145, 83, 117, 0.06), rgba(90, 143, 142, 0.06) 58%, rgba(255, 255, 255, 0.3) 100%),
+        var(--surface-field);
+      box-shadow: 0 8px 18px rgba(145, 120, 87, 0.05);
+    }
+
+    html body[data-page="unit-plan"] .unit-plan-map-board {
+      gap: clamp(1rem, 1.8vw, 1.35rem);
+      grid-template-columns: minmax(0, 19rem) minmax(0, 1fr);
+    }
+
+    html body[data-page="unit-plan"] .unit-plan-map-links {
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+    }
+
+    html body[data-page="unit-plan"] .unit-plan-grid {
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+    }
+
     @media (min-width: 961px) {
-      html body[data-page^="unit-"] #page-sections .section-block:not(:first-child):not(:last-child) {
-        width: min(100%, 38rem);
-        max-width: 38rem;
+      html body[data-page^="unit-"] #page-sections,
+      html body[data-page="unit-1-intro"] .structured-page {
+        justify-content: flex-start;
       }
 
-      html body[data-page="unit-1-intro"] .structured-page > .page-section:not(:first-child):not(:nth-child(3)) {
-        width: min(100%, 28rem);
-        max-width: 28rem;
+      html body[data-page="unit-1-intro"] .structured-page > .page-section {
+        flex: 1 1 22rem;
+        width: auto;
+        max-width: none;
       }
+
+      html body[data-page="unit-1-intro"] .structured-page > .page-section:first-child,
+      html body[data-page="unit-1-intro"] .structured-page > .page-section:nth-child(3) {
+        flex-basis: 100%;
+      }
+
+      html body[data-page="unit-1-intro"] .structured-page > .page-section:nth-child(2) {
+        flex-grow: 1.2;
+        flex-basis: 28rem;
+      }
+
+      html body[data-page="unit-10-appendices"] #page-sections .section-block {
+        flex: 1 1 30rem;
+        width: auto;
+        max-width: none;
+      }
+
+      html body[data-page="unit-9-references"] #page-sections .section-block {
+        width: auto;
+        max-width: none;
+      }
+
+      html body[data-page="unit-10-appendices"] #page-sections .section-block:first-child {
+        flex: 1 0 100%;
+        width: 100%;
+        max-width: none;
+      }
+    }
+
+    @media (max-width: 1480px) {
     }
 
     @media (max-width: 960px) {
@@ -263,7 +395,9 @@
       html body[data-page="unit-1-intro"] .page-hero,
       html body[data-page^="unit-"] #page-sections .section-block,
       html body[data-page="unit-1-intro"] .structured-page > .page-section,
-      html body[data-page^="unit-"] .unit-layout-board {
+      html body[data-page^="unit-"] .unit-layout-board,
+      html body[data-page="unit-plan"] .unit-plan-map,
+      html body[data-page="unit-plan"] .unit-plan-section {
         border-radius: 1rem;
       }
 
@@ -271,6 +405,22 @@
       html body[data-page^="unit-"] #page-sections .section-block {
         width: 100%;
         max-width: none;
+      }
+
+      html body[data-page^="unit-"] .unit-layout-grid,
+      html body[data-page^="unit-"] .unit-sections-map-list,
+      html body[data-page="unit-plan"] .unit-plan-map-board,
+      html body[data-page="unit-plan"] .unit-plan-map-links,
+      html body[data-page="unit-plan"] .unit-plan-grid {
+        grid-template-columns: 1fr;
+      }
+
+      html body[data-page^="unit-"] .unit-sections-map-list {
+        padding-top: 0.2rem;
+      }
+
+      html body[data-page^="unit-"] .unit-sections-map-list::before {
+        display: none;
       }
     }
   </style>
@@ -286,5 +436,43 @@
   <script src="{{ url_for('static', filename='js/app/home-site-map.js', v=asset_version) }}"></script>
   <script src="{{ url_for('static', filename='js/app/header.js', v=asset_version) }}"></script>
   <script src="{{ url_for('static', filename='js/app.js', v=asset_version) }}"></script>
+  <script>
+    (() => {
+      const esc = (value) => String(value || "").replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char]));
+
+      function updateUnitSectionMaps() {
+        const titles = [...document.querySelectorAll("#page-sections .section-block .section-headline h2")]
+          .map((node) => node.textContent.trim())
+          .filter(Boolean);
+
+        if (!titles.length) return;
+
+        document.querySelectorAll("[data-unit-sections-map]").forEach((container) => {
+          const list = container.querySelector("[data-unit-map-list]");
+          if (!list) return;
+
+          list.innerHTML = titles.map((title) => `
+            <li class="unit-sections-map-item">
+              <span class="unit-sections-map-node">${esc(title)}</span>
+            </li>
+          `).join("");
+        });
+      }
+
+      function initUnitSectionMaps() {
+        const target = document.getElementById("page-sections");
+        const maps = document.querySelectorAll("[data-unit-sections-map]");
+        if (!target || !maps.length) return;
+
+        updateUnitSectionMaps();
+
+        const observer = new MutationObserver(() => requestAnimationFrame(updateUnitSectionMaps));
+        observer.observe(target, { childList: true, subtree: true });
+      }
+
+      if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", initUnitSectionMaps, { once: true });
+      else initUnitSectionMaps();
+    })();
+  </script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 (() => {
   window.PORTFOLIO_PAGE_DATA = window.PORTFOLIO_PAGE_DATA || {};
 
-  const liveProjectHref = "https://nq4n.github.io/research-project/";
+  const liveProjectHref = "https://nq4n.github.io/research-proejct/";
   const repoHref = "https://github.com/nq4n/research-project";
   const logoSrc = "/static/img/virtual-lab-logo.svg?v=20260425b";
   const logoFallbackSrc = "/static/img/virtual-lab-logo-fallback.svg?v=20260425a";
