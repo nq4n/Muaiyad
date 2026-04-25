@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" role="img" aria-labelledby="title desc">
+  <title id="title">Virtual Lab logo</title>
+  <desc id="desc">A blue monitor icon containing two gears and a screwdriver for the Virtual Lab project.</desc>
+
+  <defs>
+    <style>
+      .blue-fill { fill: #4679c8; }
+      .blue-stroke { stroke: #4679c8; }
+      .dark-fill { fill: #3f393d; }
+      .dark-stroke { stroke: #3f393d; }
+    </style>
+  </defs>
+
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="52" y="58" width="216" height="146" rx="12" class="blue-stroke" stroke-width="14"/>
+    <path d="M160 204v30" class="blue-stroke" stroke-width="14"/>
+    <path d="M130 250h60" class="blue-stroke" stroke-width="16"/>
+    <path d="M112 262h96" class="blue-stroke" stroke-width="14"/>
+  </g>
+
+  <g transform="translate(116 129)">
+    <g class="blue-fill">
+      <rect x="-7" y="-61" width="14" height="22" rx="4"/>
+      <rect x="-7" y="39" width="14" height="22" rx="4"/>
+      <rect x="-61" y="-7" width="22" height="14" rx="4"/>
+      <rect x="39" y="-7" width="22" height="14" rx="4"/>
+      <rect x="-47" y="-48" width="18" height="14" rx="4" transform="rotate(-45)"/>
+      <rect x="29" y="-48" width="18" height="14" rx="4" transform="rotate(45)"/>
+      <rect x="-47" y="34" width="18" height="14" rx="4" transform="rotate(45)"/>
+      <rect x="29" y="34" width="18" height="14" rx="4" transform="rotate(-45)"/>
+      <circle r="46"/>
+      <circle r="21" fill="#101315"/>
+    </g>
+  </g>
+
+  <g transform="translate(193 131)">
+    <g class="dark-fill">
+      <rect x="-7" y="-67" width="14" height="24" rx="4"/>
+      <rect x="-7" y="43" width="14" height="24" rx="4"/>
+      <rect x="-67" y="-7" width="24" height="14" rx="4"/>
+      <rect x="43" y="-7" width="24" height="14" rx="4"/>
+      <rect x="-53" y="-54" width="20" height="14" rx="4" transform="rotate(-45)"/>
+      <rect x="33" y="-54" width="20" height="14" rx="4" transform="rotate(45)"/>
+      <rect x="-53" y="40" width="20" height="14" rx="4" transform="rotate(45)"/>
+      <rect x="33" y="40" width="20" height="14" rx="4" transform="rotate(-45)"/>
+      <circle r="52"/>
+      <circle r="25" fill="#101315"/>
+    </g>
+  </g>
+
+  <g transform="translate(161 129) rotate(45)">
+    <rect x="-10" y="-34" width="20" height="54" rx="8" class="blue-fill"/>
+    <rect x="-4" y="18" width="8" height="56" rx="4" class="dark-fill"/>
+    <path d="M-4 74h8l7 15h-22Z" class="dark-fill"/>
+  </g>
+</svg>

@@ -437,7 +437,18 @@
 
     const logo = document.getElementById("graduation-project-logo");
     if (logo) {
-      logo.src = hero.logo_src || "";
+      const primarySrc = hero.logo_src || "";
+      const fallbackSrc = hero.logo_fallback || "";
+      logo.removeAttribute("data-fallback-applied");
+      logo.onerror = null;
+      if (fallbackSrc) {
+        logo.onerror = () => {
+          if (logo.dataset.fallbackApplied === "1") return;
+          logo.dataset.fallbackApplied = "1";
+          logo.src = fallbackSrc;
+        };
+      }
+      logo.src = primarySrc || fallbackSrc;
       logo.alt = hero.logo_alt || hero.title || U.titleFromId(APP.pageId);
     }
 

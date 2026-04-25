@@ -1,9 +1,10 @@
 (() => {
   window.PORTFOLIO_PAGE_DATA = window.PORTFOLIO_PAGE_DATA || {};
 
-  const liveProjectHref = "https://nq4n.github.io/research-proejct/";
-  const repoHref = "https://github.com/nq4n/research-proejct";
-  const logoSrc = "https://raw.githubusercontent.com/nq4n/research-proejct/main/LOGO.png";
+  const liveProjectHref = "https://nq4n.github.io/research-project/";
+  const repoHref = "https://github.com/nq4n/research-project";
+  const logoSrc = "/static/img/virtual-lab-logo.svg?v=20260425b";
+  const logoFallbackSrc = "/static/img/virtual-lab-logo-fallback.svg?v=20260425a";
 
   window.PORTFOLIO_PAGE_DATA["graduation-project"] = {
     en: {
@@ -11,6 +12,7 @@
         kicker: "Graduation Project",
         title: "Virtual Lab For Computer Maintenance",
         logo_src: logoSrc,
+        logo_fallback: logoFallbackSrc,
         logo_alt: "Virtual Lab logo",
         subtitle: [
           "This page presents the graduation project through the platform itself rather than through generic description. The project is a digital learning environment called Virtual Lab, designed to simplify computer maintenance concepts and present them through guided lessons and practical interaction.",
@@ -175,6 +177,7 @@
         kicker: "مشروع التخرج",
         title: "المختبر الافتراضي لصيانة الحاسوب",
         logo_src: logoSrc,
+        logo_fallback: logoFallbackSrc,
         logo_alt: "شعار المختبر الافتراضي",
         subtitle: [
           "تعرض هذه الصفحة مشروع التخرج من خلال المنصة نفسها لا من خلال وصف عام فقط. يتمثل المشروع في بيئة تعلم رقمية باسم المختبر الافتراضي، وقد صُممت لتبسيط مفاهيم صيانة الحاسوب وتقديمها عبر دروس موجهة وتفاعل عملي.",
