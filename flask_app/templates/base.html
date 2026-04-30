@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  {% set asset_version = "20260422v3" %}
+  {% set asset_version = "20260427v1" %}
   {% set default_page_title = pages[page_id]["title_ar" if lang == "ar" else "title_en"] if page_id in pages else page_id %}
   <title>{{ default_page_title }} - Portfolio</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css', v=asset_version) }}">
@@ -68,6 +68,14 @@
 
     <section id="unit-footer-nav-root" class="unit-footer-nav-root" hidden></section>
   </main>
+
+  <footer class="site-footer" aria-label="Portfolio closing statement">
+    <div class="site-footer__inner terminal-card">
+      <span class="site-footer__kicker" aria-hidden="true">INSPIRE</span>
+      <p class="site-footer__quote site-footer__quote--en" lang="en" dir="ltr">Not an end—an introduction to what I aspire to</p>
+      <p class="site-footer__quote site-footer__quote--ar" lang="ar" dir="rtl">الملف ليس ختامًا… بل مقدمة لما أطمح إليه</p>
+    </div>
+  </footer>
 
   <div id="page-loading-shell" class="page-loading-shell" hidden aria-hidden="true">
     <div class="page-loading-shell__backdrop"></div>

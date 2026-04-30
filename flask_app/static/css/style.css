@@ -96,3 +96,69 @@
     font-size: 0.86rem;
   }
 }
+
+.site-footer {
+  width: min(1100px, 92vw);
+  margin: 0 auto clamp(2rem, 5vw, 4rem);
+  position: relative;
+  z-index: 1;
+}
+
+body[data-page="home"] .site-footer {
+  width: min(1480px, 96vw);
+}
+
+.site-footer__inner {
+  display: grid;
+  gap: 0.75rem;
+  justify-items: center;
+  padding: clamp(1.35rem, 3vw, 2.2rem);
+  text-align: center;
+  overflow: hidden;
+}
+
+.site-footer__kicker {
+  color: var(--accent);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.site-footer__quote {
+  margin: 0;
+  max-width: 48rem;
+  color: var(--text);
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1.45;
+  text-wrap: balance;
+}
+
+.site-footer__quote--ar {
+  font-family: var(--font-ar), var(--font-ui);
+  line-height: 1.7;
+}
+
+html[lang="ar"] .site-footer__quote--en,
+html[lang="en"] .site-footer__quote--ar {
+  display: none;
+}
+
+html[lang="ar"] .site-footer {
+  font-family: var(--font-ar), var(--font-ui);
+}
+
+@media (max-width: 640px) {
+  .site-footer {
+    margin-bottom: 2.5rem;
+  }
+
+  .site-footer__inner {
+    padding: 1.2rem 1rem;
+  }
+
+  .site-footer__quote {
+    font-size: 1.45rem;
+  }
+}
