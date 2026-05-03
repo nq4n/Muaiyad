@@ -5,12 +5,17 @@ set "PROJECT=%~dp0"
 if "%PROJECT:~-1%"=="\" set "PROJECT=%PROJECT:~0,-1%"
 set "VENV=%PROJECT%\flask"
 set "VSCODE=C:\Users\Muaiyad\AppData\Local\Programs\Microsoft VS Code\Code.exe"
+set "GITHUB_DESKTOP=%LOCALAPPDATA%\GitHubDesktop\GitHubDesktop.exe"
 set "HOST_URL=http://127.0.0.1:5000/"
 
 cd /d "%PROJECT%"
 
 if exist "%VSCODE%" (
     start "VS Code" "%VSCODE%" "%PROJECT%"
+)
+
+if exist "%GITHUB_DESKTOP%" (
+    start "GitHub Desktop" "%GITHUB_DESKTOP%" "%PROJECT%"
 )
 
 if not exist "%PROJECT%\app.py" (

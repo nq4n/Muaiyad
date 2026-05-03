@@ -23,28 +23,28 @@
             number: "1",
             title: "Specialized Reflective Paper 1",
             description: "Diversity in teaching and addressing individual differences",
-            href: "#",
+            href: "https://drive.google.com/file/d/1GFpWK8iS2g9-AxyqzUZPEJxBrhWaarcF/view?usp=drive_link",
             platform: "drive"
           },
           {
             number: "2",
             title: "Specialized Reflective Paper 2",
             description: "Using assessment results to improve learning",
-            href: "#",
+            href: "https://drive.google.com/file/d/1Vw6mBnP_byMLzEbpgiPKvJxSnqtI_srz/view?usp=drive_link",
             platform: "drive"
           },
           {
             number: "3",
             title: "Specialized Reflective Paper 3",
             description: "Professional responsibility and digital citizenship",
-            href: "#",
+            href: "https://drive.google.com/file/d/1QWHNJM87FyNtpN2DPYp-ltZ4iDIx8DH8/view?usp=drive_link",
             platform: "drive"
           },
           {
             number: "\u2713",
             title: "Comprehensive Reflective Paper",
             description: "A comprehensive paper that connects all axes",
-            href: "/framework-axes",
+            href: "",
             platform: "internal"
           }
         ]
@@ -72,28 +72,28 @@
             number: "1",
             title: "الورقة التأملية التخصصية الأولى",
             description: "التنوع في التدريس ومعالجة الفروق الفردية",
-            href: "#",
+            href: "https://drive.google.com/file/d/1GFpWK8iS2g9-AxyqzUZPEJxBrhWaarcF/view?usp=drive_link",
             platform: "drive"
           },
           {
             number: "2",
             title: "الورقة التأملية التخصصية الثانية",
             description: "استخدام نتائج التقويم في تحسين التعلم",
-            href: "#",
+            href: "https://drive.google.com/file/d/1Vw6mBnP_byMLzEbpgiPKvJxSnqtI_srz/view?usp=drive_link",
             platform: "drive"
           },
           {
             number: "3",
             title: "الورقة التأملية التخصصية الثالثة",
             description: "المسؤولية المهنية والمواطنة الرقمية",
-            href: "#",
+            href: "https://drive.google.com/file/d/1QWHNJM87FyNtpN2DPYp-ltZ4iDIx8DH8/view?usp=drive_link",
             platform: "drive"
           },
           {
             number: "\u2713",
             title: "الورقة التأملية التخصصية الشاملة",
             description: "ورقة شاملة تربط بين جميع المحاور",
-            href: "/framework-axes",
+            href: "",
             platform: "internal"
           }
         ]

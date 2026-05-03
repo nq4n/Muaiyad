@@ -25,7 +25,6 @@ PAGES = {
     "unit-9-references": {"path": "pages/unit-9-references.html", "title_en": "9- References", "title_ar": "9- المراجع العلمية"},
     "unit-10-appendices": {"path": "pages/unit-10-appendices.html", "title_en": "10- Appendices", "title_ar": "10- الملاحق"},
     "conceptual-axes": {"path": "pages/conceptual-axes.html", "title_en": "Conceptual Framework Axes", "title_ar": "محاور الإطار المفاهيمي"},
-    "framework-axes": {"path": "pages/framework-axes.html", "title_en": "Comprehensive Reflection Paper", "title_ar": "الورقة التأملية الشاملة"},
     "reflection-papers": {"path": "pages/reflection-papers.html", "title_en": "Reflection Papers", "title_ar": "الأوراق التأملية"},
     "graduation-project": {"path": "pages/graduation-project.html", "title_en": "Research Project", "title_ar": "مشروع البحث"},
     "other": {"path": "pages/other.html", "title_en": "Other", "title_ar": "أخرى"},
