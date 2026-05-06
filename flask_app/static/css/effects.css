@@ -625,8 +625,14 @@ textarea {
   display: grid;
 }
 
+.modal__body--drive {
+  grid-template-columns: minmax(16rem, 0.34fr) minmax(0, 1fr);
+  gap: 0.85rem;
+}
+
 .modal__iframe,
-.modal__fallback {
+.modal__fallback,
+.modal__drive-folder {
   width: 100%;
   min-height: min(70vh, 760px);
   border: 1px solid var(--border);
@@ -650,6 +656,94 @@ textarea {
   min-width: 12rem;
 }
 
+.modal__drive-folder {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 0.8rem;
+  padding: 1rem;
+  overflow: hidden;
+}
+
+.modal__drive-folder[hidden] {
+  display: none;
+}
+
+.modal__drive-folder-head {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.modal__drive-folder-head strong {
+  color: var(--text);
+  line-height: 1.45;
+}
+
+.modal__drive-folder-head a {
+  color: var(--accent);
+  font-size: 0.9rem;
+  overflow-wrap: anywhere;
+}
+
+.modal__drive-file-list {
+  display: grid;
+  align-content: start;
+  gap: 0.55rem;
+  overflow: auto;
+  padding-inline-end: 0.25rem;
+}
+
+.modal__drive-file,
+.modal__drive-loading {
+  width: 100%;
+  border: 1px solid rgba(214, 177, 109, 0.18);
+  border-radius: 0.85rem;
+  background:
+    linear-gradient(135deg, var(--accent-3-soft), var(--accent-2-soft) 58%, rgba(255, 255, 255, 0.03)),
+    var(--surface-field);
+  color: var(--text);
+}
+
+.modal__drive-file {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.65rem;
+  align-items: center;
+  padding: 0.75rem;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+
+.modal__drive-file:hover,
+.modal__drive-file:focus-visible,
+.modal__drive-file.active {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px rgba(214, 177, 109, 0.08) inset;
+}
+
+.modal__drive-file-icon {
+  display: inline-grid;
+  place-items: center;
+  min-width: 2.25rem;
+  height: 1.7rem;
+  padding-inline: 0.4rem;
+  border: 1px solid rgba(214, 177, 109, 0.24);
+  border-radius: 0.55rem;
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.modal__drive-file-title {
+  overflow-wrap: anywhere;
+  line-height: 1.55;
+}
+
+.modal__drive-loading {
+  margin: 0;
+  padding: 1rem;
+}
+
 body.modal-open {
   overflow: hidden;
 }
@@ -663,8 +757,18 @@ body.modal-open {
 
   .modal__body,
   .modal__iframe,
-  .modal__fallback {
+  .modal__fallback,
+  .modal__drive-folder {
     min-height: 62vh;
+  }
+
+  .modal__body--drive {
+    grid-template-columns: 1fr;
+  }
+
+  .modal__body--drive .modal__drive-folder,
+  .modal__body--drive .modal__iframe {
+    min-height: 32vh;
   }
 }
 

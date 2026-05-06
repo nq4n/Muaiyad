@@ -314,7 +314,7 @@
     const header = section.title ? `<div class="section-headline"><h2>${U.esc(section.title)}</h2></div>` : "";
     let content = "";
 
-    if (type === "text") content = `<div class="section-copy">${APP.toParagraphs(section.body)}</div>`;
+    if (type === "text") content = APP.toStructuredCopy ? APP.toStructuredCopy(section.body) : `<div class="section-copy">${APP.toParagraphs(section.body)}</div>`;
     else if (type === "image") content = `<figure class="section-media">${section.imageSrc ? `<img src="${U.esc(section.imageSrc)}" alt="${U.esc(section.imageAlt || section.title)}" loading="lazy" />` : ""}${section.imageCaption ? `<figcaption class="section-caption">${U.esc(section.imageCaption)}</figcaption>` : ""}</figure>${section.body ? `<div class="section-copy">${APP.toParagraphs(section.body)}</div>` : ""}`;
     else if (type === "video") content = `<figure class="section-media">${section.videoSrc ? `<video class="section-video" controls preload="metadata" ${section.videoPoster ? `poster="${U.esc(section.videoPoster)}"` : ""}><source src="${U.esc(section.videoSrc)}" /></video>` : ""}${section.videoCaption ? `<figcaption class="section-caption">${U.esc(section.videoCaption)}</figcaption>` : ""}</figure>${section.body ? `<div class="section-copy">${APP.toParagraphs(section.body)}</div>` : ""}`;
     else if (type === "audio") content = `<figure class="section-media">${section.audioSrc ? `<audio class="section-audio" controls preload="metadata"><source src="${U.esc(section.audioSrc)}" /></audio>` : ""}${section.audioCaption ? `<figcaption class="section-caption">${U.esc(section.audioCaption)}</figcaption>` : ""}</figure>${section.body ? `<div class="section-copy">${APP.toParagraphs(section.body)}</div>` : ""}`;

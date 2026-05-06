@@ -121,6 +121,57 @@
     return parts.map((part) => `<p>${U.esc(part)}</p>`).join("");
   };
 
+  APP.toStructuredCopy = function toStructuredCopy(value) {
+    const parts = Array.isArray(value)
+      ? value.map((item) => String(item || "").trim()).filter(Boolean)
+      : String(value || "")
+          .split(/\n\s*\n/)
+          .map((item) => item.trim())
+          .filter(Boolean);
+
+    if (parts.length <= 2) return `<div class="section-copy">${APP.toParagraphs(parts)}</div>`;
+
+    const isNumbered = (text) => /^\d+[\.)]\s+/.test(text);
+    const isDefinition = (text) => /^.{2,72}:\s+.+/.test(text);
+    const isListItem = (text) => isNumbered(text) || isDefinition(text);
+    const stripNumber = (text) => text.replace(/^\d+[\.)]\s+/, "");
+    const formatItem = (text) => {
+      const clean = stripNumber(text);
+      const match = clean.match(/^(.{2,72}?):\s+(.+)$/);
+      if (!match) return U.esc(clean);
+      return `<strong>${U.esc(match[1])}:</strong> ${U.esc(match[2])}`;
+    };
+
+    if (parts.every(isNumbered)) {
+      return `<div class="section-copy section-copy--structured"><ol class="section-list section-list--ordered">${parts.map((part) => `<li>${formatItem(part)}</li>`).join("")}</ol></div>`;
+    }
+
+    if (!isListItem(parts[0]) && parts.slice(1).some(isListItem)) {
+      let html = `<p>${U.esc(parts[0])}</p>`;
+      let index = 1;
+      while (index < parts.length) {
+        if (!isListItem(parts[index])) {
+          html += `<p>${U.esc(parts[index])}</p>`;
+          index += 1;
+          continue;
+        }
+
+        const ordered = isNumbered(parts[index]);
+        const tag = ordered ? "ol" : "ul";
+        const className = ordered ? "section-list section-list--ordered" : "section-list";
+        const items = [];
+        while (index < parts.length && isListItem(parts[index]) && isNumbered(parts[index]) === ordered) {
+          items.push(`<li>${formatItem(parts[index])}</li>`);
+          index += 1;
+        }
+        html += `<${tag} class="${className}">${items.join("")}</${tag}>`;
+      }
+      return `<div class="section-copy section-copy--structured">${html}</div>`;
+    }
+
+    return `<div class="section-copy">${APP.toParagraphs(parts)}</div>`;
+  };
+
   APP.normalizeStructuredPage = function normalizeStructuredPage(raw, pid = APP.pageId) {
     if (!U.isObject(raw)) return null;
     if (U.isObject(raw.hero)) {
@@ -298,6 +349,8 @@
     }
 
     if (/drive\.google\.com$/i.test(url.hostname)) {
+      const folderMatch = url.pathname.match(/\/drive\/folders\/([^/]+)/i);
+      if (folderMatch) return `https://drive.google.com/embeddedfolderview?id=${folderMatch[1]}#grid`;
       const fileMatch = url.pathname.match(/\/file\/d\/([^/]+)/i);
       if (fileMatch) return `https://drive.google.com/file/d/${fileMatch[1]}/preview`;
       const docMatch = url.pathname.match(/\/document\/d\/([^/]+)/i);
@@ -321,7 +374,129 @@
     return url.toString();
   };
 
+  APP.openDriveFolderInModal = function openDriveFolderInModal(href, options = {}) {
+    const modal = document.getElementById("project-modal");
+    const titleEl = document.getElementById("modal-title");
+    const eyebrowEl = document.getElementById("modal-eyebrow");
+    const statusEl = document.getElementById("modal-status");
+    const frameEl = document.getElementById("modal-iframe");
+    const fallbackEl = document.getElementById("modal-fallback");
+    const fallbackCopyEl = document.getElementById("modal-fallback-copy");
+    const fallbackLinkEl = document.getElementById("modal-fallback-link");
+    const bodyEl = frameEl?.closest(".modal__body");
+    if (!modal || !frameEl || !fallbackEl || !fallbackCopyEl || !fallbackLinkEl || !bodyEl) return;
+
+    const lang = APP.state?.lang === "en" ? "en" : "ar";
+    const copy = {
+      en: {
+        eyebrow: "Drive Folder",
+        loading: "Loading folder files.",
+        empty: "No public files were found in this folder.",
+        error: "The folder files could not be loaded inside the site.",
+        openOriginal: "Open Folder In Google Drive",
+        folder: "Folder"
+      },
+      ar: {
+        eyebrow: "مجلد Drive",
+        loading: "جار تحميل ملفات المجلد.",
+        empty: "لم يتم العثور على ملفات عامة داخل هذا المجلد.",
+        error: "تعذر تحميل ملفات المجلد داخل الموقع.",
+        openOriginal: "فتح المجلد في Google Drive",
+        folder: "مجلد"
+      }
+    }[lang];
+
+    let driveRoot = document.getElementById("modal-drive-folder");
+    if (!driveRoot) {
+      driveRoot = document.createElement("div");
+      driveRoot.id = "modal-drive-folder";
+      driveRoot.className = "modal__drive-folder";
+      bodyEl.insertBefore(driveRoot, frameEl);
+    }
+
+    const showFallback = (message) => {
+      bodyEl.classList.remove("modal__body--drive");
+      driveRoot.hidden = true;
+      frameEl.hidden = true;
+      fallbackEl.hidden = false;
+      fallbackCopyEl.textContent = message;
+      fallbackLinkEl.href = href;
+      fallbackLinkEl.textContent = copy.openOriginal;
+    };
+
+    const loadFilePreview = (previewUrl, title) => {
+      if (titleEl) titleEl.textContent = title || options.title || href;
+      if (statusEl) statusEl.textContent = "";
+      fallbackEl.hidden = true;
+      frameEl.hidden = false;
+      frameEl.src = previewUrl;
+      driveRoot.querySelectorAll(".modal__drive-file").forEach((button) => {
+        button.classList.toggle("active", button.dataset.previewUrl === previewUrl);
+      });
+    };
+
+    const renderEntries = (entries) => {
+      if (!entries.length) {
+        showFallback(copy.empty);
+        return;
+      }
+
+      driveRoot.hidden = false;
+      frameEl.hidden = false;
+      fallbackEl.hidden = true;
+      bodyEl.classList.add("modal__body--drive");
+      driveRoot.innerHTML = `
+        <div class="modal__drive-folder-head">
+          <strong>${U.esc(options.title || href)}</strong>
+          <a href="${U.esc(href)}" target="_blank" rel="noopener noreferrer" data-bypass-embed="true">${U.esc(copy.openOriginal)}</a>
+        </div>
+        <div class="modal__drive-file-list">
+          ${entries.map((entry, index) => `
+            <button class="modal__drive-file${index === 0 ? " active" : ""}" type="button" data-preview-url="${U.esc(entry.preview_url || entry.href)}" data-title="${U.esc(entry.title || "")}">
+              <span class="modal__drive-file-icon" aria-hidden="true">${entry.type === "folder" ? U.esc(copy.folder) : "PDF"}</span>
+              <span class="modal__drive-file-title">${U.esc(entry.title || "")}</span>
+            </button>
+          `).join("")}
+        </div>
+      `;
+      const first = entries[0];
+      loadFilePreview(first.preview_url || first.href, first.title);
+    };
+
+    if (titleEl) titleEl.textContent = options.title || href;
+    if (eyebrowEl) eyebrowEl.textContent = copy.eyebrow;
+    if (statusEl) statusEl.textContent = copy.loading;
+    driveRoot.hidden = false;
+    driveRoot.innerHTML = `<p class="modal__drive-loading">${U.esc(copy.loading)}</p>`;
+    fallbackEl.hidden = true;
+    frameEl.hidden = true;
+    frameEl.src = "about:blank";
+    bodyEl.classList.add("modal__body--drive");
+    modal.hidden = false;
+    modal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("modal-open");
+
+    driveRoot.onclick = (event) => {
+      const button = event.target.closest(".modal__drive-file");
+      if (!button) return;
+      loadFilePreview(button.dataset.previewUrl, button.dataset.title);
+    };
+
+    fetch(`/api/drive-folder/${encodeURIComponent(options.driveFolderId)}`)
+      .then((response) => {
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.json();
+      })
+      .then((data) => renderEntries(Array.isArray(data.entries) ? data.entries : []))
+      .catch(() => showFallback(copy.error));
+  };
+
   APP.openExternalInModal = function openExternalInModal(href, options = {}) {
+    if (options.driveFolderId) {
+      APP.openDriveFolderInModal(href, options);
+      return;
+    }
+
     const modal = document.getElementById("project-modal");
     const titleEl = document.getElementById("modal-title");
     const eyebrowEl = document.getElementById("modal-eyebrow");
@@ -331,6 +506,13 @@
     const fallbackCopyEl = document.getElementById("modal-fallback-copy");
     const fallbackLinkEl = document.getElementById("modal-fallback-link");
     if (!modal || !frameEl || !fallbackEl || !fallbackCopyEl || !fallbackLinkEl) return;
+    const bodyEl = frameEl.closest(".modal__body");
+    const driveRoot = document.getElementById("modal-drive-folder");
+    if (bodyEl) bodyEl.classList.remove("modal__body--drive");
+    if (driveRoot) {
+      driveRoot.hidden = true;
+      driveRoot.innerHTML = "";
+    }
 
     const lang = APP.state?.lang === "en" ? "en" : "ar";
     const copy = {
@@ -388,12 +570,19 @@
     const frameEl = document.getElementById("modal-iframe");
     const fallbackEl = document.getElementById("modal-fallback");
     const statusEl = document.getElementById("modal-status");
+    const driveRoot = document.getElementById("modal-drive-folder");
+    const bodyEl = frameEl?.closest(".modal__body");
     if (!modal || !frameEl) return;
     window.clearTimeout(APP.externalEmbedFallbackTimer);
     frameEl.src = "about:blank";
     frameEl.hidden = false;
     if (fallbackEl) fallbackEl.hidden = true;
     if (statusEl) statusEl.textContent = "";
+    if (bodyEl) bodyEl.classList.remove("modal__body--drive");
+    if (driveRoot) {
+      driveRoot.hidden = true;
+      driveRoot.innerHTML = "";
+    }
     modal.hidden = true;
     modal.setAttribute("aria-hidden", "true");
     document.body.classList.remove("modal-open");
@@ -418,7 +607,8 @@
       if (APP.isExternalHref(href)) {
         event.preventDefault();
         APP.openExternalInModal(href, {
-          title: link.dataset.embedTitle || link.getAttribute("aria-label") || link.textContent.trim()
+          title: link.dataset.embedTitle || link.getAttribute("aria-label") || link.textContent.trim(),
+          driveFolderId: link.dataset.driveFolderId || ""
         });
         return;
       }

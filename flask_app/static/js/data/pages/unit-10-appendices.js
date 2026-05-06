@@ -5,30 +5,32 @@
       hero: {
         title: "10- Appendices",
         subtitle:
-          "Supporting evidence for the robotics unit, including lesson plans, learning activities, assessment tools, and correction criteria.",
+          "Organized evidence confirming the completion of the robotics unit, including lesson plans, supporting materials, practical activities, the final project, and assessment tools.",
         prompt: "$ open unit-appendices"
       },
       overview: {
         title: "Appendices Overview",
         body: [
-          "These appendices indicate the completion of the robotics unit implementation by presenting selected evidence from the planning, teaching, activity, and assessment stages.",
-          "They include examples of unit lesson plans, learning activities that supported student practice, assessment tools used during implementation, and correction criteria used to judge student performance."
-        ]
-      },
-      evidence_value: {
-        title: "Purpose Of Including Appendices",
-        body: [
-          "The appendices were selected carefully to serve as practical evidence of teaching practice without overloading the main body of the unit plan with procedural details.",
-          "Organizing the evidence in a separate appendices section makes it easier to return to the materials, review the implementation process, and strengthen the credibility of the unit plan."
+          "These appendices indicate the completion of the robotics unit lessons. They include selected evidence from the unit lesson plans, learning-support activities, assessment tools used during implementation, and the correction rules and scoring criteria connected to them.",
+          "The appendices were selected carefully as practical evidence of teaching practice without overloading the main unit plan with procedural details. They are organized in a way that makes the evidence easy to revisit and strengthens the credibility of the unit plan."
         ]
       },
       appendix_items: {
-        title: "Appendix Content",
+        title: "Appendix Links",
+        type: "html",
+        html: `
+          <div class="section-copy">
+            <p><strong>Appendix (1): Unit lesson plans</strong><br><a class="chip appendix-link appendix-link--drive" href="https://drive.google.com/drive/folders/11V_RGa0mMNH1HdRZ-BBh6eZoInx9to6w?usp=drive_link" data-embed-title="Lesson plans folder" data-drive-folder-id="11V_RGa0mMNH1HdRZ-BBh6eZoInx9to6w"><span class="appendix-link-icon" aria-hidden="true">Drive</span><span>Open lesson plans folder</span></a></p>
+            <p><strong>Appendix (2): Presentations and lesson attachments</strong><br><a class="chip appendix-link appendix-link--powerpoint" href="/unit-2-framework"><span class="appendix-link-icon" aria-hidden="true">PPT</span><span>Open lesson presentations</span></a><br><a class="chip appendix-link appendix-link--attachment" href="/unit-4-assessment"><span class="appendix-link-icon" aria-hidden="true">&#128206;</span><span>Open lesson attachments</span></a></p>
+            <p><strong>Appendix (3): Practical activities and final project</strong><br><a class="chip appendix-link appendix-link--attachment" href="/unit-7-impact"><span class="appendix-link-icon" aria-hidden="true">&#128206;</span><span>Open activities and final project</span></a><br><a class="chip appendix-link appendix-link--attachment" href="/unit-8-reflection"><span class="appendix-link-icon" aria-hidden="true">&#128206;</span><span>Open implementation reflection evidence</span></a></p>
+          </div>
+        `
+      },
+      evidence_value: {
+        title: "Connection To The Unit Pages",
         body: [
-          "Lesson plan samples for the robotics unit.",
-          "Learning activities and classroom tasks related to VEXcode VR.",
-          "Assessment tools used to measure student learning.",
-          "Correction rules, scoring criteria, and evidence of student performance where available."
+          "The appendix links connect this closing page with the evidence distributed across the unit pages: lesson preparation, assessment design, implementation evidence, learning-impact analysis, and reflection on teaching practice.",
+          "This organization makes the appendices a practical index for the full unit file rather than a disconnected list of attachments."
         ]
       }
     },
@@ -36,7 +38,7 @@
       hero: {
         title: "10- الملاحق",
         subtitle:
-          "شواهد داعمة لوحدة الروبوتات، تشمل نماذج من خطط الدروس، والأنشطة التعليمية، وأدوات التقويم، وقواعد التصحيح المستخدمة أثناء التطبيق.",
+          "شواهد منظمة تؤكد اكتمال تنفيذ وحدة الروبوتات، وتشمل خطط الدروس، والمواد الداعمة، والأنشطة العملية، والمشروع الختامي، وأدوات التقويم.",
         prompt: "$ open unit-appendices"
       },
       overview: {
@@ -46,20 +48,21 @@
           "وقد تم اختيار هذه الملاحق بعناية لتكون شواهد تطبيقية على الممارسات التدريسية، دون إثقال متن خطة الوحدة بالتفاصيل، مع تنظيمها بصورة تسهّل الرجوع إليها وتدعم مصداقية الخطة."
         ]
       },
-      evidence_value: {
-        title: "أهمية إرفاق الملاحق",
-        body: [
-          "تساعد الملاحق على توثيق الجوانب التطبيقية في الوحدة، وتوضيح العلاقة بين التخطيط والتنفيذ والتقويم بصورة أكثر مباشرة.",
-          "كما تتيح للقارئ الرجوع إلى الأدلة المنظمة التي تبين كيفية تنفيذ الأنشطة، وتوظيف منصة VEXcode VR، وقياس تعلم الطلبة وفق معايير واضحة."
-        ]
-      },
       appendix_items: {
-        title: "محتويات الملاحق",
+        title: "روابط الملاحق",
+        type: "html",
+        html: `
+          <div class="section-copy">
+            <p><strong>ملحق (1): خطط دروس الوحدة</strong><br><a class="chip appendix-link appendix-link--drive" href="https://drive.google.com/drive/folders/11V_RGa0mMNH1HdRZ-BBh6eZoInx9to6w?usp=drive_link" data-embed-title="مجلد خطط الدروس" data-drive-folder-id="11V_RGa0mMNH1HdRZ-BBh6eZoInx9to6w"><span class="appendix-link-icon" aria-hidden="true">Drive</span><span>رابط مجلد خطط الدروس</span></a></p>
+            <p><strong>ملحق (2): العروض التقديمية والمرفقات الخاصة بالدروس</strong><br><a class="chip appendix-link appendix-link--powerpoint" href="/unit-2-framework"><span class="appendix-link-icon" aria-hidden="true">PPT</span><span>رابط عروض الدروس</span></a><br><a class="chip appendix-link appendix-link--attachment" href="https://drive.google.com/drive/folders/148qGE4YrKEtLJcTjUbJFTkZUHIs67H0Q?usp=drive_link"><span class="appendix-link-icon" aria-hidden="true">&#128206;</span><span>رابط مرفقات الدروس</span></a></p>
+          </div>
+        `
+      },
+      evidence_value: {
+        title: "ارتباط الملاحق بصفحات الوحدة",
         body: [
-          "نماذج من خطط دروس وحدة الروبوتات.",
-          "أنشطة تعليمية ومهام صفية مرتبطة بمنصة VEXcode VR.",
-          "أدوات تقويم استخدمت لقياس تعلم الطلبة أثناء التطبيق.",
-          "قواعد التصحيح ومعايير الحكم على الأداء، مع شواهد من أعمال الطلبة عند توفرها."
+          "تربط هذه الملاحق صفحة الختام بالشواهد الموزعة في صفحات الوحدة، مثل إعداد خطط الدروس، وتصميم التقويم، وتوثيق التنفيذ، وقياس أثر التعلم، والتأمل في الممارسات التدريسية.",
+          "وبذلك تصبح صفحة الملاحق فهرسًا تطبيقيًا لملف الوحدة كاملًا، وليست مجرد قائمة منفصلة من المرفقات."
         ]
       }
     }

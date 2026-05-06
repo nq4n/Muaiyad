@@ -127,6 +127,51 @@
       var(--surface-field);
   }
 
+  body[data-page="unit-9-references"] #page-sections .section-html {
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  body[data-page="unit-9-references"] #page-sections .reference-list {
+    display: grid;
+    gap: 0.7rem;
+    margin: 0;
+    padding-inline-start: 1.35rem;
+  }
+
+  body[data-page="unit-9-references"] #page-sections .reference-list li {
+    padding: 0.88rem 1rem;
+    border: 1px solid rgba(214, 177, 109, 0.14);
+    border-radius: 0.95rem;
+    background:
+      linear-gradient(135deg, var(--accent-3-soft), var(--accent-2-soft) 58%, rgba(255, 255, 255, 0.03) 100%),
+      var(--surface-field);
+    color: var(--text);
+    font-size: clamp(1rem, 0.88rem + 0.28vw, 1.08rem);
+    line-height: 1.9;
+  }
+
+  html[lang="ar"] body[data-page="unit-9-references"] #page-sections .reference-list {
+    padding-inline-start: 0;
+    padding-inline-end: 1.35rem;
+  }
+
+  html[lang="ar"] body[data-page="unit-9-references"] #page-sections .reference-list li {
+    font-family: var(--font-ar), var(--font-ui);
+  }
+
+  body[data-page="unit-9-references"] #page-sections .reference-list a {
+    color: var(--accent);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
+    overflow-wrap: anywhere;
+  }
+
+  body[data-page="unit-9-references"] #page-sections .reference-list a:hover,
+  body[data-page="unit-9-references"] #page-sections .reference-list a:focus-visible {
+    color: var(--text);
+  }
+
   html[data-theme="light"] body[data-page="unit-9-references"] .hero-card,
   html[data-theme="light"] body[data-page="unit-9-references"] #page-sections .section-block,
   html[data-theme="light"] body[data-page="unit-9-references"] .unit-layout-board {
@@ -154,7 +199,8 @@
   }
 
   html[data-theme="light"] body[data-page="unit-9-references"] .unit-layout-card,
-  html[data-theme="light"] body[data-page="unit-9-references"] #page-sections .section-copy p {
+  html[data-theme="light"] body[data-page="unit-9-references"] #page-sections .section-copy p,
+  html[data-theme="light"] body[data-page="unit-9-references"] #page-sections .reference-list li {
     border-color: rgba(184, 139, 74, 0.16);
     background:
       linear-gradient(135deg, rgba(145, 83, 117, 0.06), rgba(90, 143, 142, 0.06) 58%, rgba(255, 255, 255, 0.3) 100%),

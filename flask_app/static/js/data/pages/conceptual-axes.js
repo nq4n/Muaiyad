@@ -15,12 +15,19 @@
         academic_reflection_paper: { pageId: "reflection-papers", type: "internal" },
         diversity_reflection_paper: { pageId: "reflection-papers", type: "internal" },
         values_reflection_paper: { pageId: "reflection-papers", type: "internal" },
-        research_great_learning_certificate: { href: "#", type: "placeholder" },
-        research_case_study: { href: "#", type: "placeholder" },
+        research_great_learning_certificate: { href: "https://drive.google.com/file/d/1kXWBfh5xEHZtjOZYIyRqLPbK435zWaYF/view?usp=drive_web", type: "external" },
+        research_learning_difficulty_case_study: { href: "https://drive.google.com/file/d/1Ec3SrpdlzlHy46OneqUGytQNPs39KEqS/view?usp=drive_web", type: "external" },
+        research_pdo_exhibition_participation: { href: "https://drive.google.com/file/d/1JykyQ-TjOTbSCQO-K8UY6jv0MPywiALX/view?usp=drive_web", type: "external" },
+        research_gamification_research: { href: "https://drive.google.com/file/d/1dvwUfDyKgIcwgr-Cq4Hs-jaiMNYtKJUU/view?usp=drive_web", type: "external" },
+        research_project: { pageId: "graduation-project", type: "internal" },
+        research_quality_plan: { href: "https://drive.google.com/file/d/1PI514dwPh08LIEUPCb_UzcyERbMgyBYf/view?usp=drive_web", type: "external" },
         research_video_participation_certificate: { href: "#", type: "placeholder" },
         research_can_research_study: { href: "#", type: "placeholder" },
         research_reflection_paper: { pageId: "reflection-papers", type: "internal" },
-        technology_edupack: { pageId: "graduation-project", type: "internal" },
+        technology_edupack: { href: "https://edupack-new-interface.onrender.com/", type: "external" },
+        technology_pdo_exhibition: { href: "https://nq4n.github.io/PDO-Exhibition/index.html", type: "external" },
+        technology_virtual_lab: { href: "https://nq4n.github.io/research-proejct/", type: "external" },
+        technology_measurement_html: { href: "https://nq4n.github.io/measurement/", type: "external" },
         technology_exhibition_video: { href: "#", type: "placeholder" },
         technology_packet_tracer: { href: "#", type: "placeholder" },
         technology_ias_analysis: { href: "#", type: "placeholder" },
@@ -55,15 +62,6 @@
             "This axis reflects deep academic grounding in instructional and learning technology, alongside the ability to translate theoretical knowledge into intentional instructional design decisions. The artifacts demonstrate a clear connection between theory and practice through educational products built on sound academic foundations and prepared for real teaching use."
           ],
           buttons: [
-            { ref: "academic_courseware", label: "Courseware Project" },
-            { ref: "academic_instructional_design_project", label: "Instructional Design Project" },
-            { ref: "academic_instructional_design_intro", label: "Introduction to Instructional Design" },
-            { ref: "academic_distance_learning_1", label: "Distance Learning Project 1" },
-            { ref: "academic_distance_learning_2", label: "Distance Learning Project 2" },
-            { ref: "academic_full_course_lesson", label: "Full Course Lesson Project" },
-            { ref: "academic_mol", label: "MOL Project" },
-            { ref: "academic_tutorial_csharp", label: "Tutorial C# Video" },
-            { ref: "academic_maintenance_job_aid", label: "Maintenance Job Aid" },
             { ref: "academic_reflection_paper", label: "Axis Reflection Paper" }
           ]
         },
@@ -97,10 +95,12 @@
             "This axis emphasizes the role of research in improving educational practice through observation, evidence, and informed decision making. It also shows how critical and analytical thinking support the interpretation of educational situations while continuous learning remains central to ongoing professional growth."
           ],
           buttons: [
-            { ref: "research_great_learning_certificate", label: "Great Learning Certificate" },
-            { ref: "research_case_study", label: "Case Study" },
-            { ref: "research_video_participation_certificate", label: "Video Participation Certificate" },
-            { ref: "research_can_research_study", label: "Research Study from CAN Research Course" },
+            { ref: "research_great_learning_certificate", label: "Great Learning Certificate in Deep Learning" },
+            { ref: "research_learning_difficulty_case_study", label: "Learning Difficulty Case Study" },
+            { ref: "research_pdo_exhibition_participation", label: "PDO Exhibition Participation" },
+            { ref: "research_gamification_research", label: "Gamification Research" },
+            { ref: "research_project", label: "Research Project" },
+            { ref: "research_quality_plan", label: "Quality Plan" },
             { ref: "research_reflection_paper", label: "Axis Reflection Paper" }
           ]
         },
@@ -113,11 +113,9 @@
           ],
           buttons: [
             { ref: "technology_edupack", label: "EduPack Graduation Project" },
-            { ref: "technology_exhibition_video", label: "Exhibition Video" },
-            { ref: "technology_packet_tracer", label: "Packet Tracer Website" },
-            { ref: "technology_ias_analysis", label: "IAS Analysis Website" },
-            { ref: "technology_medad", label: "Medad Arabic Writing Website" },
-            { ref: "technology_edumap", label: "EduMap College Map Website" },
+            { ref: "technology_pdo_exhibition", label: "PDO Exhibition" },
+            { ref: "technology_virtual_lab", label: "Virtual Lab - Field Graduation Project" },
+            { ref: "technology_measurement_html", label: "Measurement HTML Concepts" },
             { ref: "technology_reflection_paper", label: "Axis Reflection Paper" }
           ]
         }
@@ -149,14 +147,6 @@
             "يعكس هذا المحور مستوى التمكن الأكاديمي الذي بُني عبر فهم متعمق للأسس النظرية في تقنيات التعليم والتعلم، والقدرة على تحويل المعرفة التخصصية إلى تصميمات تعليمية مدروسة تستجيب للأهداف والمحتوى وخصائص المتعلمين. وتبرز الأعمال المدرجة فيه الربط بين النظرية والتطبيق، من خلال تطوير موارد ومشروعات تعليمية تستند إلى مبادئ أكاديمية راسخة، وتترجم الفهم المفاهيمي إلى ممارسات ومنتجات قابلة للتوظيف في السياق التعليمي."
           ],
           buttons: [
-            { ref: "academic_courseware", label: "مشروع Courseware" },
-            { ref: "academic_instructional_design_project", label: "مشروع Instructional Design" },
-            { ref: "academic_instructional_design_intro", label: "Introduction to Instructional Design" },
-            { ref: "academic_distance_learning_1", label: "مشروع Distance Learning" },
-            { ref: "academic_full_course_lesson", label: "مشروع الدرس الكامل للكورس" },
-            { ref: "academic_mol", label: "مشروع MOL" },
-            { ref: "academic_tutorial_csharp", label: "فيديو Tutorial C#" },
-            { ref: "academic_maintenance_job_aid", label: "Job Aid للصيانة" },
             { ref: "academic_reflection_paper", label: "الورقة التأملية للمحور" }
           ]
         },
@@ -190,10 +180,12 @@
             "يبرز هذا المحور أهمية الثقافة البحثية في تطوير الممارسة التعليمية، من خلال الاستناد إلى البيانات والملاحظة والتحليل في فهم المواقف واتخاذ القرارات. كما يعكس توظيف التفكير النقدي والتحليلي في قراءة المشكلات التعليمية، وربط ذلك بالتعلم المستمر والنمو المهني بوصفهما مسارًا دائمًا لتحسين الأداء."
           ],
           buttons: [
-            { ref: "research_great_learning_certificate", label: "شهادة Great Learning" },
-            { ref: "research_case_study", label: "دراسة حالة" },
-            { ref: "research_video_participation_certificate", label: "شهادة مشاركة فيديو" },
-            { ref: "research_can_research_study", label: "دراسة بحثية من كورس CAN Research" },
+            { ref: "research_great_learning_certificate", label: "شهادة Great Learning في التعلم العميق" },
+            { ref: "research_learning_difficulty_case_study", label: "دراسة حالة صعوبات التعلم" },
+            { ref: "research_pdo_exhibition_participation", label: "مشاركة معرض PDO" },
+            { ref: "research_gamification_research", label: "بحث التلعيب" },
+            { ref: "research_project", label: "مشروع البحث" },
+            { ref: "research_quality_plan", label: "خطة الجودة" },
             { ref: "research_reflection_paper", label: "الورقة التأملية للمحور" }
           ]
         },
@@ -206,11 +198,9 @@
           ],
           buttons: [
             { ref: "technology_edupack", label: "مشروع التخرج EduPack" },
-            { ref: "technology_exhibition_video", label: "فيديو Exhibition" },
-            { ref: "technology_packet_tracer", label: "موقع Packet Tracer" },
-            { ref: "technology_ias_analysis", label: "موقع تحليل IAS" },
-            { ref: "technology_medad", label: "موقع Medad للكتابة باللغة العربية" },
-            { ref: "technology_edumap", label: "موقع EduMap خريطة الكلية" },
+            { ref: "technology_pdo_exhibition", label: "معرض PDO" },
+            { ref: "technology_virtual_lab", label: "المختبر الافتراضي - مشروع التخرج الميداني" },
+            { ref: "technology_measurement_html", label: "مفاهيم القياس HTML" },
             { ref: "technology_reflection_paper", label: "الورقة التأملية للمحور" }
           ]
         }

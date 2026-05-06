@@ -5,35 +5,50 @@
       hero: {
         title: "9- References",
         subtitle:
-          "Key references used to design the robotics unit, align lesson content with Grade 6 Information Technology, and support practical learning through VEXcode VR.",
+          "Curriculum, educational, and scientific references used in designing the Grade 6 robotics unit and supporting its theoretical framework.",
         prompt: "$ open unit-references"
       },
       overview: {
-        title: "Role Of The References In The Unit",
+        title: "References Introduction",
         body: [
-          "The references used in this unit were selected because they directly support the planning, implementation, and assessment of the Grade 6 Information Technology robotics unit.",
-          "The student textbook provided the main learning content and sequence of concepts, while the teacher guide supported lesson planning, teaching procedures, and assessment decisions. The VEXcode VR platform was used as the practical environment through which students applied programming, movement, sensing, and problem-solving concepts."
+          "A range of scientific and educational references was used when designing and implementing the robotics unit, as well as when analyzing its outcomes and discussing its learning evidence. These references included theoretical educational sources and applied curriculum sources connected to Grade 6 Information Technology.",
+          "All references were documented according to APA 7 style in both in-text citation and the final reference list, with attention to distinguishing direct and indirect citation in line with academic integrity and intellectual property rights."
         ]
       },
-      curriculum_sources: {
-        title: "Curriculum References",
-        body: [
-          "Student Book for Grade 6 Information Technology. This source was used to identify the target unit content, vocabulary, learning concepts, and the expected level of student understanding.",
-          "Teacher Guide for Information Technology. This source was used to support the organization of lessons, teaching strategies, classroom procedures, learning activities, and assessment methods related to the unit."
-        ]
+      curriculum_references: {
+        title: "1. Curriculum References",
+        type: "html",
+        html: `
+          <ul class="reference-list">
+            <li>Ministry of Education. (2021). <em>Information technology for grade 6 - second semester</em>. Sultanate of Oman.</li>
+            <li>Ministry of Education. (2021). <em>Teacher guide for information technology for grade 6 - second semester</em>. Sultanate of Oman.</li>
+            <li>Ministry of Education. (2023). <em>Information technology teaching standards guide</em>. Sultanate of Oman.</li>
+          </ul>
+        `
       },
-      digital_platform: {
-        title: "Digital Learning Platform",
-        body: [
-          "VEXcode VR was used as the main digital platform for practical application because it allows learners to program a virtual robot, test movement commands, use sensors, apply loops and conditions, and receive immediate visual feedback.",
-          "Platform link: https://vr.vex.com/"
-        ]
+      educational_scientific_references: {
+        title: "2. Educational And Scientific References",
+        type: "html",
+        html: `
+          <ul class="reference-list">
+            <li>Brennan, K., &amp; Resnick, M. (2012). New frameworks for studying and assessing the development of computational thinking. <em>Proceedings of the American Educational Research Association Annual Meeting</em>.</li>
+            <li>Dewey, J. (1938). <em>Experience and education</em>. Macmillan.</li>
+            <li>Hmelo-Silver, C. E. (2004). Problem-based learning: What and how do students learn? <em>Educational Psychology Review, 16</em>(3), 235-266.</li>
+            <li>Papert, S. (1980). <em>Mindstorms: Children, computers, and powerful ideas</em>. Basic Books.</li>
+            <li>Piaget, J. (1970). <em>Science of education and the psychology of the child</em>. Orion Press.</li>
+            <li>VEX Robotics. (n.d.). <em>VEXcode VR</em>. <a href="https://vr.vex.com/" target="_blank" rel="noopener noreferrer">https://vr.vex.com/</a></li>
+            <li>VEX Robotics. (n.d.). <em>Getting started with VEXcode VR</em>. VEX Education. <a href="https://education.vex.com/stemlabs/getting-started-with-vexcode-vr" target="_blank" rel="noopener noreferrer">https://education.vex.com/stemlabs/getting-started-with-vexcode-vr</a></li>
+            <li>VEX Robotics. (2026, March 25). <em>Teaching with VEXcode VR</em>. VEX Library. <a href="https://kb.vex.com/hc/en-us/articles/360042447272-Teaching-with-VEXcode-VR" target="_blank" rel="noopener noreferrer">https://kb.vex.com/hc/en-us/articles/360042447272-Teaching-with-VEXcode-VR</a></li>
+            <li>Vygotsky, L. S. (1978). <em>Mind in society: The development of higher psychological processes</em>. Harvard University Press.</li>
+            <li>Wing, J. M. (2006). Computational thinking. <em>Communications of the ACM, 49</em>(3), 33-35.</li>
+          </ul>
+        `
       },
       unit_connection: {
-        title: "Connection To The Unit Content",
+        title: "Connection To The Theoretical Framework",
         body: [
-          "The textbook and teacher guide were connected to the theoretical parts of the unit, especially the definition of robots, robot components, movement, sensors, and the relationship between programming commands and robot behavior.",
-          "The VEXcode VR platform was connected to the applied parts of the unit, especially practical tasks that require students to control robot movement, draw shapes, use the Gyro sensor, apply variables, and solve challenges through testing and improvement."
+          "The curriculum references were used to determine the unit content, lesson sequence, concepts, expected learning outcomes, and assessment alignment for the Grade 6 second-semester robotics unit.",
+          "The educational and scientific references supported the theoretical framework by grounding the unit in constructivism, experiential learning, problem-based learning, computational thinking, and technology-supported learning."
         ]
       }
     },
@@ -41,35 +56,50 @@
       hero: {
         title: "9- المراجع العلمية",
         subtitle:
-          "مراجع أساسية استندت إليها وحدة الروبوتات في تحديد المحتوى، وتنظيم التعلم، وربط المفاهيم النظرية بالتطبيق العملي عبر منصة VEXcode VR.",
+          "مراجع منهجية وتربوية وعلمية استُخدمت في تصميم وحدة الروبوتات للصف السادس ودعم إطارها النظري.",
         prompt: "$ open unit-references"
       },
       overview: {
-        title: "دور المراجع في بناء الوحدة",
+        title: "مقدمة المراجع",
         body: [
-          "تم اختيار المراجع المرتبطة بهذه الوحدة لأنها تدعم تخطيط وحدة الروبوتات وتنفيذها وتقويم تعلم الطلبة في مادة تقنية المعلومات للصف السادس.",
-          "اعتمدت الوحدة على كتاب الطالب في تحديد المحتوى المعرفي وتسلسل المفاهيم، وعلى دليل المعلم في تنظيم إجراءات التدريس والأنشطة وأساليب التقويم، كما تم توظيف منصة VEXcode VR بوصفها البيئة التطبيقية التي يمارس من خلالها الطلبة البرمجة والتحكم بحركة الروبوت وحل المشكلات."
+          "تم الاستعانة بعدد متنوع من المراجع العلمية والتربوية عند تصميم وتنفيذ وحدة الروبوتات، وكذلك عند تحليل نتائجها ومناقشة مخرجاتها. وقد شملت هذه المراجع مصادر تربوية نظرية، ومراجع تطبيقية مرتبطة بمنهج تقنية المعلومات للصف السادس.",
+          "وقد التُزم في توثيق جميع المراجع بنظام (APA 7)، سواء في متن النصوص أو في قائمة المراجع، مع مراعاة التمييز بين الاقتباسات المباشرة وغير المباشرة، التزامًا بأخلاقيات البحث العلمي وحقوق الملكية الفكرية."
         ]
       },
-      curriculum_sources: {
-        title: "المراجع المنهجية",
-        body: [
-          "كتاب الطالب لمادة تقنية المعلومات للصف السادس. استُخدم هذا المرجع في تحديد محتوى الوحدة، والمفاهيم الرئيسة، والمصطلحات، ومستوى الفهم المتوقع من الطلبة.",
-          "كتاب دليل المعلم لمادة تقنية المعلومات. استُخدم هذا المرجع في دعم تخطيط الدروس، وتنظيم خطوات التنفيذ، واختيار الاستراتيجيات والأنشطة التعليمية، وتحديد أساليب التقويم المناسبة للوحدة."
-        ]
+      curriculum_references: {
+        title: "1. مراجع المنهج الدراسي",
+        type: "html",
+        html: `
+          <ul class="reference-list">
+            <li>وزارة التربية والتعليم. (2021). <em>تقنية المعلومات للصف السادس - الفصل الدراسي الثاني</em>. سلطنة عُمان.</li>
+            <li>وزارة التربية والتعليم. (2021). <em>دليل المعلم لمادة تقنية المعلومات للصف السادس - الفصل الدراسي الثاني</em>. سلطنة عُمان.</li>
+            <li>وزارة التربية والتعليم. (2023). <em>دليل معايير تدريس مادة تقنية المعلومات</em>. سلطنة عُمان.</li>
+          </ul>
+        `
       },
-      digital_platform: {
-        title: "المنصة الرقمية المستخدمة",
-        body: [
-          "تم توظيف منصة VEXcode VR بوصفها المنصة الرقمية الرئيسة للتطبيق العملي، لأنها تتيح للطلبة برمجة روبوت افتراضي، وتجريب أوامر الحركة، واستخدام المستشعرات، وتطبيق التكرار والجمل الشرطية، والحصول على تغذية راجعة مباشرة من خلال المحاكاة.",
-          "رابط المنصة: https://vr.vex.com/"
-        ]
+      educational_scientific_references: {
+        title: "2. المراجع التربوية والعلمية",
+        type: "html",
+        html: `
+          <ul class="reference-list">
+            <li>Brennan, K., &amp; Resnick, M. (2012). New frameworks for studying and assessing the development of computational thinking. <em>Proceedings of the American Educational Research Association Annual Meeting</em>.</li>
+            <li>Dewey, J. (1938). <em>Experience and education</em>. Macmillan.</li>
+            <li>Hmelo-Silver, C. E. (2004). Problem-based learning: What and how do students learn? <em>Educational Psychology Review, 16</em>(3), 235-266.</li>
+            <li>Papert, S. (1980). <em>Mindstorms: Children, computers, and powerful ideas</em>. Basic Books.</li>
+            <li>Piaget, J. (1970). <em>Science of education and the psychology of the child</em>. Orion Press.</li>
+            <li>VEX Robotics. (n.d.). <em>VEXcode VR</em>. <a href="https://vr.vex.com/" target="_blank" rel="noopener noreferrer">https://vr.vex.com/</a></li>
+            <li>VEX Robotics. (n.d.). <em>Getting started with VEXcode VR</em>. VEX Education. <a href="https://education.vex.com/stemlabs/getting-started-with-vexcode-vr" target="_blank" rel="noopener noreferrer">https://education.vex.com/stemlabs/getting-started-with-vexcode-vr</a></li>
+            <li>VEX Robotics. (2026, March 25). <em>Teaching with VEXcode VR</em>. VEX Library. <a href="https://kb.vex.com/hc/en-us/articles/360042447272-Teaching-with-VEXcode-VR" target="_blank" rel="noopener noreferrer">https://kb.vex.com/hc/en-us/articles/360042447272-Teaching-with-VEXcode-VR</a></li>
+            <li>Vygotsky, L. S. (1978). <em>Mind in society: The development of higher psychological processes</em>. Harvard University Press.</li>
+            <li>Wing, J. M. (2006). Computational thinking. <em>Communications of the ACM, 49</em>(3), 33-35.</li>
+          </ul>
+        `
       },
       unit_connection: {
-        title: "ارتباط المراجع بمحتوى الوحدة",
+        title: "ارتباط المراجع بالإطار النظري",
         body: [
-          "ارتبط كتاب الطالب ودليل المعلم بالجوانب النظرية والتنظيمية في الوحدة، مثل مفهوم الروبوت، ومكوناته، وحركته، والمستشعرات، والعلاقة بين الأوامر البرمجية وسلوك الروبوت.",
-          "أما منصة VEXcode VR فارتبطت بالجوانب التطبيقية في الوحدة، وبخاصة المهام العملية التي تتطلب التحكم في حركة الروبوت، ورسم الأشكال، واستخدام مستشعر Gyro، وتوظيف المتغيرات، وحل التحديات من خلال التجريب والتحسين."
+          "استُخدمت مراجع المنهج الدراسي في تحديد محتوى الوحدة، وتسلسل الدروس، والمفاهيم، ونواتج التعلم المتوقعة، ومواءمة أدوات التقويم مع وحدة الروبوتات للصف السادس في الفصل الدراسي الثاني.",
+          "أما المراجع التربوية والعلمية فقد دعمت بناء الإطار النظري للوحدة من خلال الاستناد إلى التعلم البنائي، والتعلم بالخبرة، والتعلم القائم على حل المشكلات، والتفكير الحاسوبي، والتعلم المدعوم بالتكنولوجيا."
         ]
       }
     }

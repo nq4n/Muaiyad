@@ -223,6 +223,105 @@
       font-family: var(--font-ar), var(--font-ui);
     }
 
+    html body[data-page^="unit-"] #page-sections .section-copy--structured {
+      gap: 0.85rem;
+    }
+
+    html body[data-page^="unit-"] #page-sections .section-copy--structured p {
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      color: var(--muted);
+    }
+
+    html body[data-page^="unit-"] #page-sections .section-list {
+      display: grid;
+      gap: 0.55rem;
+      margin: 0;
+      padding-inline-start: 1.35rem;
+      color: var(--text);
+      line-height: 1.8;
+    }
+
+    html body[data-page^="unit-"] #page-sections .section-list li {
+      padding: 0.4rem 0;
+      border-bottom: 1px solid rgba(214, 177, 109, 0.12);
+      font-size: clamp(0.98rem, 0.9rem + 0.2vw, 1.05rem);
+      text-wrap: pretty;
+    }
+
+    html body[data-page^="unit-"] #page-sections .section-list li:last-child {
+      border-bottom: 0;
+    }
+
+    html body[data-page^="unit-"] #page-sections .section-list li::marker {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    html body[data-page^="unit-"] #page-sections .section-list--ordered {
+      list-style: none;
+      padding-inline-start: 0;
+      counter-reset: section-list;
+    }
+
+    html body[data-page^="unit-"] #page-sections .section-list--ordered li {
+      display: grid;
+      grid-template-columns: 2.25rem minmax(0, 1fr);
+      gap: 0.75rem;
+      align-items: start;
+      counter-increment: section-list;
+    }
+
+    html body[data-page^="unit-"] #page-sections .section-list--ordered li::before {
+      content: counter(section-list);
+      display: inline-grid;
+      width: 1.8rem;
+      height: 1.8rem;
+      border: 1px solid rgba(214, 177, 109, 0.22);
+      border-radius: 0.45rem;
+      background: var(--surface-field);
+      color: var(--accent);
+      font-size: 0.82rem;
+      font-weight: 800;
+      line-height: 1;
+      place-items: center;
+    }
+
+    html body[data-page^="unit-"] #page-sections .section-list strong {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    html[lang="ar"] body[data-page^="unit-"] #page-sections .section-list {
+      padding-inline-start: 0;
+      padding-inline-end: 1.35rem;
+    }
+
+    html[lang="ar"] body[data-page^="unit-"] #page-sections .section-list--ordered {
+      padding-inline-end: 0;
+    }
+
+    html[lang="ar"] body[data-page^="unit-"] #page-sections .section-list li {
+      font-family: var(--font-ar), var(--font-ui);
+      line-height: 1.9;
+    }
+
+    html[data-theme="light"] body[data-page^="unit-"] #page-sections .section-copy--structured p {
+      color: rgba(96, 77, 58, 0.78);
+    }
+
+    html[data-theme="light"] body[data-page^="unit-"] #page-sections .section-list li {
+      border-color: rgba(184, 139, 74, 0.14);
+    }
+
+    html[data-theme="light"] body[data-page^="unit-"] #page-sections .section-list--ordered li::before {
+      border-color: rgba(184, 139, 74, 0.2);
+      background: rgba(249, 243, 236, 0.92);
+    }
+
     html body[data-page^="unit-"] #page-sections .home-training-table,
     html body[data-page="unit-1-intro"] .home-training-table {
       table-layout: fixed;

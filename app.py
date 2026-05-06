@@ -1,5 +1,10 @@
 from flask import Flask, render_template, jsonify, redirect, url_for
+import html
 import os
+import re
+from urllib.error import HTTPError, URLError
+from urllib.parse import quote
+from urllib.request import Request, urlopen
 
 app = Flask(
     __name__,
@@ -158,5 +163,69 @@ def api_lang(lang):
     return jsonify({"lang": lang})
 
 
+@app.route("/api/drive-folder/<folder_id>")
+def api_drive_folder(folder_id):
+    if not re.fullmatch(r"[A-Za-z0-9_-]+", folder_id):
+        return jsonify({"error": "Invalid folder id"}), 400
+
+    folder_url = f"https://drive.google.com/embeddedfolderview?id={quote(folder_id)}#grid"
+    request = Request(
+        folder_url,
+        headers={
+            "User-Agent": "Mozilla/5.0 (compatible; PortfolioDriveFolderViewer/1.0)"
+        },
+    )
+
+    try:
+        with urlopen(request, timeout=10) as response:
+            markup = response.read().decode("utf-8", "replace")
+    except (HTTPError, URLError, TimeoutError) as error:
+        return jsonify({"error": f"Unable to load Drive folder: {error}"}), 502
+
+    entries = []
+    entry_pattern = re.compile(
+        r'<div class="flip-entry" id="entry-([^"]+)".*?'
+        r'<a href="([^"]+)"[^>]*>.*?'
+        r'<div class="flip-entry-title">(.*?)</div>',
+        re.DOTALL,
+    )
+
+    for match in entry_pattern.finditer(markup):
+        entry_id = match.group(1)
+        href = html.unescape(match.group(2))
+        title = html.unescape(re.sub(r"<[^>]+>", "", match.group(3))).strip()
+        preview_url = href
+        entry_type = "file"
+
+        drive_file = re.search(r"drive\.google\.com/file/d/([^/]+)", href)
+        docs_file = re.search(r"docs\.google\.com/(document|presentation|spreadsheets)/d/([^/]+)", href)
+        drive_folder = re.search(r"drive\.google\.com/drive/folders/([^/?#]+)", href)
+
+        if drive_file:
+            file_id = drive_file.group(1)
+            preview_url = f"https://drive.google.com/file/d/{file_id}/preview"
+        elif docs_file:
+            doc_type, file_id = docs_file.groups()
+            preview_url = f"https://docs.google.com/{doc_type}/d/{file_id}/preview"
+        elif drive_folder:
+            entry_type = "folder"
+            file_id = drive_folder.group(1)
+            preview_url = f"https://drive.google.com/embeddedfolderview?id={file_id}#grid"
+        else:
+            file_id = entry_id
+
+        entries.append(
+            {
+                "id": file_id,
+                "title": title or entry_id,
+                "href": href,
+                "preview_url": preview_url,
+                "type": entry_type,
+            }
+        )
+
+    return jsonify({"folder_id": folder_id, "entries": entries})
+
+
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=5000)
+    app.run(debug=True, host="0.0.0.0", port=30000)
