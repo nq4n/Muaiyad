@@ -57,7 +57,7 @@
         title: "Field Training Profile",
         rows: {
           candidate_name: { label: "Candidate Name", value: "Muaiayd Suliaman Salim Al Hasani" },
-          field_training_id: { label: "SQU ID", value: "1366298" },
+          field_training_id: { label: "SQU ID", value: "136629" },
           specialization: { label: "Specialization", value: "Instructional and Learning Technology" },
           semester: { label: "Semester", value: "Spring 2026" },
           school: { label: "School", value: "مدرسة محمد بن علي المنذري" },
@@ -146,7 +146,7 @@
         title: "بيانات التدريب الميداني",
         rows: {
           candidate_name: { label: "اسم المرشح", value: "مؤيد سليمان سليم الحسني" },
-          field_training_id: { label: "الرقم الجامعي", value: "1366298" },
+          field_training_id: { label: "الرقم الجامعي", value: "136629" },
           specialization: { label: "التخصص", value: "تقنيات التعليم والتعلم" },
           semester: { label: "الفصل الدراسي", value: "ربيع 2026" },
           school: { label: "المدرسة", value: "مدرسة محمد بن علي المنذري" },
