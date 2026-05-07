@@ -13,6 +13,9 @@
         academic_tutorial_csharp: { href: "#", type: "placeholder" },
         academic_maintenance_job_aid: { href: "#", type: "placeholder" },
         academic_reflection_paper: { pageId: "reflection-papers", type: "internal" },
+        diversity_full_course: { href: "https://drive.google.com/file/d/1xJlO4T6LgfkHLX1VomCr_uLfKlH7OgfL/view?usp=drive_link", type: "external" },
+        diversity_k12_technology_integration_challenges: { href: "https://drive.google.com/file/d/1cCswW_OW3twri44p0oZ_jiV4EtoSJkYQ/view?usp=sharing", type: "external" },
+        diversity_ai_assessment_paper: { href: "https://drive.google.com/file/d/19Ip4jAiw_FQL08krrAwZNN2aUOq9wd0J/view?usp=drive_link", type: "external" },
         diversity_reflection_paper: { pageId: "reflection-papers", type: "internal" },
         values_reflection_paper: { pageId: "reflection-papers", type: "internal" },
         research_great_learning_certificate: { href: "https://drive.google.com/file/d/1kXWBfh5xEHZtjOZYIyRqLPbK435zWaYF/view?usp=drive_web", type: "external" },
@@ -73,6 +76,9 @@
             "This axis highlights attention to learner differences and the use of varied teaching strategies that create fair and flexible opportunities for learning. It reflects the ability to adapt instruction to student needs, backgrounds, and characteristics in ways that support meaningful participation across the classroom."
           ],
           buttons: [
+            { ref: "diversity_full_course", label: "Complete Educational Course" },
+            { ref: "diversity_k12_technology_integration_challenges", label: "Challenges of Integrating Technology in K-12 Education" },
+            { ref: "diversity_ai_assessment_paper", label: "Assessing Artificial Intelligence Tools or Products for Assessment" },
             { ref: "diversity_reflection_paper", label: "Axis Reflection Paper" }
           ]
         },
@@ -158,6 +164,9 @@
             "يركز هذا المحور على الوعي بالفروق الفردية بين المتعلمين، وعلى توظيف استراتيجيات تدريس متنوعة تتيح فرصًا عادلة ومرنة للتعلم. كما يعكس القدرة على تكييف الممارسات التعليمية وفق احتياجات الطلبة وخلفياتهم وخصائصهم المختلفة، بما يدعم المشاركة الفاعلة ويراعي التنوع داخل البيئة الصفية."
           ],
           buttons: [
+            { ref: "diversity_full_course", label: "كورس تعليمي كامل" },
+            { ref: "diversity_k12_technology_integration_challenges", label: "مشاكل تضمين التكنولوجيا في التعليم في K-12" },
+            { ref: "diversity_ai_assessment_paper", label: "ورقة Assessing Artificial Intelligence Tools or Products for Assessment" },
             { ref: "diversity_reflection_paper", label: "الورقة التأملية للمحور" }
           ]
         },
