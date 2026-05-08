@@ -12,11 +12,20 @@
         academic_mol: { href: "#", type: "placeholder" },
         academic_tutorial_csharp: { href: "#", type: "placeholder" },
         academic_maintenance_job_aid: { href: "#", type: "placeholder" },
+        academic_achievement_test: { href: "https://drive.google.com/file/d/1FK94KbxUchcR1UDANxTqKBXSJrt7ZZTx/view?usp=drive_link", type: "external" },
+        academic_isd_tibiaan: { href: "https://drive.google.com/file/d/1A_nZmwcvvZ7lrsb9WiIxFZ75nAmlASl8/view?usp=drive_link", type: "external" },
+        academic_tech_plan_lrtc: { href: "https://drive.google.com/file/d/1jQjAvLpJwf0wS-ur15HehYszZxMXCLdq/view?usp=drive_link", type: "external" },
         academic_reflection_paper: { pageId: "reflection-papers", type: "internal" },
         diversity_full_course: { href: "https://drive.google.com/file/d/1xJlO4T6LgfkHLX1VomCr_uLfKlH7OgfL/view?usp=drive_link", type: "external" },
         diversity_k12_technology_integration_challenges: { href: "https://drive.google.com/file/d/1cCswW_OW3twri44p0oZ_jiV4EtoSJkYQ/view?usp=sharing", type: "external" },
         diversity_ai_assessment_paper: { href: "https://drive.google.com/file/d/19Ip4jAiw_FQL08krrAwZNN2aUOq9wd0J/view?usp=drive_link", type: "external" },
+        diversity_unit_plan: { pageId: "unit-plan", type: "internal" },
+        diversity_lesson_plans_with_reflection: { href: "https://drive.google.com/drive/folders/11V_RGa0mMNH1HdRZ-BBh6eZoInx9to6w?usp=drive_link", type: "external" },
         diversity_reflection_paper: { pageId: "reflection-papers", type: "internal" },
+        values_teacher_oath: { href: "https://drive.google.com/file/d/1Fdq9bB7_OGQVWR_lxovXgGvdj2uR8fDy/view?usp=drive_link", type: "external" },
+        values_ashal_training_certificate: { href: "https://drive.google.com/file/d/12SKtsiTtTAi39NmVoc7fapsfZn5sCfjd/view?usp=drive_link", type: "external" },
+        values_professional_case_paper: { href: "https://drive.google.com/file/d/1hOyNoR4s-54ujVI0a5qQqTZH-RApIvK3/view?usp=drive_link", type: "external" },
+        values_teaching_philosophy: { pageId: "philosophy", type: "internal" },
         values_reflection_paper: { pageId: "reflection-papers", type: "internal" },
         research_great_learning_certificate: { href: "https://drive.google.com/file/d/1kXWBfh5xEHZtjOZYIyRqLPbK435zWaYF/view?usp=drive_web", type: "external" },
         research_learning_difficulty_case_study: { href: "https://drive.google.com/file/d/1Ec3SrpdlzlHy46OneqUGytQNPs39KEqS/view?usp=drive_web", type: "external" },
@@ -65,6 +74,10 @@
             "This axis reflects deep academic grounding in instructional and learning technology, alongside the ability to translate theoretical knowledge into intentional instructional design decisions. The artifacts demonstrate a clear connection between theory and practice through educational products built on sound academic foundations and prepared for real teaching use."
           ],
           buttons: [
+            { ref: "academic_achievement_test", label: "Achievement Test" },
+            { ref: "academic_isd_tibiaan", label: "ISD for Tibiaan" },
+            { ref: "academic_tech_plan_lrtc", label: "Technology Plan LRTC" },
+            { ref: "diversity_unit_plan", label: "Unit Plan" },
             { ref: "academic_reflection_paper", label: "Axis Reflection Paper" }
           ]
         },
@@ -79,6 +92,7 @@
             { ref: "diversity_full_course", label: "Complete Educational Course" },
             { ref: "diversity_k12_technology_integration_challenges", label: "Challenges of Integrating Technology in K-12 Education" },
             { ref: "diversity_ai_assessment_paper", label: "Assessing Artificial Intelligence Tools or Products for Assessment" },
+            { ref: "diversity_lesson_plans_with_reflection", label: "Lesson Plans with Reflections" },
             { ref: "diversity_reflection_paper", label: "Axis Reflection Paper" }
           ]
         },
@@ -90,6 +104,10 @@
             "This axis represents the professional ethics, responsibility, and commitment that guide educational practice, together with respect for learners and positive relationships within the school environment. It also reflects a reflective professional identity that continually reviews educational decisions and refines practice."
           ],
           buttons: [
+            { ref: "values_teacher_oath", label: "Teacher Oath" },
+            { ref: "values_ashal_training_certificate", label: "Certificate for Training with Ashal" },
+            { ref: "values_professional_case_paper", label: "Professional Case Paper" },
+            { ref: "values_teaching_philosophy", label: "Teaching Philosophy" },
             { ref: "values_reflection_paper", label: "Axis Reflection Paper" }
           ]
         },
@@ -153,6 +171,10 @@
             "يعكس هذا المحور مستوى التمكن الأكاديمي الذي بُني عبر فهم متعمق للأسس النظرية في تقنيات التعليم والتعلم، والقدرة على تحويل المعرفة التخصصية إلى تصميمات تعليمية مدروسة تستجيب للأهداف والمحتوى وخصائص المتعلمين. وتبرز الأعمال المدرجة فيه الربط بين النظرية والتطبيق، من خلال تطوير موارد ومشروعات تعليمية تستند إلى مبادئ أكاديمية راسخة، وتترجم الفهم المفاهيمي إلى ممارسات ومنتجات قابلة للتوظيف في السياق التعليمي."
           ],
           buttons: [
+            { ref: "academic_achievement_test", label: "اختبار تحصيلي" },
+            { ref: "academic_isd_tibiaan", label: "تصميم تعليمي لتبيان" },
+            { ref: "academic_tech_plan_lrtc", label: "خطة تقنية LRTC" },
+            { ref: "diversity_unit_plan", label: "خطة الوحدة" },
             { ref: "academic_reflection_paper", label: "الورقة التأملية للمحور" }
           ]
         },
@@ -167,6 +189,7 @@
             { ref: "diversity_full_course", label: "كورس تعليمي كامل" },
             { ref: "diversity_k12_technology_integration_challenges", label: "مشاكل تضمين التكنولوجيا في التعليم في K-12" },
             { ref: "diversity_ai_assessment_paper", label: "ورقة Assessing Artificial Intelligence Tools or Products for Assessment" },
+            { ref: "diversity_lesson_plans_with_reflection", label: "خطط الدروس مع التأملات" },
             { ref: "diversity_reflection_paper", label: "الورقة التأملية للمحور" }
           ]
         },
@@ -178,6 +201,10 @@
             "يجسد هذا المحور القيم والتوجهات المهنية التي تحكم الممارسة التعليمية، من التزام بالمسؤولية وأخلاقيات المهنة، واحترام للمتعلمين، وبناء علاقات إيجابية داخل البيئة المدرسية. كما يعكس وعيًا بالهوية المهنية التأملية التي تدفع نحو المراجعة المستمرة للمواقف والقرارات التربوية وتحسين أثرها."
           ],
           buttons: [
+            { ref: "values_teacher_oath", label: "قسم المعلم" },
+            { ref: "values_ashal_training_certificate", label: "شهادة التدريب مع أسهل" },
+            { ref: "values_professional_case_paper", label: "ورقة الحالة المهنية" },
+            { ref: "values_teaching_philosophy", label: "الفلسفة التعليمية" },
             { ref: "values_reflection_paper", label: "الورقة التأملية للمحور" }
           ]
         },
