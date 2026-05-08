@@ -588,6 +588,47 @@
     document.body.classList.remove("modal-open");
   };
 
+  APP.bindWorkshopInlineModal = function bindWorkshopInlineModal() {
+    if (APP.workshopInlineModalBound) return;
+    APP.workshopInlineModalBound = true;
+
+    const closeModal = () => {
+      document.querySelectorAll(".workshop-inline-modal").forEach((modal) => {
+        modal.hidden = true;
+        modal.setAttribute("aria-hidden", "true");
+      });
+      document.body.classList.remove("modal-open");
+    };
+
+    document.addEventListener("click", (event) => {
+      const opener = event.target.closest("[data-workshop-modal]");
+      if (opener) {
+        event.preventDefault();
+        event.stopPropagation();
+        const modalId = `workshop-modal-${opener.dataset.workshopModal}`;
+        const modal = document.getElementById(modalId);
+        if (!modal) return;
+        if (modal.parentElement !== document.body) {
+          document.body.appendChild(modal);
+        }
+        modal.hidden = false;
+        modal.setAttribute("aria-hidden", "false");
+        document.body.classList.add("modal-open");
+        modal.querySelector(".workshop-inline-modal__close")?.focus?.();
+        return;
+      }
+
+      if (event.target.closest("[data-workshop-modal-close]")) {
+        event.preventDefault();
+        closeModal();
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeModal();
+    });
+  };
+
   APP.bindPageTransitions = function bindPageTransitions() {
     if (APP.pageTransitionsBound) return;
     APP.pageTransitionsBound = true;

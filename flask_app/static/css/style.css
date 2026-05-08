@@ -149,7 +149,402 @@ html[lang="ar"] .site-footer {
   font-family: var(--font-ar), var(--font-ui);
 }
 
+body[data-page="other-workshop"] #page-sections {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(0.75rem, 1.2vw, 1rem);
+  width: 100%;
+  padding: 0;
+  margin-inline: auto;
+  direction: ltr;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+body[data-page="other-workshop"] #page-sections .section-block {
+  margin: 0;
+  padding: clamp(1rem, 1.5vw, 1.35rem);
+  border: 1px solid rgba(214, 177, 109, 0.16);
+  border-radius: 0.95rem;
+  background:
+    radial-gradient(circle at top right, var(--accent-2-soft), transparent 24%),
+    radial-gradient(circle at bottom left, var(--accent-3-soft), transparent 30%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0) 34%),
+    var(--panel);
+  box-shadow: var(--shadow), 0 0 0 1px rgba(255, 255, 255, 0.025) inset;
+  transform: translateY(24px);
+  overflow: hidden;
+}
+
+body[data-page="other-workshop"] #page-sections .section-block:nth-child(odd),
+body[data-page="other-workshop"] #page-sections .section-block:nth-child(even) {
+  transform: translateY(24px);
+}
+
+body[data-page="other-workshop"] #page-sections .section-block.is-visible,
+body[data-page="other-workshop"] #page-sections .section-block:nth-child(odd).is-visible,
+body[data-page="other-workshop"] #page-sections .section-block:nth-child(even).is-visible {
+  transform: translateY(0);
+}
+
+body[data-page="other-workshop"] #page-sections .section-block-inner {
+  gap: 0.75rem;
+  overflow: visible;
+}
+
+body[data-page="other-workshop"] #page-sections .section-headline h2 {
+  margin: 0;
+  font-size: clamp(1.35rem, 1rem + 0.9vw, 1.85rem);
+  line-height: 1.45;
+}
+
+body[data-page="other-workshop"] #page-sections .section-copy p {
+  max-width: 64rem;
+  font-size: clamp(1rem, 0.94rem + 0.22vw, 1.08rem);
+  line-height: 1.95;
+  text-wrap: pretty;
+}
+
+body[data-page="other-workshop"] #page-sections .section-block:nth-child(2) {
+  justify-items: center;
+  text-align: center;
+}
+
+body[data-page="other-workshop"] #page-sections .section-block:nth-child(1),
+body[data-page="other-workshop"] #page-sections .section-block:nth-child(3),
+body[data-page="other-workshop"] #page-sections .section-block:nth-child(5) {
+  grid-column: 2;
+  direction: rtl;
+}
+
+body[data-page="other-workshop"] #page-sections .section-block:nth-child(2),
+body[data-page="other-workshop"] #page-sections .section-block:nth-child(4) {
+  grid-column: 1;
+  direction: rtl;
+}
+
+body[data-page="other-workshop"] #page-sections .section-block:nth-child(6) {
+  grid-column: 1 / -1;
+  direction: rtl;
+}
+
+body[data-page="other-workshop"] #page-sections .section-block:nth-child(2) {
+  grid-row: 1 / span 2;
+  align-self: start;
+}
+
+body[data-page="other-workshop"] #page-sections .section-block:nth-child(4) {
+  grid-row: 3 / span 2;
+  align-self: start;
+}
+
+body[data-page="other-workshop"] #page-sections .section-block:nth-child(3),
+body[data-page="other-workshop"] #page-sections .section-block:nth-child(5) {
+  background:
+    radial-gradient(circle at top left, var(--accent-3-soft), transparent 24%),
+    radial-gradient(circle at bottom right, var(--accent-2-soft), transparent 30%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0) 34%),
+    var(--panel);
+}
+
+body[data-page="other-workshop"] .section-media {
+  display: grid;
+  gap: 0.85rem;
+  justify-items: center;
+  margin: 0;
+}
+
+body[data-page="other-workshop"] .section-media img {
+  width: min(100%, 34rem);
+  border: 1px solid rgba(214, 177, 109, 0.2);
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.22);
+}
+
+body[data-page="other-workshop"] .section-caption {
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  text-align: center;
+}
+
+.workshop-resource-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.65rem;
+  direction: ltr;
+}
+
+.workshop-resource-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.65rem;
+  align-items: center;
+  min-height: 4.25rem;
+  padding: 0.8rem 0.9rem;
+  border: 1px solid rgba(214, 177, 109, 0.18);
+  border-radius: 0.75rem;
+  background:
+    linear-gradient(135deg, var(--accent-3-soft), rgba(255, 255, 255, 0.03)),
+    var(--surface-field);
+  color: var(--text);
+  font-weight: 700;
+  font: inherit;
+  line-height: 1.6;
+  text-decoration: none;
+}
+
+.workshop-resource-card:is(button) {
+  cursor: pointer;
+  width: 100%;
+}
+
+.workshop-resource-card:is(button):hover,
+.workshop-resource-card:is(button):focus-visible {
+  border-color: var(--accent);
+  background:
+    linear-gradient(135deg, var(--accent-soft), var(--accent-2-soft) 58%, rgba(255, 255, 255, 0.03)),
+    var(--surface-field);
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.workshop-resource-dot {
+  width: 0.65rem;
+  height: 0.65rem;
+  border-radius: 999px;
+  background: var(--accent);
+  box-shadow: 0 0 0 0.25rem rgba(214, 177, 109, 0.12);
+}
+
+.workshop-resource-label {
+  overflow-wrap: anywhere;
+}
+
+.training-needs-gallery {
+  display: grid;
+  gap: 1rem;
+}
+
+.workshop-inline-modal[hidden] {
+  display: none;
+}
+
+.workshop-inline-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  padding: clamp(1rem, 3vw, 2rem);
+}
+
+.workshop-inline-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(2, 8, 9, 0.76);
+  backdrop-filter: blur(8px);
+}
+
+.workshop-inline-modal__dialog {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 1rem;
+  width: min(100%, 74rem);
+  max-height: min(92vh, 58rem);
+  overflow: auto;
+  padding: clamp(1rem, 2vw, 1.5rem);
+}
+
+.workshop-planning-paper {
+  display: grid;
+  gap: 1rem;
+  color: var(--text);
+}
+
+.workshop-planning-paper section {
+  display: grid;
+  gap: 0.65rem;
+  padding: clamp(1rem, 1.7vw, 1.35rem);
+  border: 1px solid rgba(214, 177, 109, 0.14);
+  border-radius: 0.85rem;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.workshop-planning-cover {
+  justify-items: center;
+  text-align: center;
+}
+
+.workshop-planning-paper h2,
+.workshop-planning-paper h4,
+.workshop-planning-paper h5,
+.workshop-planning-paper p {
+  margin: 0;
+}
+
+.workshop-planning-paper h2 {
+  color: var(--accent);
+  font-size: clamp(1.5rem, 1.1rem + 1.3vw, 2.3rem);
+}
+
+.workshop-planning-paper h4 {
+  color: var(--accent);
+  font-size: clamp(1.15rem, 1rem + 0.55vw, 1.45rem);
+}
+
+.workshop-planning-paper h5 {
+  color: var(--text);
+  font-size: 1.02rem;
+}
+
+.workshop-planning-paper p,
+.workshop-planning-paper li {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.9;
+}
+
+.workshop-planning-paper ul,
+.workshop-planning-paper ol {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0;
+  padding-inline-start: 1.4rem;
+}
+
+html[lang="ar"] .workshop-planning-paper ul,
+html[lang="ar"] .workshop-planning-paper ol {
+  padding-inline-start: 0;
+  padding-inline-end: 1.4rem;
+}
+
+.workshop-inline-modal__header {
+  display: flex;
+  gap: 1rem;
+  align-items: start;
+  justify-content: space-between;
+}
+
+.workshop-inline-modal__eyebrow {
+  margin: 0 0 0.3rem;
+  color: var(--accent);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.workshop-inline-modal__header h3 {
+  margin: 0;
+  color: var(--text);
+  font-size: clamp(1.2rem, 1rem + 0.9vw, 1.75rem);
+  line-height: 1.5;
+}
+
+.workshop-inline-modal__close {
+  flex: 0 0 auto;
+}
+
+.training-needs-note {
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(1rem, 0.94rem + 0.22vw, 1.08rem);
+  line-height: 1.9;
+}
+
+.training-needs-chart {
+  display: grid;
+  gap: 0.65rem;
+  margin: 0;
+  padding: 0.85rem;
+  border: 1px solid rgba(214, 177, 109, 0.16);
+  border-radius: 0.9rem;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.training-needs-chart--animated {
+  opacity: 0;
+  transform: translateY(18px) scale(0.985);
+  animation: trainingChartIn 0.75s ease forwards;
+}
+
+.training-needs-chart--animated:nth-of-type(2) {
+  animation-delay: 0.18s;
+}
+
+.training-needs-chart img {
+  width: 100%;
+  border-radius: 0.7rem;
+  border: 1px solid rgba(214, 177, 109, 0.14);
+  background: #0d1718;
+}
+
+.training-needs-chart figcaption {
+  color: var(--text);
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.6;
+  text-align: center;
+}
+
+@keyframes trainingChartIn {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+html[lang="ar"] .workshop-resource-card {
+  direction: rtl;
+  font-family: var(--font-ar), var(--font-ui);
+  text-align: right;
+}
+
+html[lang="en"] .workshop-resource-card {
+  direction: ltr;
+  text-align: left;
+}
+
+html[data-theme="light"] body[data-page="other-workshop"] .section-media img,
+html[data-theme="light"] .workshop-resource-card,
+html[data-theme="light"] .training-needs-chart,
+html[data-theme="light"] .training-needs-chart img {
+  border-color: rgba(184, 139, 74, 0.18);
+}
+
+html[data-theme="light"] body[data-page="other-workshop"] #page-sections .section-block {
+  border-color: rgba(184, 139, 74, 0.16);
+  box-shadow: 0 14px 28px rgba(145, 120, 87, 0.07);
+}
+
+@media (max-width: 900px) {
+  body[data-page="other-workshop"] #page-sections {
+    grid-template-columns: 1fr;
+    direction: inherit;
+  }
+
+  body[data-page="other-workshop"] #page-sections .section-block:nth-child(1),
+  body[data-page="other-workshop"] #page-sections .section-block:nth-child(2),
+  body[data-page="other-workshop"] #page-sections .section-block:nth-child(3),
+  body[data-page="other-workshop"] #page-sections .section-block:nth-child(4),
+  body[data-page="other-workshop"] #page-sections .section-block:nth-child(5),
+  body[data-page="other-workshop"] #page-sections .section-block:nth-child(6) {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .workshop-resource-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 640px) {
+  .workshop-resource-grid {
+    grid-template-columns: 1fr;
+  }
+
   .site-footer {
     margin-bottom: 2.5rem;
   }

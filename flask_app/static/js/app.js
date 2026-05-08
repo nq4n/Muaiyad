@@ -14,6 +14,7 @@
   function bindAll() {
     APP.bindModalClose();
     APP.bindNavActivity();
+    APP.bindWorkshopInlineModal?.();
   }
 
   function initLoadingScreen() {
