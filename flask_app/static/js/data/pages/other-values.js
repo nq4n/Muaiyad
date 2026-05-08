@@ -30,13 +30,13 @@
         ]
       },
       paper_access: {
-        title: "Related Reflection Paper",
+        title: "Related Documents",
         type: "html",
         html: `
           <div class="resource-actions resource-actions--single">
-            <a class="resource-action" href="/reflection-papers">
+            <a class="resource-action" href="https://docs.google.com/document/d/1Fciej4E6qk__BPp9EJNCjYWSYcaLG3PQ/edit?usp=drive_link&amp;ouid=107827144153311419788&amp;rtpof=true&amp;sd=true" data-embed-title="Professional Values Scenarios Document">
               <span class="resource-action__icon" aria-hidden="true">&#8599;</span>
-              <span class="resource-action__label">Open The Paper</span>
+              <span class="resource-action__label">Open Scenarios Document</span>
             </a>
           </div>
         `
@@ -71,13 +71,13 @@
         ]
       },
       paper_access: {
-        title: "الورقة المرتبطة",
+        title: "المستندات المرتبطة",
         type: "html",
         html: `
           <div class="resource-actions resource-actions--single">
-            <a class="resource-action" href="/reflection-papers">
+            <a class="resource-action" href="https://docs.google.com/document/d/1Fciej4E6qk__BPp9EJNCjYWSYcaLG3PQ/edit?usp=drive_link&amp;ouid=107827144153311419788&amp;rtpof=true&amp;sd=true" data-embed-title="مستند سيناريوهات القيم المهنية">
               <span class="resource-action__icon" aria-hidden="true">&#8599;</span>
-              <span class="resource-action__label">الاطلاع على الورقة</span>
+              <span class="resource-action__label">فتح مستند السيناريوهات</span>
             </a>
           </div>
         `

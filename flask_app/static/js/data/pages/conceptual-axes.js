@@ -10,32 +10,32 @@
         academic_distance_learning_2: { href: "#", type: "placeholder" },
         academic_full_course_lesson: { href: "#", type: "placeholder" },
         academic_mol: { href: "#", type: "placeholder" },
-        academic_tutorial_csharp: { href: "#", type: "placeholder" },
+        academic_oman_science_festival_attendance: { href: "#", type: "placeholder" },
         academic_maintenance_job_aid: { href: "#", type: "placeholder" },
-        academic_achievement_test: { href: "https://drive.google.com/file/d/1FK94KbxUchcR1UDANxTqKBXSJrt7ZZTx/view?usp=drive_link", type: "external" },
+        academic_achievement_test: { href: "https://drive.google.com/file/d/1-P27uwYTF9Of6azlwF6r3Q6NH8CwtYbY/view?usp=drive_link", type: "external" },
         academic_isd_tibiaan: { href: "https://drive.google.com/file/d/1A_nZmwcvvZ7lrsb9WiIxFZ75nAmlASl8/view?usp=drive_link", type: "external" },
         academic_tech_plan_lrtc: { href: "https://drive.google.com/file/d/1jQjAvLpJwf0wS-ur15HehYszZxMXCLdq/view?usp=drive_link", type: "external" },
-        academic_reflection_paper: { pageId: "reflection-papers", type: "internal" },
+        academic_reflection_paper: { href: "https://docs.google.com/document/d/1TxhG2AGikQWQDrhLIwGzSDgl8OqPbr8r/edit?usp=drive_link&ouid=107827144153311419788&rtpof=true&sd=true", type: "external" },
         diversity_full_course: { href: "https://drive.google.com/file/d/1xJlO4T6LgfkHLX1VomCr_uLfKlH7OgfL/view?usp=drive_link", type: "external" },
         diversity_k12_technology_integration_challenges: { href: "https://drive.google.com/file/d/1cCswW_OW3twri44p0oZ_jiV4EtoSJkYQ/view?usp=sharing", type: "external" },
         diversity_ai_assessment_paper: { href: "https://drive.google.com/file/d/19Ip4jAiw_FQL08krrAwZNN2aUOq9wd0J/view?usp=drive_link", type: "external" },
         diversity_unit_plan: { pageId: "unit-plan", type: "internal" },
         diversity_lesson_plans_with_reflection: { href: "https://drive.google.com/drive/folders/11V_RGa0mMNH1HdRZ-BBh6eZoInx9to6w?usp=drive_link", type: "external" },
-        diversity_reflection_paper: { pageId: "reflection-papers", type: "internal" },
+        diversity_reflection_paper: { href: "https://docs.google.com/document/d/1qPWmx2tP5QiTTI8JITaBWcTI-GEIFh7K/edit?usp=drive_link&ouid=107827144153311419788&rtpof=true&sd=true", type: "external" },
         values_teacher_oath: { href: "https://drive.google.com/file/d/1Fdq9bB7_OGQVWR_lxovXgGvdj2uR8fDy/view?usp=drive_link", type: "external" },
         values_ashal_training_certificate: { href: "https://drive.google.com/file/d/12SKtsiTtTAi39NmVoc7fapsfZn5sCfjd/view?usp=drive_link", type: "external" },
         values_professional_case_paper: { href: "https://drive.google.com/file/d/1hOyNoR4s-54ujVI0a5qQqTZH-RApIvK3/view?usp=drive_link", type: "external" },
         values_teaching_philosophy: { pageId: "philosophy", type: "internal" },
-        values_reflection_paper: { pageId: "reflection-papers", type: "internal" },
+        values_reflection_paper: { href: "https://docs.google.com/document/d/1-otsqdzLpBNZuWAkftVIbVZXRYH6Vv8h/edit?usp=drive_link&ouid=107827144153311419788&rtpof=true&sd=true", type: "external" },
         research_great_learning_certificate: { href: "https://drive.google.com/file/d/1kXWBfh5xEHZtjOZYIyRqLPbK435zWaYF/view?usp=drive_web", type: "external" },
         research_learning_difficulty_case_study: { href: "https://drive.google.com/file/d/1Ec3SrpdlzlHy46OneqUGytQNPs39KEqS/view?usp=drive_web", type: "external" },
-        research_pdo_exhibition_participation: { href: "https://drive.google.com/file/d/1JykyQ-TjOTbSCQO-K8UY6jv0MPywiALX/view?usp=drive_web", type: "external" },
+        research_pdo_exhibition_participation: { href: "https://drive.google.com/file/d/1oX_plIxbmylWz1W0iXznUvLnkkCzVfth/view?usp=drive_link", type: "external" },
         research_gamification_research: { href: "https://drive.google.com/file/d/1dvwUfDyKgIcwgr-Cq4Hs-jaiMNYtKJUU/view?usp=drive_web", type: "external" },
         research_project: { pageId: "graduation-project", type: "internal" },
         research_quality_plan: { href: "https://drive.google.com/file/d/1PI514dwPh08LIEUPCb_UzcyERbMgyBYf/view?usp=drive_web", type: "external" },
         research_video_participation_certificate: { href: "#", type: "placeholder" },
         research_can_research_study: { href: "#", type: "placeholder" },
-        research_reflection_paper: { pageId: "reflection-papers", type: "internal" },
+        research_reflection_paper: { href: "https://docs.google.com/document/d/1Pikhy5VPwVdaoxlicdjbnnWdAa3ofu3Y/edit?usp=drive_link&ouid=107827144153311419788&rtpof=true&sd=true", type: "external" },
         technology_edupack: { href: "https://edupack-new-interface.onrender.com/", type: "external" },
         technology_pdo_exhibition: { href: "https://nq4n.github.io/PDO-Exhibition/index.html", type: "external" },
         technology_virtual_lab: { href: "https://nq4n.github.io/research-proejct/", type: "external" },
@@ -45,7 +45,7 @@
         technology_ias_analysis: { href: "#", type: "placeholder" },
         technology_medad: { href: "#", type: "placeholder" },
         technology_edumap: { href: "#", type: "placeholder" },
-        technology_reflection_paper: { pageId: "reflection-papers", type: "internal" }
+        technology_reflection_paper: { href: "https://docs.google.com/document/d/1MQiXyoLIRKTTksZ46s1Wj95xwsq0aRZS/edit?usp=drive_link&ouid=107827144153311419788&rtpof=true&sd=true", type: "external" }
       }
     },
     en: {
@@ -69,15 +69,15 @@
         {
           id: "academic-mastery",
           kicker: "Axis 01",
-          title: "Academic Mastery",
+          title: "Academic Mastery And Specialized Experiences",
           body: [
             "This axis reflects deep academic grounding in instructional and learning technology, alongside the ability to translate theoretical knowledge into intentional instructional design decisions. The artifacts demonstrate a clear connection between theory and practice through educational products built on sound academic foundations and prepared for real teaching use."
           ],
           buttons: [
-            { ref: "academic_achievement_test", label: "Achievement Test" },
+            { ref: "academic_achievement_test", label: "Student Score Program" },
             { ref: "academic_isd_tibiaan", label: "ISD for Tibiaan" },
             { ref: "academic_tech_plan_lrtc", label: "Technology Plan LRTC" },
-            { ref: "diversity_unit_plan", label: "Unit Plan" },
+            { ref: "academic_oman_science_festival_attendance", label: "Attendance in Oman Science Festival" },
             { ref: "academic_reflection_paper", label: "Axis Reflection Paper" }
           ]
         },
@@ -92,6 +92,7 @@
             { ref: "diversity_full_course", label: "Complete Educational Course" },
             { ref: "diversity_k12_technology_integration_challenges", label: "Challenges of Integrating Technology in K-12 Education" },
             { ref: "diversity_ai_assessment_paper", label: "Assessing Artificial Intelligence Tools or Products for Assessment" },
+            { ref: "diversity_unit_plan", label: "Unit Plan" },
             { ref: "diversity_lesson_plans_with_reflection", label: "Lesson Plans with Reflections" },
             { ref: "diversity_reflection_paper", label: "Axis Reflection Paper" }
           ]
@@ -166,15 +167,15 @@
         {
           id: "academic-mastery",
           kicker: "المحور الأول",
-          title: "التمكن الأكاديمي",
+          title: "التمكن الأكاديمي والخبرات التخصصية",
           body: [
             "يعكس هذا المحور مستوى التمكن الأكاديمي الذي بُني عبر فهم متعمق للأسس النظرية في تقنيات التعليم والتعلم، والقدرة على تحويل المعرفة التخصصية إلى تصميمات تعليمية مدروسة تستجيب للأهداف والمحتوى وخصائص المتعلمين. وتبرز الأعمال المدرجة فيه الربط بين النظرية والتطبيق، من خلال تطوير موارد ومشروعات تعليمية تستند إلى مبادئ أكاديمية راسخة، وتترجم الفهم المفاهيمي إلى ممارسات ومنتجات قابلة للتوظيف في السياق التعليمي."
           ],
           buttons: [
-            { ref: "academic_achievement_test", label: "اختبار تحصيلي" },
+            { ref: "academic_achievement_test", label: "برنامج درجات الطلاب" },
             { ref: "academic_isd_tibiaan", label: "تصميم تعليمي لتبيان" },
             { ref: "academic_tech_plan_lrtc", label: "خطة تقنية LRTC" },
-            { ref: "diversity_unit_plan", label: "خطة الوحدة" },
+            { ref: "academic_oman_science_festival_attendance", label: "حضور مهرجان عمان للعلوم" },
             { ref: "academic_reflection_paper", label: "الورقة التأملية للمحور" }
           ]
         },
@@ -189,6 +190,7 @@
             { ref: "diversity_full_course", label: "كورس تعليمي كامل" },
             { ref: "diversity_k12_technology_integration_challenges", label: "مشاكل تضمين التكنولوجيا في التعليم في K-12" },
             { ref: "diversity_ai_assessment_paper", label: "ورقة Assessing Artificial Intelligence Tools or Products for Assessment" },
+            { ref: "diversity_unit_plan", label: "خطة الوحدة" },
             { ref: "diversity_lesson_plans_with_reflection", label: "خطط الدروس مع التأملات" },
             { ref: "diversity_reflection_paper", label: "الورقة التأملية للمحور" }
           ]

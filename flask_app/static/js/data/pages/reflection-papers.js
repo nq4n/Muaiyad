@@ -44,8 +44,8 @@
             number: "\u2713",
             title: "Comprehensive Reflective Paper",
             description: "A comprehensive paper that connects all axes",
-            href: "",
-            platform: "internal"
+            href: "https://docs.google.com/document/d/1vyibApg6i3RxxH6EIYN27K41n7tmdDPh/edit?usp=sharing&ouid=107827144153311419788&rtpof=true&sd=true",
+            platform: "drive"
           }
         ]
       }
@@ -93,8 +93,8 @@
             number: "\u2713",
             title: "الورقة التأملية التخصصية الشاملة",
             description: "ورقة شاملة تربط بين جميع المحاور",
-            href: "",
-            platform: "internal"
+            href: "https://docs.google.com/document/d/1vyibApg6i3RxxH6EIYN27K41n7tmdDPh/edit?usp=sharing&ouid=107827144153311419788&rtpof=true&sd=true",
+            platform: "drive"
           }
         ]
       }

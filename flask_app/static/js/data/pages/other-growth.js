@@ -5,44 +5,67 @@
       hero: {
         title: "Professional Growth Evidence",
         subtitle:
-          "A reflective page showing how I developed professionally through field training, classroom practice, feedback, and self-evaluation.",
+          "Evidence of professional development through applied projects, self-learning, and practical technology workshops.",
         prompt: "$ open other-growth"
       },
       introduction: {
         title: "My Professional Growth",
         body: [
-          "This page presents my professional growth during field training as a personal development journey rather than a collection of papers.",
-          "It focuses on how I improved through planning lessons, teaching in real classroom situations, receiving feedback, reflecting on my practice, and adjusting my teaching decisions."
+          "This page presents selected evidence of my professional growth during field training and beyond it. The evidence shows my development in educational technology, assessment analysis, artificial intelligence learning, and practical digital fabrication.",
+          "Each evidence item is written in the same structure: activity information, a brief description, and a personal reflection explaining how the activity affected my professional growth."
         ]
       },
-      growth_in_practice: {
-        title: "Growth Through Practice",
+      ias_project: {
+        title: "First Evidence: IAS Project With Dr. Shobair",
         body: [
-          "My growth appeared most clearly when I moved from preparing lesson plans as written documents to using them as flexible teaching guides inside the classroom.",
-          "With repeated practice, I became more aware of timing, learner engagement, classroom management, questioning techniques, and the need to connect activities with clear learning outcomes."
+          "This evidence documents my participation in an applied educational technology project connected to testing and student grade analysis.",
+          "Activity title: IAS Project",
+          "Activity type: Applied educational technology project",
+          "Implementing body: Work completed with Dr. Shobair",
+          "Activity nature: Practical professional project",
+          "Brief description: The IAS project is a system that works as a testing and student grade analysis tool. It supports the organization of assessment results and helps the teacher read student performance more clearly instead of looking only at separate marks. The system reflects the value of using digital tools to transform assessment data into information that can support teaching decisions.",
+          "My personal reflection and impact on my professional growth: This project strengthened my understanding that assessment is not only a final mark, but a source of information that can guide teaching. Working on the IAS system helped me think more carefully about how teachers can identify student strengths, discover learning gaps, and plan follow-up actions based on evidence. It also developed my confidence in connecting programming and educational technology with real classroom needs."
         ]
       },
-      feedback_and_reflection: {
-        title: "Feedback And Reflection",
+      deep_learning_certificate: {
+        title: "Second Evidence: Great Learning Deep Learning Certificate",
         body: [
-          "Feedback from supervisors, cooperating teachers, and classroom observation helped me identify strengths and areas that needed improvement.",
-          "Reflection allowed me to convert that feedback into action by revising activities, improving explanations, using clearer instructions, and thinking more carefully about learners' needs."
+          "This evidence documents the beginning of my self-learning path in deep learning and artificial intelligence.",
+          "Activity title: Great Learning Deep Learning Certificate",
+          "Activity type: Online professional learning certificate",
+          "Implementing body: Great Learning",
+          "Activity nature: Self-learning and professional development",
+          "Brief description: This certificate represents my first steps in learning deep learning concepts. The learning experience introduced me to an important field within artificial intelligence and helped me begin connecting AI knowledge with possible educational applications, such as intelligent learning tools, learner data analysis, and technology-supported instruction.",
+          "My personal reflection and impact on my professional growth: This certificate increased my awareness of the importance of continuous self-learning for teachers, especially in fast-developing technology fields. It encouraged me to look beyond traditional classroom tools and think about how artificial intelligence may shape future teaching and learning. It also showed me that professional growth requires initiative, curiosity, and readiness to learn new concepts independently."
+        ]
+      },
+      printing_workshop: {
+        title: "Third Evidence: 3D Printing Workshop",
+        body: [
+          "This evidence documents my participation in a practical workshop related to digital fabrication and hands-on educational technology.",
+          "Activity title: 3D Printing Workshop",
+          "Activity type: Practical training workshop",
+          "Implementing body: School",
+          "Activity nature: Applied professional training",
+          "Brief description: The workshop focused on 3D printing as a modern tool for producing physical models, prototypes, and learning objects. It showed how digital design can move from the screen into a real object that students can observe, touch, test, and discuss. This makes the technology useful for explaining abstract ideas and supporting active learning.",
+          "My personal reflection and impact on my professional growth: The workshop helped me understand that educational technology is not limited to digital presentations or online platforms. It can also support creativity, design thinking, experimentation, and problem solving. This experience encouraged me to think about how students can learn more actively when they design and produce real objects, and it strengthened my interest in using practical technology to make learning more meaningful."
         ]
       },
       evidence_of_growth: {
-        title: "Evidence Of Growth In Me",
+        title: "What This Evidence Shows",
         body: [
-          "I became more confident in preparing and delivering lessons.",
-          "I improved my ability to use educational technology with a clear teaching purpose.",
-          "I became more attentive to learner differences and classroom responses.",
-          "I learned to view assessment and feedback as tools for improving teaching, not only for measuring achievement."
+          "Together, the three evidence items show a clear direction in my professional growth.",
+          "IAS project: Growth in designing educational technology that supports testing, grade organization, and student performance analysis.",
+          "Great Learning certificate: Growth in self-learning and beginning a professional path in deep learning.",
+          "3D printing workshop: Growth in practical technology use and understanding how digital fabrication can support active learning.",
+          "These experiences show my movement from using technology as a simple classroom aid toward understanding it as a tool for assessment, analysis, creativity, and continuous professional learning."
         ]
       },
       continuing_growth: {
         title: "Continuing Professional Direction",
         body: [
-          "This growth is not a final point. It is a foundation for continued professional development as I keep improving my teaching methods, classroom communication, technology integration, and reflective practice.",
-          "The field training experience helped me understand that professional growth happens when the teacher remains open to learning from practice, feedback, and learners themselves."
+          "These experiences form a foundation for my continued professional development. They encourage me to keep improving my ability to design technology-supported learning experiences, analyze learner data, and explore emerging tools in education.",
+          "My next professional direction is to continue connecting teaching practice with educational technology, artificial intelligence, and practical workshops that make learning more active, measurable, and meaningful."
         ]
       }
     },
@@ -50,44 +73,67 @@
       hero: {
         title: "أدلة النمو المهني",
         subtitle:
-          "صفحة تأملية تعرض كيف تطورت مهنيا من خلال التدريب الميداني، والممارسة الصفية، والتغذية الراجعة، والتقييم الذاتي.",
+          "أدلة على التطور المهني من خلال المشاريع التطبيقية، والتعلم الذاتي، وورش التكنولوجيا العملية.",
         prompt: "$ open other-growth"
       },
       introduction: {
         title: "نموّي المهني",
         body: [
-          "تعرض هذه الصفحة نموّي المهني أثناء التدريب الميداني بوصفه رحلة تطور شخصية، وليس مجرد مجموعة أوراق أو مرفقات.",
-          "تركز الصفحة على كيف تطورت من خلال تخطيط الدروس، والتدريس في مواقف صفية حقيقية، وتلقي التغذية الراجعة، والتأمل في الممارسة، وتعديل قراراتي التدريسية."
+          "تعرض هذه الصفحة أدلة مختارة على نموّي المهني أثناء التدريب الميداني وما بعده. وتوضح هذه الأدلة تطوري في مجالات تكنولوجيا التعليم، وتحليل التقويم، والتعلم في الذكاء الاصطناعي، والتصنيع الرقمي العملي.",
+          "تمت كتابة كل دليل وفق بنية موحدة تشمل بيانات النشاط، ونبذة عنه، وتعليقا شخصيا يوضح أثره في نموّي المهني."
         ]
       },
-      growth_in_practice: {
-        title: "النمو من خلال الممارسة",
+      ias_project: {
+        title: "الدليل الأول: مشروع IAS مع دكتور شوبير",
         body: [
-          "ظهر نموّي بوضوح عندما انتقلت من إعداد خطة الدرس بوصفها وثيقة مكتوبة إلى استخدامها كدليل مرن يوجه التدريس داخل الصف.",
-          "ومع تكرار الممارسة أصبحت أكثر وعيا بإدارة الوقت، وتفاعل المتعلمين، وإدارة الصف، وطرح الأسئلة، وضرورة ربط الأنشطة بنواتج تعلم واضحة."
+          "يوثق هذا الدليل مشاركتي في مشروع تطبيقي في تكنولوجيا التعليم مرتبط بالاختبارات وتحليل درجات الطلاب.",
+          "عنوان النشاط: مشروع IAS",
+          "نوع النشاط: مشروع تطبيقي في تكنولوجيا التعليم",
+          "جهة التنفيذ: عمل منجز مع دكتور شوبير",
+          "طبيعة النشاط: مشروع مهني تطبيقي",
+          "نبذة عن النشاط: مشروع IAS هو نظام يعمل كأداة للاختبارات وتحليل درجات الطلاب. ويساعد على تنظيم نتائج التقويم، ويمكّن المعلم من قراءة أداء الطلاب بصورة أوضح بدلا من الاكتفاء بالنظر إلى الدرجات بشكل منفصل. ويعكس هذا النظام أهمية توظيف الأدوات الرقمية في تحويل بيانات التقويم إلى معلومات تساعد في اتخاذ قرارات تعليمية أفضل.",
+          "تعليقي الشخصي وأثر النشاط في نموّي المهني: أسهم هذا المشروع في تعزيز فهمي بأن التقويم ليس مجرد درجة نهائية، بل مصدر معلومات يمكن أن يوجه عملية التدريس. وقد ساعدني العمل على نظام IAS في التفكير بصورة أعمق في كيفية تحديد جوانب القوة لدى الطلاب، والكشف عن الفجوات التعليمية، والتخطيط لإجراءات متابعة مبنية على الدليل. كما نمّى ثقتي في الربط بين البرمجة وتكنولوجيا التعليم واحتياجات الصف الحقيقية."
         ]
       },
-      feedback_and_reflection: {
-        title: "التغذية الراجعة والتأمل",
+      deep_learning_certificate: {
+        title: "الدليل الثاني: شهادة Great Learning في التعلم العميق",
         body: [
-          "ساعدتني التغذية الراجعة من المشرفين والمعلمين المتعاونين والملاحظات الصفية على تحديد جوانب القوة والجوانب التي تحتاج إلى تطوير.",
-          "كما ساعدني التأمل على تحويل التغذية الراجعة إلى خطوات عملية من خلال تعديل الأنشطة، وتحسين الشرح، واستخدام تعليمات أوضح، والتفكير بصورة أعمق في احتياجات المتعلمين."
+          "يوثق هذا الدليل بداية مساري في التعلم الذاتي في مجال التعلم العميق والذكاء الاصطناعي.",
+          "عنوان النشاط: شهادة Great Learning في التعلم العميق",
+          "نوع النشاط: شهادة تعلم مهني عبر الإنترنت",
+          "جهة التنفيذ: منصة Great Learning",
+          "طبيعة النشاط: تعلم ذاتي وتطوير مهني",
+          "نبذة عن النشاط: تمثل هذه الشهادة بداية تعلمي لمفاهيم التعلم العميق. وقد عرّفتني هذه الخبرة بمجال مهم من مجالات الذكاء الاصطناعي، وساعدتني على البدء في ربط المعرفة بالذكاء الاصطناعي بتطبيقات تعليمية ممكنة، مثل أدوات التعلم الذكية، وتحليل بيانات المتعلمين، والتدريس المدعوم بالتكنولوجيا.",
+          "تعليقي الشخصي وأثر النشاط في نموّي المهني: عززت هذه الشهادة وعيي بأهمية التعلم الذاتي المستمر للمعلم، خاصة في المجالات التقنية سريعة التطور. كما شجعتني على النظر إلى ما هو أبعد من أدوات الصف التقليدية، والتفكير في الكيفية التي يمكن أن يؤثر بها الذكاء الاصطناعي في مستقبل التعليم والتعلم. وقد أكدت لي أن النمو المهني يحتاج إلى مبادرة، وفضول معرفي، واستعداد لتعلم مفاهيم جديدة بصورة مستقلة."
+        ]
+      },
+      printing_workshop: {
+        title: "الدليل الثالث: ورشة الطباعة ثلاثية الأبعاد",
+        body: [
+          "يوثق هذا الدليل مشاركتي في ورشة عملية مرتبطة بالتصنيع الرقمي وتوظيف التكنولوجيا التعليمية بصورة تطبيقية.",
+          "عنوان النشاط: ورشة الطباعة ثلاثية الأبعاد",
+          "نوع النشاط: ورشة تدريبية عملية",
+          "جهة التنفيذ: المدرسة",
+          "طبيعة النشاط: تدريب مهني تطبيقي",
+          "نبذة عن النشاط: ركزت الورشة على الطباعة ثلاثية الأبعاد بوصفها أداة حديثة لإنتاج النماذج، والأشكال الأولية، والوسائل التعليمية الملموسة. وقد أوضحت كيف يمكن أن ينتقل التصميم الرقمي من الشاشة إلى نموذج حقيقي يستطيع الطالب مشاهدته ولمسه وتجربته ومناقشته. وهذا يجعل التقنية مفيدة في شرح المفاهيم المجردة ودعم التعلم النشط.",
+          "تعليقي الشخصي وأثر النشاط في نموّي المهني: ساعدتني هذه الورشة على فهم أن تكنولوجيا التعليم لا تقتصر على العروض الرقمية أو المنصات الإلكترونية، بل يمكن أن تدعم الإبداع، والتفكير التصميمي، والتجريب، وحل المشكلات. وقد شجعتني هذه الخبرة على التفكير في كيفية تعلم الطلاب بصورة أكثر نشاطا عندما يصممون وينتجون أشياء حقيقية، كما عززت اهتمامي بتوظيف التكنولوجيا العملية لجعل التعلم أكثر معنى."
         ]
       },
       evidence_of_growth: {
-        title: "أدلة النمو في شخصيتي المهنية",
+        title: "ماذا توضح هذه الأدلة؟",
         body: [
-          "أصبحت أكثر ثقة في إعداد الدروس وتنفيذها.",
-          "تحسنت قدرتي على توظيف التكنولوجيا التعليمية بهدف تدريسي واضح.",
-          "أصبحت أكثر انتباها لاختلافات المتعلمين واستجاباتهم داخل الصف.",
-          "تعلمت أن أنظر إلى التقويم والتغذية الراجعة بوصفهما أدوات لتحسين التدريس، وليس فقط لقياس التحصيل."
+          "توضح الأدلة الثلاثة معا اتجاها واضحا في نموّي المهني.",
+          "مشروع IAS: نمو في تصميم تكنولوجيا تعليمية تدعم الاختبارات، وتنظيم الدرجات، وتحليل أداء الطلاب.",
+          "شهادة Great Learning: نمو في التعلم الذاتي وبداية مسار مهني في التعلم العميق.",
+          "ورشة الطباعة ثلاثية الأبعاد: نمو في الاستخدام العملي للتكنولوجيا وفهم دور التصنيع الرقمي في دعم التعلم النشط.",
+          "توضح هذه الخبرات انتقالي من استخدام التكنولوجيا كوسيلة صفية بسيطة إلى فهمها كأداة للتقويم، والتحليل، والإبداع، والتعلم المهني المستمر."
         ]
       },
       continuing_growth: {
         title: "اتجاه النمو المستمر",
         body: [
-          "هذا النمو ليس نقطة نهاية، بل أساس لمواصلة التطور المهني في أساليب التدريس، والتواصل الصفي، وتوظيف التكنولوجيا، والممارسة التأملية.",
-          "لقد ساعدتني تجربة التدريب الميداني على إدراك أن النمو المهني يحدث عندما يظل المعلم منفتحا على التعلم من الممارسة، والتغذية الراجعة، والمتعلمين أنفسهم."
+          "تشكل هذه الخبرات أساسا لمواصلة تطوري المهني. فهي تشجعني على الاستمرار في تحسين قدرتي على تصميم خبرات تعلم مدعومة بالتكنولوجيا، وتحليل بيانات المتعلمين، واستكشاف الأدوات الحديثة في التعليم.",
+          "ويتمثل اتجاهي المهني القادم في مواصلة الربط بين الممارسة التدريسية، وتكنولوجيا التعليم، والذكاء الاصطناعي، والورش العملية التي تجعل التعلم أكثر نشاطا وقابلية للقياس وارتباطا بالمعنى."
         ]
       }
     }

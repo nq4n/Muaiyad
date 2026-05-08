@@ -2,7 +2,7 @@
   const APP = window.PORTFOLIO_APP;
   if (!APP || !APP.isReady) return;
 
-  const FRAME_INTERVAL = 1000 / 30;
+  const FRAME_INTERVAL = APP.frameInterval?.(1000 / 30) ?? (1000 / 30);
 
   function initHomeJourneyField() {
     const field = document.getElementById("home-journey-field");

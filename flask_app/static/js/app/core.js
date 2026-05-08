@@ -44,6 +44,14 @@
   APP.setRenderHandler = (handler) => {
     APP.renderHandler = typeof handler === "function" ? handler : () => {};
   };
+  APP.prefersReducedMotion = () => window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches === true;
+  APP.isLowPowerDevice = () => {
+    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    const memory = Number(navigator.deviceMemory || 8);
+    const cores = Number(navigator.hardwareConcurrency || 8);
+    return Boolean(connection?.saveData) || memory <= 4 || cores <= 4;
+  };
+  APP.frameInterval = (defaultMs = 1000 / 30) => APP.isLowPowerDevice() ? Math.max(defaultMs, 1000 / 20) : defaultMs;
 
   APP.getPageMap = () => APP.state.content.pageMap || DATA?.pageMap || {};
   APP.getNavStructure = () => APP.state.content.navStructure || DATA?.navStructure || [];
@@ -295,10 +303,48 @@
 
   APP.revealSections = function revealSections(root) {
     if (!root) return;
-    requestAnimationFrame(() => {
-      root.querySelectorAll(".reveal").forEach((element, index) => {
-        setTimeout(() => element.classList.add("is-visible"), index * 80);
+    const elements = [...root.querySelectorAll(".reveal:not(.is-visible)")];
+    if (!elements.length) return;
+
+    if (APP.prefersReducedMotion() || typeof IntersectionObserver !== "function") {
+      elements.forEach((element) => element.classList.add("is-visible"));
+      return;
+    }
+
+    let remaining = elements.length;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+        remaining -= 1;
       });
+      if (remaining <= 0) observer.disconnect();
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.04 });
+
+    requestAnimationFrame(() => {
+      elements.forEach((element) => observer.observe(element));
+    });
+  };
+
+  APP.prepareMedia = function prepareMedia(root = document) {
+    const eagerArea = ".brand-logo, .hero-card, .home-card--welcome, .graduation-project-hero, .axes-hero";
+    root.querySelectorAll("img").forEach((img) => {
+      if (!img.hasAttribute("decoding")) img.setAttribute("decoding", "async");
+      if (!img.hasAttribute("loading") && !img.closest(eagerArea)) {
+        img.setAttribute("loading", "lazy");
+      }
+      if (img.getAttribute("loading") === "lazy" && !img.hasAttribute("fetchpriority")) {
+        img.setAttribute("fetchpriority", "low");
+      }
+    });
+
+    root.querySelectorAll("iframe").forEach((frame) => {
+      if (!frame.hasAttribute("loading")) frame.setAttribute("loading", "lazy");
+    });
+
+    root.querySelectorAll("video").forEach((video) => {
+      if (!video.hasAttribute("preload")) video.setAttribute("preload", "metadata");
     });
   };
 

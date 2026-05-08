@@ -3,9 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  {% set asset_version = "20260508v7" %}
+  {% set asset_version = "20260508v9" %}
   {% set default_page_title = pages[page_id]["title_ar" if lang == "ar" else "title_en"] if page_id in pages else page_id %}
   <title>{{ default_page_title }} - Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="{{ url_for('static', filename='img/squ-logo.webp', v='20260404a') }}" as="image" type="image/webp" fetchpriority="high">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/shell.css', v=asset_version) }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/content.css', v=asset_version) }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/effects.css', v=asset_version) }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/restored-layouts.css', v=asset_version) }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css', v=asset_version) }}">
 </head>
 <body data-page="{{ page_id }}"{% if static_render %} data-static-render="true"{% endif %}>
@@ -539,13 +547,16 @@
   <script src="{{ url_for('static', filename='js/app/core.js', v=asset_version) }}"></script>
   <script src="{{ url_for('static', filename='js/app/page-renderers.js', v=asset_version) }}"></script>
   <script src="{{ url_for('static', filename='js/app/conceptual-axes.js', v=asset_version) }}"></script>
+  {% if page_id == "home" %}
   <script src="{{ url_for('static', filename='js/app/home-journey.js', v=asset_version) }}"></script>
   <script src="{{ url_for('static', filename='js/app/home-site-map.js', v=asset_version) }}"></script>
+  {% endif %}
   <script src="{{ url_for('static', filename='js/app/header.js', v=asset_version) }}"></script>
   <script src="{{ url_for('static', filename='js/app.js', v=asset_version) }}"></script>
   <script>
     (() => {
       const esc = (value) => String(value || "").replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char]));
+      let lastTitlesKey = "";
 
       function updateUnitSectionMaps() {
         const titles = [...document.querySelectorAll("#page-sections .section-block .section-headline h2")]
@@ -553,6 +564,9 @@
           .filter(Boolean);
 
         if (!titles.length) return;
+        const titlesKey = titles.join("\u0001");
+        if (titlesKey === lastTitlesKey) return;
+        lastTitlesKey = titlesKey;
 
         document.querySelectorAll("[data-unit-sections-map]").forEach((container) => {
           const list = container.querySelector("[data-unit-map-list]");
@@ -573,8 +587,16 @@
 
         updateUnitSectionMaps();
 
-        const observer = new MutationObserver(() => requestAnimationFrame(updateUnitSectionMaps));
-        observer.observe(target, { childList: true, subtree: true });
+        let queued = false;
+        const observer = new MutationObserver(() => {
+          if (queued) return;
+          queued = true;
+          requestAnimationFrame(() => {
+            queued = false;
+            updateUnitSectionMaps();
+          });
+        });
+        observer.observe(target, { childList: true, characterData: true, subtree: true });
       }
 
       if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", initUnitSectionMaps, { once: true });

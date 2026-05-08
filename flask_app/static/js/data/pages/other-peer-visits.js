@@ -29,11 +29,11 @@
         type: "html",
         html: `
           <div class="resource-actions resource-actions--dual">
-            <a class="resource-action" href="#peer-visit-exchange">
+            <a class="resource-action" href="https://drive.google.com/drive/folders/1vuameCJJ3r3pxD1vpsD23jzn3fvXfTOX?usp=drive_link" data-embed-title="Peer Visit Exchange Guide" data-drive-folder-id="1vuameCJJ3r3pxD1vpsD23jzn3fvXfTOX">
               <span class="resource-action__icon" aria-hidden="true">&#8599;</span>
               <span class="resource-action__label">Peer Visit Exchange Guide</span>
             </a>
-            <a class="resource-action" href="#expert-observation">
+            <a class="resource-action" href="https://drive.google.com/drive/folders/1nosLeDE-B3M_wXyqW0AKFMyCYF0LJZHt?usp=drive_link" data-embed-title="Classroom Observation And Reflection" data-drive-folder-id="1nosLeDE-B3M_wXyqW0AKFMyCYF0LJZHt">
               <span class="resource-action__icon" aria-hidden="true">&#8599;</span>
               <span class="resource-action__label">Classroom Observation And Reflection</span>
             </a>
@@ -69,11 +69,11 @@
         type: "html",
         html: `
           <div class="resource-actions resource-actions--dual">
-            <a class="resource-action" href="#peer-visit-exchange">
+            <a class="resource-action" href="https://drive.google.com/drive/folders/1vuameCJJ3r3pxD1vpsD23jzn3fvXfTOX?usp=drive_link" data-embed-title="دليل تبادل الزيارة مع الأقران" data-drive-folder-id="1vuameCJJ3r3pxD1vpsD23jzn3fvXfTOX">
               <span class="resource-action__icon" aria-hidden="true">&#8599;</span>
               <span class="resource-action__label">دليل تبادل الزيارة مع الأقران</span>
             </a>
-            <a class="resource-action" href="#expert-observation">
+            <a class="resource-action" href="https://drive.google.com/drive/folders/1nosLeDE-B3M_wXyqW0AKFMyCYF0LJZHt?usp=drive_link" data-embed-title="دليل المشاهدة الصفية والتأمل المهني" data-drive-folder-id="1nosLeDE-B3M_wXyqW0AKFMyCYF0LJZHt">
               <span class="resource-action__icon" aria-hidden="true">&#8599;</span>
               <span class="resource-action__label">دليل المشاهدة الصفية والتأمل المهني</span>
             </a>

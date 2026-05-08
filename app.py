@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, redirect, url_for
+from flask import Flask, render_template, jsonify, redirect, request, url_for
 import html
 import os
 import re
@@ -13,6 +13,17 @@ app = Flask(
     static_url_path="/static",
 )
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev-key-change-in-production")
+app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 31536000
+
+
+@app.after_request
+def add_static_cache_headers(response):
+    if request.path.startswith(f"{app.static_url_path}/"):
+        if "v" in request.args:
+            response.headers["Cache-Control"] = "public, max-age=31536000, immutable"
+        else:
+            response.headers["Cache-Control"] = "public, max-age=3600"
+    return response
 
 PAGES = {
     "home": {"path": "pages/home.html", "title_en": "Portfolio Introduction", "title_ar": "مقدمة الملف"},

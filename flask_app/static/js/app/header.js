@@ -5,6 +5,7 @@
   const { U } = APP;
   let navIdleTimer = null;
   let navLastActivity = 0;
+  let navActivityFrame = 0;
   let navActivityBound = false;
   const NAV_IDLE_MS = 2800;
 
@@ -171,11 +172,19 @@
     }, NAV_IDLE_MS);
   }
 
+  function queueNavActive() {
+    if (navActivityFrame) return;
+    navActivityFrame = requestAnimationFrame(() => {
+      navActivityFrame = 0;
+      markNavActive();
+    });
+  }
+
   function bindNavActivity() {
     if (navActivityBound) return;
     navActivityBound = true;
     ["pointerdown", "mousemove", "keydown", "touchstart", "scroll"].forEach((eventName) => {
-      document.addEventListener(eventName, markNavActive, { passive: true });
+      document.addEventListener(eventName, queueNavActive, { passive: true });
     });
     scheduleNavIdle();
   }

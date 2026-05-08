@@ -9,6 +9,7 @@
     APP.syncHeaderState();
     APP.renderPageContent();
     APP.renderUnitFooterNav?.();
+    APP.prepareMedia?.(document);
   }
 
   function bindAll() {
@@ -25,9 +26,9 @@
       screen.classList.add("hidden");
       return;
     }
-    const reducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
-    const minIntroMs = reducedMotion ? 1200 : 3200;
-    const autoDismissMs = reducedMotion ? 2000 : 4400;
+    const reducedMotion = APP.prefersReducedMotion?.() ?? window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+    const minIntroMs = reducedMotion ? 400 : 900;
+    const autoDismissMs = reducedMotion ? 900 : 1600;
     let readyToDismiss = false;
     let dismissed = false;
 
@@ -39,6 +40,7 @@
     const dismiss = () => {
       if (!readyToDismiss || dismissed) return;
       dismissed = true;
+      screen.removeEventListener("click", dismiss);
       document.removeEventListener("keydown", handleKeydown);
       sessionStorage.setItem(introKey, "1");
       screen.classList.add("fade-out");
@@ -58,7 +60,7 @@
   }
 
   function createParticles() {
-    const reducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+    const reducedMotion = APP.prefersReducedMotion?.() ?? window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
     const existing = document.getElementById("particles-bg");
     if (existing) existing.remove();
     if (reducedMotion) return;
@@ -66,7 +68,8 @@
     const container = document.createElement("div");
     container.id = "particles-bg";
     const fragment = document.createDocumentFragment();
-    const particleCount = APP.pageId === "home" ? 10 : window.innerWidth < 720 ? 12 : 18;
+    const lowPower = APP.isLowPowerDevice?.() === true;
+    const particleCount = lowPower ? 6 : APP.pageId === "home" ? 10 : window.innerWidth < 720 ? 12 : 18;
     const syncVisibility = () => {
       container.classList.toggle("is-paused", document.hidden);
     };
@@ -86,6 +89,14 @@
     document.addEventListener("visibilitychange", syncVisibility, { passive: true });
   }
 
+  function scheduleParticles() {
+    if ("requestIdleCallback" in window) {
+      window.requestIdleCallback(createParticles, { timeout: 1600 });
+      return;
+    }
+    window.setTimeout(createParticles, 320);
+  }
+
   function init() {
     const hadPendingPageLoad = APP.hasPendingPageLoad?.();
     if (hadPendingPageLoad) APP.showPageLoadingShell?.();
@@ -98,7 +109,7 @@
     bindAll();
     APP.bindPageTransitions?.();
     initLoadingScreen();
-    createParticles();
+    scheduleParticles();
     if (hadPendingPageLoad) {
       requestAnimationFrame(() => {
         requestAnimationFrame(() => APP.hidePageLoadingShell?.());

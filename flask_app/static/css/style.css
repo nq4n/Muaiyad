@@ -1,9 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap");
-@import url("./shell.css?v=20260421v6");
-@import url("./content.css?v=20260416v2");
-@import url("./effects.css?v=20260421v5");
-@import url("./restored-layouts.css?v=20260416v2");
-
 /* Final header overrides: keep Arabic navigation from colliding on wide screens. */
 @media (min-width: 961px) {
   .site-header .nav-wrap {
@@ -147,6 +141,75 @@ html[lang="en"] .site-footer__quote--ar {
 
 html[lang="ar"] .site-footer {
   font-family: var(--font-ar), var(--font-ui);
+}
+
+body[data-page="other-growth"] #page-sections {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(1rem, 1.8vw, 1.45rem);
+  width: min(1120px, 100%);
+  padding: 0;
+  margin-inline: auto;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+body[data-page="other-growth"] #page-sections .section-block {
+  margin: 0;
+  padding: clamp(1.35rem, 2.2vw, 2rem);
+  border: 1px solid rgba(214, 177, 109, 0.16);
+  border-radius: 1rem;
+  background:
+    linear-gradient(135deg, var(--accent-3-soft), transparent 34%),
+    linear-gradient(315deg, var(--accent-2-soft), transparent 38%),
+    var(--panel);
+  box-shadow: var(--shadow), 0 0 0 1px rgba(255, 255, 255, 0.025) inset;
+}
+
+body[data-page="other-growth"] #page-sections .section-block-inner {
+  gap: clamp(0.9rem, 1.4vw, 1.25rem);
+}
+
+body[data-page="other-growth"] #page-sections .section-headline h2 {
+  margin: 0;
+  font-size: clamp(1.55rem, 1.15rem + 1.1vw, 2.25rem);
+  line-height: 1.45;
+}
+
+body[data-page="other-growth"] #page-sections .section-copy {
+  gap: 0.85rem;
+}
+
+body[data-page="other-growth"] #page-sections .section-copy p,
+body[data-page="other-growth"] #page-sections .section-list li {
+  max-width: 76rem;
+  font-size: clamp(1.1rem, 1rem + 0.34vw, 1.24rem);
+  line-height: 2;
+  text-wrap: pretty;
+}
+
+body[data-page="other-growth"] #page-sections .section-list {
+  gap: 0.7rem;
+}
+
+body[data-page="other-growth"] #page-sections .section-list li {
+  padding-block: 0.55rem;
+}
+
+body[data-page="other-growth"] #page-sections .section-list strong {
+  color: var(--accent);
+}
+
+body[data-page="other-growth"] #ias_project,
+body[data-page="other-growth"] #deep_learning_certificate,
+body[data-page="other-growth"] #printing_workshop {
+  border-color: rgba(214, 177, 109, 0.24);
+}
+
+html[data-theme="light"] body[data-page="other-growth"] #page-sections .section-block {
+  border-color: rgba(184, 139, 74, 0.17);
+  box-shadow: 0 14px 28px rgba(145, 120, 87, 0.07);
 }
 
 body[data-page="other-workshop"] #page-sections {
@@ -555,5 +618,41 @@ html[data-theme="light"] body[data-page="other-workshop"] #page-sections .sectio
 
   .site-footer__quote {
     font-size: 1.45rem;
+  }
+}
+
+/* Performance guardrails: preserve the same layout while letting the browser skip
+   offscreen rendering work on long, content-heavy pages. */
+body::before,
+body::after,
+#particles-bg {
+  transform: translateZ(0);
+}
+
+@supports (content-visibility: auto) {
+  #page-sections > .section-block,
+  .axes-section,
+  .cv-section,
+  .graduation-project-section,
+  .paper-card,
+  .unit-footer-nav,
+  .unit-plan-section,
+  .unit-plan-map,
+  .home-card--summary,
+  .home-card--training,
+  .home-card--site-map,
+  .home-card--projects,
+  body[data-page="other-workshop"] #page-sections .section-block,
+  body[data-page="other-growth"] #page-sections .section-block {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 360px;
+  }
+
+  .hero-card,
+  .home-card--welcome,
+  .graduation-project-hero,
+  .axes-hero {
+    content-visibility: visible;
+    contain-intrinsic-size: none;
   }
 }
