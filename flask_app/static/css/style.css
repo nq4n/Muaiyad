@@ -621,38 +621,7 @@ html[data-theme="light"] body[data-page="other-workshop"] #page-sections .sectio
   }
 }
 
-/* Performance guardrails: preserve the same layout while letting the browser skip
-   offscreen rendering work on long, content-heavy pages. */
-body::before,
-body::after,
-#particles-bg {
-  transform: translateZ(0);
-}
-
-@supports (content-visibility: auto) {
-  #page-sections > .section-block,
-  .axes-section,
-  .cv-section,
-  .graduation-project-section,
-  .paper-card,
-  .unit-footer-nav,
-  .unit-plan-section,
-  .unit-plan-map,
-  .home-card--summary,
-  .home-card--training,
-  .home-card--site-map,
-  .home-card--projects,
-  body[data-page="other-workshop"] #page-sections .section-block,
-  body[data-page="other-growth"] #page-sections .section-block {
-    content-visibility: auto;
-    contain-intrinsic-size: auto 360px;
-  }
-
-  .hero-card,
-  .home-card--welcome,
-  .graduation-project-hero,
-  .axes-hero {
-    content-visibility: visible;
-    contain-intrinsic-size: none;
-  }
+html,
+body {
+  background-color: var(--bg);
 }
