@@ -147,7 +147,8 @@ body[data-page="other-growth"] #page-sections {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: clamp(1rem, 1.8vw, 1.45rem);
-  width: min(1120px, 100%);
+  width: 100%;
+  max-width: none;
   padding: 0;
   margin-inline: auto;
   background: transparent;
