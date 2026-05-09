@@ -283,6 +283,10 @@
       APP.renderCvPage(rawPage);
       return;
     }
+    if (APP.pageId === "other-growth") {
+      APP.renderGrowthPage(rawPage);
+      return;
+    }
     if (APP.pageId === "philosophy") {
       APP.renderPhilosophyPage(rawPage);
       return;
@@ -305,6 +309,35 @@
     }
   }
 
+  function driveFolderIdFromHref(href) {
+    const match = String(href || "").match(/drive\.google\.com\/drive\/folders\/([^/?#]+)/i);
+    return match ? match[1] : "";
+  }
+
+  function sectionLinksMarkup(section) {
+    const links = Array.isArray(section?.links) ? section.links.filter((link) => link?.href && link?.label) : [];
+    if (!links.length) return "";
+
+    return `
+      <div class="section-link-grid unit-footer-link-grid">
+        ${links.map((link) => {
+          const href = link.href || "#";
+          const disabled = href === "#" || link.pending === true;
+          const external = !disabled && /^https?:\/\//i.test(href);
+          const driveFolderId = link.driveFolderId || link.drive_folder_id || driveFolderIdFromHref(href);
+          const externalAttrs = external ? ' target="_blank" rel="noopener noreferrer"' : "";
+          const disabledAttrs = disabled ? ' aria-disabled="true" tabindex="-1"' : "";
+          const driveAttr = driveFolderId ? ` data-drive-folder-id="${U.esc(driveFolderId)}"` : "";
+          return `
+            <a class="unit-footer-link section-link${disabled ? " is-disabled" : ""}" href="${U.esc(href)}" data-embed-title="${U.esc(link.label || "")}"${externalAttrs}${disabledAttrs}${driveAttr}>
+              ${U.esc(link.label || "")}
+            </a>
+          `;
+        }).join("")}
+      </div>
+    `;
+  }
+
   function sectionMarkup(section) {
     const type = section.type || "text";
     const anim = section.animation || "fade-up";
@@ -320,7 +353,7 @@
     else if (type === "audio") content = `<figure class="section-media">${section.audioSrc ? `<audio class="section-audio" controls preload="metadata"><source src="${U.esc(section.audioSrc)}" /></audio>` : ""}${section.audioCaption ? `<figcaption class="section-caption">${U.esc(section.audioCaption)}</figcaption>` : ""}</figure>${section.body ? `<div class="section-copy">${APP.toParagraphs(section.body)}</div>` : ""}`;
     else if (type === "html") content = `<div class="section-html">${APP.sanitizeCustomHTML(section.html || "")}</div>`;
 
-    return `<section${idAttr} class="section-block ${revealClass}" ${animAttr}><div class="section-block-inner">${header}${content}</div></section>`;
+    return `<section${idAttr} class="section-block ${revealClass}" ${animAttr}><div class="section-block-inner">${header}${content}${sectionLinksMarkup(section)}</div></section>`;
   }
 
   function renderPageContent() {
@@ -353,4 +386,8 @@
   APP.bindStaticPageCopy = bindStaticPageCopy;
   APP.renderPageContent = renderPageContent;
   APP.sectionMarkup = sectionMarkup;
+  APP.isConceptualReflectionButton = isConceptualReflectionButton;
+  APP.conceptualAxesButtonKind = conceptualAxesButtonKind;
+  APP.conceptualAxesIcon = conceptualAxesIcon;
+  APP.resolveConceptualAxesLink = resolveConceptualAxesLink;
 })();

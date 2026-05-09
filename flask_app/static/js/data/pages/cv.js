@@ -14,17 +14,51 @@
           "Interactive Design"
         ]
       },
+      actions_aria_label: "CV quick actions",
+      certificates: {
+        label: "Certificates",
+        modal_title: "Certificates",
+        folder_href: "https://drive.google.com/drive/folders/1Xl4161HF9cPhB2hT2eRfkHXH-Rjuky0W?usp=drive_link",
+        drive_folder_id: "1Xl4161HF9cPhB2hT2eRfkHXH-Rjuky0W"
+      },
+      works: {
+        label: "Works",
+        modal_title: "Works",
+        modal_eyebrow: "",
+        intro: "Open any work inside this window.",
+        detail_eyebrow: "Work Viewer",
+        back_label: "Return",
+        source_page: "conceptual-axes"
+      },
+      contacts: {
+        label: "Contact",
+        modal_title: "Contact",
+        intro: "Phone number and email.",
+        items: [
+          {
+            title: "Phone Number",
+            label: "77226948",
+            href: "https://wa.me/96877226948",
+            external: true
+          },
+          {
+            title: "Email",
+            label: "moayed9919@gmail.com",
+            href: "mailto:moayed9919@gmail.com"
+          }
+        ]
+      },
 
       professional_profile: {
         icon: "profile",
         title: "Professional Profile",
         body: [
-          "• Pre-service teacher in Instructional & Learning Technology",
-          "• Focused on building real educational platforms and tools",
-          "• Combines pedagogy with programming and system design",
-          "• Interested in AI integration in education",
-          "• Works on interactive web-based learning systems",
-          "• Strong focus on practical implementation, not theory only"
+          "- Pre-service teacher in Instructional and Learning Technology",
+          "- Focused on building real educational platforms and tools",
+          "- Combines pedagogy with programming and system design",
+          "- Interested in AI integration in education",
+          "- Works on interactive web-based learning systems",
+          "- Strong focus on practical implementation, not theory only"
         ]
       },
 
@@ -39,7 +73,7 @@
           { icon: "college", label: "College", value: "College of Education" },
           { icon: "university", label: "University", value: "Sultan Qaboos University" },
           { icon: "semester", label: "Semester", value: "Spring 2026" },
-          { icon: "school", label: "Field Training School", value: "Mohammed bin Ali Al Mundhiri School (Grades 5–6)" }
+          { icon: "school", label: "Field Training School", value: "Mohammed bin Ali Al Mundhiri School (Grades 5-6)" }
         ]
       },
 
@@ -47,11 +81,11 @@
         icon: "education",
         title: "Education",
         body: [
-          "• Instructional design and learning models",
-          "• Educational technology integration",
-          "• Digital content development",
-          "• Learning theories and classroom application",
-          "• Self-learning in programming and AI systems"
+          "- Instructional design and learning models",
+          "- Educational technology integration",
+          "- Digital content development",
+          "- Learning theories and classroom application",
+          "- Self-learning in programming and AI systems"
         ]
       },
 
@@ -59,11 +93,11 @@
         icon: "teaching",
         title: "Teaching & Field Training",
         body: [
-          "• Designing technology-supported lessons",
-          "• Applying active learning strategies",
-          "• Adapting teaching to student differences",
-          "• Using digital tools for engagement",
-          "• Continuous reflection and improvement"
+          "- Designing technology-supported lessons",
+          "- Applying active learning strategies",
+          "- Adapting teaching to student differences",
+          "- Using digital tools for engagement",
+          "- Continuous reflection and improvement"
         ]
       },
 
@@ -76,41 +110,41 @@
             icon: "professional",
             title: "Personal & Professional",
             body: [
-              "• Strong self-learning ability",
-              "• Problem solving & analytical thinking",
-              "• Independent project building",
-              "• Time management and organization"
+              "- Strong self-learning ability",
+              "- Problem solving and analytical thinking",
+              "- Independent project building",
+              "- Time management and organization"
             ]
           },
           {
             icon: "visual",
             title: "Design & UI",
             body: [
-              "• Clean and modern UI design",
-              "• User experience focused layouts",
-              "• Interactive interface building",
-              "• Visual clarity and structure"
+              "- Clean and modern UI design",
+              "- User experience focused layouts",
+              "- Interactive interface building",
+              "- Visual clarity and structure"
             ]
           },
           {
             icon: "technology",
             title: "Technical & Programming",
             body: [
-              "• Python, HTML, CSS, JavaScript",
-              "• Front-end & system thinking",
-              "• API and database usage",
-              "• AI integration and local models",
-              "• Building scalable systems"
+              "- Python, HTML, CSS, JavaScript",
+              "- Front-end and system thinking",
+              "- API and database usage",
+              "- AI integration and local models",
+              "- Building scalable systems"
             ]
           },
           {
             icon: "pedagogy",
             title: "Educational",
             body: [
-              "• Lesson design based on objectives",
-              "• Active learning strategies",
-              "• Formative & summative assessment",
-              "• Learner-centered environments"
+              "- Lesson design based on objectives",
+              "- Active learning strategies",
+              "- Formative and summative assessment",
+              "- Learner-centered environments"
             ]
           }
         ]
@@ -120,11 +154,11 @@
         icon: "activity",
         title: "Projects & Development",
         body: [
-          "• Building AI-powered educational platforms",
-          "• Developing interactive web applications",
-          "• Experimenting with local AI systems",
-          "• Creating tools for learning improvement",
-          "• Continuous exploration of new technologies"
+          "- Building AI-powered educational platforms",
+          "- Developing interactive web applications",
+          "- Experimenting with local AI systems",
+          "- Creating tools for learning improvement",
+          "- Continuous exploration of new technologies"
         ]
       }
     },
@@ -133,7 +167,7 @@
       hero: {
         title: "السيرة الذاتية",
         subtitle:
-          "طالب في تقنيات التعليم يركز على بناء أنظمة تعليمية حقيقية، يجمع بين التدريس والبرمجة والذكاء الاصطناعي لتطوير تجارب تعلم حديثة.",
+          "طالب في تقنيات التعليم يركز على بناء أنظمة تعليمية حقيقية، ويجمع بين التدريس والبرمجة والذكاء الاصطناعي لتطوير تجارب تعلم حديثة.",
         prompt: "$ open cv",
         highlights: [
           "تعليم + تقنية",
@@ -142,17 +176,51 @@
           "تصميم تفاعلي"
         ]
       },
+      actions_aria_label: "إجراءات سريعة للسيرة الذاتية",
+      certificates: {
+        label: "الشهادات",
+        modal_title: "الشهادات",
+        folder_href: "https://drive.google.com/drive/folders/1Xl4161HF9cPhB2hT2eRfkHXH-Rjuky0W?usp=drive_link",
+        drive_folder_id: "1Xl4161HF9cPhB2hT2eRfkHXH-Rjuky0W"
+      },
+      works: {
+        label: "الأعمال",
+        modal_title: "الأعمال",
+        modal_eyebrow: "",
+        intro: "افتح أي عمل داخل هذه النافذة.",
+        detail_eyebrow: "عارض العمل",
+        back_label: "رجوع",
+        source_page: "conceptual-axes"
+      },
+      contacts: {
+        label: "التواصل",
+        modal_title: "التواصل",
+        intro: "رقم الهاتف والبريد الإلكتروني.",
+        items: [
+          {
+            title: "رقم الهاتف",
+            label: "77226948",
+            href: "https://wa.me/96877226948",
+            external: true
+          },
+          {
+            title: "البريد الإلكتروني",
+            label: "moayed9919@gmail.com",
+            href: "mailto:moayed9919@gmail.com"
+          }
+        ]
+      },
 
       professional_profile: {
         icon: "profile",
         title: "الملف المهني",
         body: [
-          "• معلم تحت الإعداد في تقنيات التعليم والتعلم",
-          "• أركز على بناء منصات وأنظمة تعليمية حقيقية",
-          "• أدمج بين التربية والبرمجة وتصميم الأنظمة",
-          "• مهتم بتوظيف الذكاء الاصطناعي في التعليم",
-          "• أعمل على تطوير أنظمة تعلم تفاعلية عبر الويب",
-          "• تركيزي على التطبيق العملي وليس النظري فقط"
+          "- معلم تحت الإعداد في تقنيات التعليم والتعلم",
+          "- أركز على بناء منصات وأنظمة تعليمية حقيقية",
+          "- أدمج بين التربية والبرمجة وتصميم الأنظمة",
+          "- مهتم بتوظيف الذكاء الاصطناعي في التعليم",
+          "- أعمل على تطوير أنظمة تعلم تفاعلية عبر الويب",
+          "- تركيزي على التطبيق العملي وليس النظري فقط"
         ]
       },
 
@@ -175,11 +243,11 @@
         icon: "education",
         title: "التعليم",
         body: [
-          "• تصميم التعليم والنماذج التدريسية",
-          "• توظيف التكنولوجيا في التعليم",
-          "• تطوير المحتوى الرقمي",
-          "• نظريات التعلم وتطبيقها",
-          "• التعلم الذاتي في البرمجة والذكاء الاصطناعي"
+          "- تصميم التعليم والنماذج التدريسية",
+          "- توظيف التكنولوجيا في التعليم",
+          "- تطوير المحتوى الرقمي",
+          "- نظريات التعلم وتطبيقها",
+          "- التعلم الذاتي في البرمجة والذكاء الاصطناعي"
         ]
       },
 
@@ -187,11 +255,11 @@
         icon: "teaching",
         title: "التدريس والتدريب الميداني",
         body: [
-          "• تصميم دروس مدعومة بالتقنية",
-          "• تطبيق استراتيجيات التعلم النشط",
-          "• مراعاة الفروق الفردية",
-          "• استخدام الأدوات الرقمية لزيادة التفاعل",
-          "• تطوير الأداء من خلال التأمل المستمر"
+          "- تصميم دروس مدعومة بالتقنية",
+          "- تطبيق استراتيجيات التعلم النشط",
+          "- مراعاة الفروق الفردية",
+          "- استخدام الأدوات الرقمية لزيادة التفاعل",
+          "- تطوير الأداء من خلال التأمل المستمر"
         ]
       },
 
@@ -204,41 +272,41 @@
             icon: "professional",
             title: "شخصية ومهنية",
             body: [
-              "• تعلم ذاتي قوي",
-              "• حل المشكلات والتفكير التحليلي",
-              "• بناء مشاريع بشكل مستقل",
-              "• إدارة الوقت والتنظيم"
+              "- تعلم ذاتي قوي",
+              "- حل المشكلات والتفكير التحليلي",
+              "- بناء مشاريع بشكل مستقل",
+              "- إدارة الوقت والتنظيم"
             ]
           },
           {
             icon: "visual",
             title: "تصميم وواجهة",
             body: [
-              "• تصميم واجهات حديثة",
-              "• التركيز على تجربة المستخدم",
-              "• بناء واجهات تفاعلية",
-              "• وضوح وتنظيم بصري"
+              "- تصميم واجهات حديثة",
+              "- التركيز على تجربة المستخدم",
+              "- بناء واجهات تفاعلية",
+              "- وضوح وتنظيم بصري"
             ]
           },
           {
             icon: "technology",
             title: "تقنية وبرمجة",
             body: [
-              "• Python و HTML و CSS و JavaScript",
-              "• التفكير في الأنظمة والواجهات",
-              "• استخدام API وقواعد البيانات",
-              "• دمج الذكاء الاصطناعي",
-              "• بناء أنظمة قابلة للتوسع"
+              "- Python و HTML و CSS و JavaScript",
+              "- التفكير في الأنظمة والواجهات",
+              "- استخدام API وقواعد البيانات",
+              "- دمج الذكاء الاصطناعي",
+              "- بناء أنظمة قابلة للتوسع"
             ]
           },
           {
             icon: "pedagogy",
             title: "تربوية",
             body: [
-              "• تصميم دروس وفق الأهداف",
-              "• التعلم النشط",
-              "• التقويم التكويني والختامي",
-              "• بيئات تعلم تتمحور حول المتعلم"
+              "- تصميم دروس وفق الأهداف",
+              "- التعلم النشط",
+              "- التقويم التكويني والختامي",
+              "- بيئات تعلم تتمحور حول المتعلم"
             ]
           }
         ]
@@ -248,11 +316,11 @@
         icon: "activity",
         title: "المشاريع والتطوير",
         body: [
-          "• بناء منصات تعليمية مدعومة بالذكاء الاصطناعي",
-          "• تطوير تطبيقات ويب تفاعلية",
-          "• تجربة أنظمة AI محلية",
-          "• إنشاء أدوات لتحسين التعلم",
-          "• استكشاف تقنيات جديدة باستمرار"
+          "- بناء منصات تعليمية مدعومة بالذكاء الاصطناعي",
+          "- تطوير تطبيقات ويب تفاعلية",
+          "- تجربة أنظمة AI محلية",
+          "- إنشاء أدوات لتحسين التعلم",
+          "- استكشاف تقنيات جديدة باستمرار"
         ]
       }
     }

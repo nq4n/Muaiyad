@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  {% set asset_version = "20260508v10" %}
+  {% set asset_version = "20260509v22" %}
   {% set default_page_title = pages[page_id]["title_ar" if lang == "ar" else "title_en"] if page_id in pages else page_id %}
   <title>{{ default_page_title }} - Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -118,13 +118,18 @@
     <div class="modal__dialog terminal-card">
       <div class="modal__header">
         <div class="modal__title-wrap">
+          <button id="modal-back-button" class="chip modal__back-button" type="button" hidden></button>
           <p class="modal__eyebrow" id="modal-eyebrow"></p>
           <h2 id="modal-title"></h2>
         </div>
-        <button id="modal-close" class="icon-btn" type="button" aria-label="Close">&times;</button>
+        <div class="modal__actions">
+          <a id="modal-open-original" class="chip unit-footer-link modal__open-link" href="#" target="_blank" rel="noopener noreferrer" data-bypass-embed="true" hidden></a>
+          <button id="modal-close" class="icon-btn" type="button" aria-label="Close">&times;</button>
+        </div>
       </div>
       <p class="modal__status" id="modal-status"></p>
       <div class="modal__body">
+        <div id="modal-custom" class="modal__custom" hidden></div>
         <iframe id="modal-iframe" class="modal__iframe" title="Embedded content" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
         <div id="modal-fallback" class="modal__fallback" hidden>
           <p id="modal-fallback-copy"></p>
@@ -544,6 +549,9 @@
 
   <script src="{{ url_for('static', filename='js/data/site.js', v=asset_version) }}"></script>
   <script src="{{ url_for('static', filename='js/data/pages/' ~ page_id ~ '.js', v=asset_version) }}"></script>
+  {% if page_id == "cv" %}
+  <script src="{{ url_for('static', filename='js/data/pages/conceptual-axes.js', v=asset_version) }}"></script>
+  {% endif %}
   <script src="{{ url_for('static', filename='js/app/core.js', v=asset_version) }}"></script>
   <script src="{{ url_for('static', filename='js/app/page-renderers.js', v=asset_version) }}"></script>
   <script src="{{ url_for('static', filename='js/app/conceptual-axes.js', v=asset_version) }}"></script>

@@ -1,1 +1,20 @@
 {% extends "base.html" %}
+{% set static_render = true %}
+{% set hide_default_hero = true %}
+
+{% block hero %}
+<section class="section-card growth-hero" aria-labelledby="growth-page-title">
+  <div class="section-block-inner growth-hero-inner">
+    <p class="terminal-path growth-kicker">~/portfolio/{{ page_id }}</p>
+    <div class="section-headline">
+      <h1 id="growth-page-title"></h1>
+    </div>
+    <div class="section-copy growth-hero-copy" id="growth-page-subtitle"></div>
+    <p class="typewriter-line growth-hero-prompt"><span id="growth-page-prompt"></span><span class="cursor" aria-hidden="true"></span></p>
+  </div>
+</section>
+{% endblock %}
+
+{% block page_content %}
+<div class="growth-shell" id="growth-shell"></div>
+{% endblock %}

@@ -61,7 +61,14 @@
     const heroTitle = document.getElementById("cv-page-title");
     const heroSubtitle = document.getElementById("cv-page-subtitle");
     const heroPrompt = document.getElementById("cv-page-prompt");
+    const actionsRoot = document.getElementById("cv-actions");
     const hero = page.hero || {};
+    const certificates = page.certificates || {};
+    const works = page.works || {};
+    const contacts = U.isObject(page.contacts) ? page.contacts : {};
+    const contactItems = Array.isArray(contacts.items)
+      ? contacts.items.filter((item) => item?.href && (item?.label || item?.title))
+      : [];
     const profile = page.professional_profile || {};
     const info = page.personal_academic_information || {};
     const education = page.education || {};
@@ -71,6 +78,14 @@
     const facts = Array.isArray(info.items) ? info.items : [];
     const skillCards = Array.isArray(skills.cards) ? skills.cards : [];
     const heroHighlights = Array.isArray(hero.highlights) ? hero.highlights : [];
+    const conceptualSet = U.isObject(APP.PAGE_DATA?.[works.source_page || "conceptual-axes"]) ? APP.PAGE_DATA[works.source_page || "conceptual-axes"] : {};
+    const conceptualPage = U.isObject(conceptualSet?.[APP.state.lang])
+      ? conceptualSet[APP.state.lang]
+      : U.isObject(conceptualSet?.[APP.state.lang === "ar" ? "en" : "ar"])
+        ? conceptualSet[APP.state.lang === "ar" ? "en" : "ar"]
+        : {};
+    const conceptualCatalog = U.isObject(conceptualSet?.shared?.linkCatalog) ? conceptualSet.shared.linkCatalog : {};
+    const conceptualAxes = Array.isArray(conceptualPage?.axes) ? conceptualPage.axes : [];
 
     const cvIcon = (name) => {
       const icons = {
@@ -109,14 +124,143 @@
     if (heroTitle) heroTitle.textContent = hero.title || U.titleFromId(APP.pageId);
     if (heroSubtitle) heroSubtitle.innerHTML = APP.toParagraphs(hero.subtitle || "");
     if (heroPrompt) heroPrompt.textContent = hero.prompt || `$ open ${APP.pageId}`;
-    const heroMeta = heroTitle ? heroTitle.closest(".cv-hero-inner")?.querySelector(".cv-hero-meta") : null;
-    if (heroTitle?.closest(".cv-hero-inner") && !heroMeta) {
-      heroTitle.closest(".cv-hero-inner").insertAdjacentHTML("beforeend", '<div class="cv-hero-meta" id="cv-hero-meta"></div>');
-    }
     const heroMetaNode = document.getElementById("cv-hero-meta");
     if (heroMetaNode) {
       heroMetaNode.innerHTML = heroHighlights.map((item) => `<span class="cv-chip">${U.esc(item)}</span>`).join("");
       heroMetaNode.hidden = heroHighlights.length === 0;
+    }
+
+    const workItems = conceptualAxes.flatMap((axis, axisIndex) =>
+      (Array.isArray(axis?.buttons) ? axis.buttons : []).map((button, buttonIndex) => {
+        const resolved = typeof APP.resolveConceptualAxesLink === "function"
+          ? APP.resolveConceptualAxesLink(button, conceptualCatalog)
+          : { href: "#", meta: {}, kind: "placeholder", isExternal: false };
+        const href = resolved.href || "#";
+        const driveFolderMatch = href.match(/\/drive\/folders\/([^/?#]+)/i);
+        return {
+          key: `${axisIndex}-${buttonIndex}`,
+          title: button?.label || "",
+          href,
+          kind: resolved.kind || "placeholder",
+          icon: typeof APP.conceptualAxesIcon === "function" ? APP.conceptualAxesIcon(resolved.kind || "placeholder") : "",
+          pageId: resolved.meta?.pageId || "",
+          driveFolderId: driveFolderMatch ? driveFolderMatch[1] : "",
+          disabled: href === "#"
+        };
+      })
+    );
+
+    const workLookup = Object.fromEntries(
+      workItems.map((item) => [item.key, item])
+    );
+
+    const openWorkDetail = (item) => {
+      if (!item || item.disabled || !item.href || item.href === "#") return;
+      if (item.driveFolderId) {
+        APP.openDriveFolderInModal(item.href, {
+          title: item.title || works.modal_title || works.label || "",
+          driveFolderId: item.driveFolderId,
+          reverseLayout: true,
+          backLabel: works.back_label || "Return",
+          onBack: openWorksOverview
+        });
+        return;
+      }
+      if (item.pageId || item.href.startsWith("/")) {
+        APP.openInlinePageInModal(item.href, {
+          title: item.title || works.modal_title || works.label || "",
+          eyebrow: works.detail_eyebrow || works.modal_title || works.label || "",
+          backLabel: works.back_label || "Return",
+          onBack: openWorksOverview
+        });
+        return;
+      }
+      APP.openExternalInModal(item.href, {
+        title: item.title || works.modal_title || works.label || "",
+        backLabel: works.back_label || "Return",
+        onBack: openWorksOverview
+      });
+    };
+
+    const openWorksOverview = () => {
+      APP.openCustomModal({
+        title: works.modal_title || works.label || "",
+        eyebrow: works.modal_eyebrow || "",
+        customClass: "cv-modal-works",
+        html: `
+          ${works.intro ? `<p class="cv-modal-works__intro">${U.esc(works.intro)}</p>` : ""}
+          <div class="cv-modal-works__grid">
+            ${workItems.map((item) => `
+              <button class="axes-link-button cv-modal-work-button cv-modal-work-button--${U.esc(item.kind || "placeholder")}${item.disabled ? " is-disabled" : ""}" type="button" data-cv-work-key="${U.esc(item.key)}"${item.disabled ? ' disabled aria-disabled="true"' : ""}>
+                <span class="axes-link-label">${U.esc(item.title || "")}</span>
+                <span class="axes-link-icon" aria-hidden="true">${item.icon}</span>
+              </button>
+            `).join("")}
+          </div>
+        `,
+        onRender: (customEl) => {
+          customEl.onclick = (event) => {
+            const button = event.target.closest("[data-cv-work-key]");
+            if (!button) return;
+            openWorkDetail(workLookup[button.dataset.cvWorkKey]);
+          };
+        }
+      });
+    };
+
+    const openContactOverview = () => {
+      APP.openCustomModal({
+        title: contacts.modal_title || contacts.label || "",
+        eyebrow: contacts.modal_eyebrow || "",
+        customClass: "cv-modal-contact",
+        html: `
+          ${contacts.intro ? `<p class="cv-modal-contact__intro">${U.esc(contacts.intro)}</p>` : ""}
+          <div class="cv-modal-contact__grid">
+            ${contactItems.map((item) => {
+              const target = item.external ? ' target="_blank" rel="noopener noreferrer"' : "";
+              return `
+                <a class="cv-modal-contact__item" href="${U.esc(item.href)}"${target}>
+                  ${item.title ? `<span class="cv-modal-contact__item-title">${U.esc(item.title)}</span>` : ""}
+                  <strong class="cv-modal-contact__item-value">${U.esc(item.label || "")}</strong>
+                </a>
+              `;
+            }).join("")}
+          </div>
+        `
+      });
+    };
+
+    if (actionsRoot) {
+      const actionItems = [
+        certificates.label ? `<button class="cv-action-button" type="button" data-cv-action="certificates">${U.esc(certificates.label)}</button>` : "",
+        works.label ? `<button class="cv-action-button" type="button" data-cv-action="works">${U.esc(works.label)}</button>` : "",
+        contacts.label && contactItems.length
+          ? `<button class="cv-action-button" type="button" data-cv-action="contact">${U.esc(contacts.label)}</button>`
+          : ""
+      ].filter(Boolean);
+
+      actionsRoot.innerHTML = actionItems.join("");
+      actionsRoot.hidden = actionItems.length === 0;
+      if (page.actions_aria_label) actionsRoot.setAttribute("aria-label", page.actions_aria_label);
+      actionsRoot.onclick = (event) => {
+        const button = event.target.closest("[data-cv-action]");
+        if (!button) return;
+        if (button.dataset.cvAction === "certificates" && certificates.folder_href && certificates.drive_folder_id) {
+          APP.openDriveFolderInModal(certificates.folder_href, {
+            title: certificates.modal_title || certificates.label || "",
+            driveFolderId: certificates.drive_folder_id,
+            reverseLayout: true
+          });
+          return;
+        }
+        if (button.dataset.cvAction === "works") {
+          openWorksOverview();
+          return;
+        }
+        if (button.dataset.cvAction === "contact") {
+          openContactOverview();
+        }
+      };
     }
 
     shell.innerHTML = `
@@ -186,6 +330,191 @@
         </div>
       </section>
     `;
+  }
+
+  function renderGrowthPage(page) {
+    const shell = document.getElementById("growth-shell");
+    const heroTitle = document.getElementById("growth-page-title");
+    const heroSubtitle = document.getElementById("growth-page-subtitle");
+    const heroPrompt = document.getElementById("growth-page-prompt");
+    if (!shell) return;
+
+    const hero = page.hero || {};
+    const introduction = page.introduction || {};
+    const evidenceOfGrowth = page.evidence_of_growth || {};
+    const continuingGrowth = page.continuing_growth || {};
+    const lang = APP.state.lang === "ar" ? "ar" : "en";
+    const ui = {
+      en: {
+        stageTitle: "Professional Growth Evidence",
+        stageNote: "Three pieces of evidence are shown in one focused viewer. Move between them to read each activity in full.",
+        evidenceLabel: "Evidence",
+        overviewLabel: "Overview",
+        readingLabel: "Reading The Evidence",
+        directionLabel: "Next Direction",
+        prev: "Previous evidence",
+        next: "Next evidence",
+        openEvidence: "Open Evidence"
+      },
+      ar: {
+        stageTitle: "أدلة النمو المهني",
+        stageNote: "تُعرض الأدلة الثلاثة في مساحة واحدة مركزة. تنقل بينها لقراءة كل نشاط بشكل كامل.",
+        evidenceLabel: "الدليل",
+        overviewLabel: "مدخل",
+        readingLabel: "قراءة الأدلة",
+        directionLabel: "الاتجاه القادم",
+        prev: "الدليل السابق",
+        next: "الدليل التالي",
+        openEvidence: "فتح الدليل"
+      }
+    }[lang];
+
+    const evidenceItems = [
+      page.ias_project,
+      page.deep_learning_certificate,
+      page.printing_workshop
+    ]
+      .filter((item) => U.isObject(item))
+      .map((item, index) => {
+        const rawTitle = String(item.title || "").trim();
+        const shortTitle = rawTitle.split(/[:：]/).pop()?.trim() || rawTitle;
+        return {
+          ...item,
+          index,
+          shortTitle,
+          label: `${ui.evidenceLabel} ${index + 1}`
+        };
+      });
+
+    const sidebarCards = [
+      { label: ui.overviewLabel, ...introduction },
+      { label: ui.readingLabel, ...evidenceOfGrowth },
+      { label: ui.directionLabel, ...continuingGrowth }
+    ].filter((item) => item.title || item.body);
+
+    const growthLinkMarkup = (link) => {
+      const href = link?.href || "#";
+      const disabled = href === "#";
+      const isExternal = !disabled && /^https?:\/\//i.test(href);
+      const driveFolderId = link?.driveFolderId || link?.drive_folder_id || "";
+      const externalAttrs = isExternal ? ' target="_blank" rel="noopener noreferrer"' : "";
+      const disabledAttrs = disabled ? ' aria-disabled="true" tabindex="-1"' : "";
+      const driveAttr = driveFolderId ? ` data-drive-folder-id="${U.esc(driveFolderId)}"` : "";
+      return `
+        <a class="growth-evidence-link${disabled ? " is-disabled" : ""}" href="${U.esc(href)}" data-embed-title="${U.esc(link?.label || ui.openEvidence)}"${externalAttrs}${disabledAttrs}${driveAttr}>
+          <span>${U.esc(link?.label || ui.openEvidence)}</span>
+        </a>
+      `;
+    };
+
+    const sidebarMarkup = sidebarCards
+      .map((card) => `
+        <section class="section-card growth-sidebar-card reveal" data-reveal="fade-up">
+          <div class="section-block-inner growth-sidebar-card-inner">
+            ${card.label ? `<p class="growth-sidebar-label">${U.esc(card.label)}</p>` : ""}
+            ${card.title ? `<div class="section-headline"><h2>${U.esc(card.title)}</h2></div>` : ""}
+            ${APP.toStructuredCopy ? APP.toStructuredCopy(card.body || []) : `<div class="section-copy">${APP.toParagraphs(card.body || [])}</div>`}
+          </div>
+        </section>
+      `)
+      .join("");
+
+    if (heroTitle) heroTitle.textContent = hero.title || U.titleFromId(APP.pageId);
+    if (heroSubtitle) heroSubtitle.innerHTML = APP.toParagraphs(hero.subtitle || "");
+    if (heroPrompt) heroPrompt.textContent = hero.prompt || `$ open ${APP.pageId}`;
+
+    shell.lang = APP.state.lang;
+    shell.dir = APP.state.lang === "ar" ? "rtl" : "ltr";
+    shell.innerHTML = `
+      <div class="growth-layout">
+        <section class="section-card growth-stage reveal" data-reveal="fade-up" aria-labelledby="growth-stage-title">
+          <div class="section-block-inner growth-stage-inner">
+            <header class="growth-stage-head">
+              <div class="growth-stage-copy">
+                <p class="growth-stage-label">${U.esc(ui.evidenceLabel)}</p>
+                <div class="section-headline"><h2 id="growth-stage-title">${U.esc(ui.stageTitle)}</h2></div>
+                <p class="growth-stage-note">${U.esc(ui.stageNote)}</p>
+              </div>
+              <div class="growth-slider-arrows" aria-label="${U.esc(ui.stageTitle)}">
+                <button class="growth-slider-arrow" type="button" data-growth-nav="prev" aria-label="${U.esc(ui.prev)}">&#8249;</button>
+                <button class="growth-slider-arrow" type="button" data-growth-nav="next" aria-label="${U.esc(ui.next)}">&#8250;</button>
+              </div>
+            </header>
+
+            <div class="growth-slider-tabs" role="tablist" aria-label="${U.esc(ui.stageTitle)}">
+              ${evidenceItems.map((item, index) => `
+                <button class="growth-slider-tab${index === 0 ? " active" : ""}" type="button" role="tab" aria-selected="${index === 0 ? "true" : "false"}" data-growth-index="${index}">
+                  <span class="growth-slider-tab-index">${U.esc(String(index + 1).padStart(2, "0"))}</span>
+                  <span class="growth-slider-tab-label">${U.esc(item.shortTitle || item.title || "")}</span>
+                </button>
+              `).join("")}
+            </div>
+
+            <article class="growth-slide-content" id="growth-slide-content"></article>
+          </div>
+        </section>
+
+        <aside class="growth-sidebar">
+          ${sidebarMarkup}
+        </aside>
+      </div>
+    `;
+
+    const slideRoot = document.getElementById("growth-slide-content");
+    const tabButtons = [...shell.querySelectorAll("[data-growth-index]")];
+    let activeIndex = 0;
+
+    const renderEvidenceSlide = (index) => {
+      if (!slideRoot || !evidenceItems.length) return;
+      activeIndex = (index + evidenceItems.length) % evidenceItems.length;
+      const item = evidenceItems[activeIndex];
+      const links = Array.isArray(item.links) ? item.links.filter((link) => link?.href) : [];
+      slideRoot.innerHTML = `
+        <div class="growth-slide-meta">
+          <span class="growth-slide-kicker">${U.esc(item.label)}</span>
+          <span class="growth-slide-counter">${U.esc(String(activeIndex + 1))} / ${U.esc(String(evidenceItems.length))}</span>
+        </div>
+        <div class="section-headline growth-slide-headline">
+          <h3>${U.esc(item.title || "")}</h3>
+        </div>
+        <div class="growth-slide-body">
+          ${APP.toStructuredCopy ? APP.toStructuredCopy(item.body || []) : `<div class="section-copy">${APP.toParagraphs(item.body || [])}</div>`}
+        </div>
+        ${links.length ? `<div class="growth-evidence-links">${links.map(growthLinkMarkup).join("")}</div>` : ""}
+      `;
+
+      tabButtons.forEach((button, buttonIndex) => {
+        const active = buttonIndex === activeIndex;
+        button.classList.toggle("active", active);
+        button.setAttribute("aria-selected", active ? "true" : "false");
+      });
+    };
+
+    shell.onclick = (event) => {
+      const tab = event.target.closest("[data-growth-index]");
+      if (tab) {
+        renderEvidenceSlide(Number(tab.dataset.growthIndex));
+        return;
+      }
+
+      const navButton = event.target.closest("[data-growth-nav]");
+      if (!navButton) return;
+      renderEvidenceSlide(activeIndex + (navButton.dataset.growthNav === "next" ? 1 : -1));
+    };
+
+    shell.onkeydown = (event) => {
+      if (!event.target.closest(".growth-slider-tab")) return;
+      if (event.key === "ArrowRight") {
+        event.preventDefault();
+        renderEvidenceSlide(activeIndex + 1);
+      } else if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        renderEvidenceSlide(activeIndex - 1);
+      }
+    };
+
+    renderEvidenceSlide(0);
+    APP.revealSections(shell);
   }
 
   function renderPhilosophyPage(page) {
@@ -542,6 +871,7 @@
 
   APP.renderHomePage = renderHomePage;
   APP.renderCvPage = renderCvPage;
+  APP.renderGrowthPage = renderGrowthPage;
   APP.renderPhilosophyPage = renderPhilosophyPage;
   APP.renderUnitIntroPage = renderUnitIntroPage;
   APP.renderUnitFooterNav = renderUnitFooterNav;

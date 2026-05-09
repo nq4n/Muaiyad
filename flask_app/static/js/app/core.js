@@ -420,6 +420,173 @@
     return url.toString();
   };
 
+  APP.isTrustedEmbedPreview = function isTrustedEmbedPreview(href) {
+    if (!href) return false;
+    try {
+      const url = new URL(href, window.location.href);
+      return (
+        url.origin === window.location.origin ||
+        /(^|\.)docs\.google\.com$/i.test(url.hostname) ||
+        /(^|\.)drive\.google\.com$/i.test(url.hostname)
+      );
+    } catch (error) {
+      return false;
+    }
+  };
+
+  APP.setModalOriginalLink = function setModalOriginalLink(href, label) {
+    const openLinkEl = document.getElementById("modal-open-original");
+    if (!openLinkEl) return;
+
+    if (!href || !label) {
+      openLinkEl.hidden = true;
+      openLinkEl.href = "#";
+      openLinkEl.textContent = "";
+      return;
+    }
+
+    openLinkEl.hidden = false;
+    openLinkEl.href = href;
+    openLinkEl.textContent = label;
+  };
+
+  APP.setModalBackButton = function setModalBackButton(label, handler) {
+    const backButtonEl = document.getElementById("modal-back-button");
+    if (!backButtonEl) return;
+
+    if (!label || typeof handler !== "function") {
+      backButtonEl.hidden = true;
+      backButtonEl.textContent = "";
+      backButtonEl.onclick = null;
+      return;
+    }
+
+    backButtonEl.hidden = false;
+    backButtonEl.textContent = label;
+    backButtonEl.onclick = (event) => {
+      event.preventDefault();
+      handler(event);
+    };
+  };
+
+  APP.resetModalCustomContent = function resetModalCustomContent() {
+    const customEl = document.getElementById("modal-custom");
+    const frameEl = document.getElementById("modal-iframe");
+    const bodyEl = frameEl?.closest(".modal__body");
+    if (customEl) {
+      customEl.hidden = true;
+      customEl.innerHTML = "";
+      customEl.className = "modal__custom";
+    }
+    if (bodyEl) {
+      bodyEl.classList.remove("modal__body--custom", "modal__body--drive", "modal__body--drive-reverse");
+    }
+  };
+
+  APP.openCustomModal = function openCustomModal(options = {}) {
+    const modal = document.getElementById("project-modal");
+    const titleEl = document.getElementById("modal-title");
+    const eyebrowEl = document.getElementById("modal-eyebrow");
+    const statusEl = document.getElementById("modal-status");
+    const frameEl = document.getElementById("modal-iframe");
+    const fallbackEl = document.getElementById("modal-fallback");
+    const driveRoot = document.getElementById("modal-drive-folder");
+    const customEl = document.getElementById("modal-custom");
+    const bodyEl = frameEl?.closest(".modal__body");
+    if (!modal || !frameEl || !customEl || !bodyEl) return;
+
+    window.clearTimeout(APP.externalEmbedFallbackTimer);
+    APP.resetModalCustomContent();
+    APP.setModalOriginalLink("", "");
+    APP.setModalBackButton("", null);
+
+    if (titleEl) titleEl.textContent = options.title || "";
+    if (eyebrowEl) eyebrowEl.textContent = options.eyebrow || "";
+    if (statusEl) statusEl.textContent = options.status || "";
+
+    if (driveRoot) {
+      driveRoot.hidden = true;
+      driveRoot.innerHTML = "";
+    }
+    if (fallbackEl) fallbackEl.hidden = true;
+    frameEl.src = "about:blank";
+    frameEl.hidden = true;
+
+    bodyEl.classList.add("modal__body--custom");
+    customEl.hidden = false;
+    customEl.className = `modal__custom${options.customClass ? ` ${options.customClass}` : ""}`;
+    customEl.innerHTML = options.html || "";
+
+    modal.hidden = false;
+    modal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("modal-open");
+
+    if (typeof options.onRender === "function") {
+      options.onRender(customEl);
+    }
+  };
+
+  APP.openInlinePageInModal = function openInlinePageInModal(href, options = {}) {
+    const modal = document.getElementById("project-modal");
+    const titleEl = document.getElementById("modal-title");
+    const eyebrowEl = document.getElementById("modal-eyebrow");
+    const statusEl = document.getElementById("modal-status");
+    const frameEl = document.getElementById("modal-iframe");
+    const fallbackEl = document.getElementById("modal-fallback");
+    const fallbackCopyEl = document.getElementById("modal-fallback-copy");
+    const fallbackLinkEl = document.getElementById("modal-fallback-link");
+    const driveRoot = document.getElementById("modal-drive-folder");
+    if (!modal || !frameEl || !fallbackEl || !fallbackCopyEl || !fallbackLinkEl) return;
+
+    APP.resetModalCustomContent();
+    APP.setModalOriginalLink("", "");
+    APP.setModalBackButton(options.backLabel || "", options.onBack);
+
+    if (driveRoot) {
+      driveRoot.hidden = true;
+      driveRoot.innerHTML = "";
+    }
+
+    const lang = APP.state?.lang === "en" ? "en" : "ar";
+    const copy = {
+      en: {
+        eyebrow: "Work Viewer",
+        loading: "Loading work inside the popup window.",
+        fallback: "This work could not be loaded inside the popup window.",
+        action: "Open Page"
+      },
+      ar: {
+        eyebrow: "عارض العمل",
+        loading: "جار تحميل العمل داخل النافذة المنبثقة.",
+        fallback: "تعذر تحميل هذا العمل داخل النافذة المنبثقة.",
+        action: "فتح الصفحة"
+      }
+    }[lang];
+
+    if (titleEl) titleEl.textContent = options.title || href;
+    if (eyebrowEl) eyebrowEl.textContent = options.eyebrow || copy.eyebrow;
+    if (statusEl) statusEl.textContent = options.status || copy.loading;
+    fallbackCopyEl.textContent = options.fallbackCopy || copy.fallback;
+    fallbackLinkEl.href = href;
+    fallbackLinkEl.textContent = options.fallbackAction || copy.action;
+
+    fallbackEl.hidden = true;
+    frameEl.hidden = false;
+    frameEl.onload = () => {
+      if (statusEl) statusEl.textContent = "";
+      window.clearTimeout(APP.externalEmbedFallbackTimer);
+    };
+    frameEl.onerror = () => {
+      if (statusEl) statusEl.textContent = "";
+      frameEl.hidden = true;
+      fallbackEl.hidden = false;
+    };
+    frameEl.src = href;
+    modal.hidden = false;
+    modal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("modal-open");
+  };
+
   APP.openDriveFolderInModal = function openDriveFolderInModal(href, options = {}) {
     const modal = document.getElementById("project-modal");
     const titleEl = document.getElementById("modal-title");
@@ -460,8 +627,11 @@
       bodyEl.insertBefore(driveRoot, frameEl);
     }
 
+    APP.resetModalCustomContent();
+    APP.setModalBackButton(options.backLabel || "", options.onBack);
+
     const showFallback = (message) => {
-      bodyEl.classList.remove("modal__body--drive");
+      bodyEl.classList.remove("modal__body--drive", "modal__body--drive-reverse");
       driveRoot.hidden = true;
       frameEl.hidden = true;
       fallbackEl.hidden = false;
@@ -491,10 +661,10 @@
       frameEl.hidden = false;
       fallbackEl.hidden = true;
       bodyEl.classList.add("modal__body--drive");
+      bodyEl.classList.toggle("modal__body--drive-reverse", options.reverseLayout === true);
       driveRoot.innerHTML = `
         <div class="modal__drive-folder-head">
           <strong>${U.esc(options.title || href)}</strong>
-          <a href="${U.esc(href)}" target="_blank" rel="noopener noreferrer" data-bypass-embed="true">${U.esc(copy.openOriginal)}</a>
         </div>
         <div class="modal__drive-file-list">
           ${entries.map((entry, index) => `
@@ -512,12 +682,14 @@
     if (titleEl) titleEl.textContent = options.title || href;
     if (eyebrowEl) eyebrowEl.textContent = copy.eyebrow;
     if (statusEl) statusEl.textContent = copy.loading;
+    APP.setModalOriginalLink(href, copy.openOriginal);
     driveRoot.hidden = false;
     driveRoot.innerHTML = `<p class="modal__drive-loading">${U.esc(copy.loading)}</p>`;
     fallbackEl.hidden = true;
     frameEl.hidden = true;
     frameEl.src = "about:blank";
     bodyEl.classList.add("modal__body--drive");
+    bodyEl.classList.toggle("modal__body--drive-reverse", options.reverseLayout === true);
     modal.hidden = false;
     modal.setAttribute("aria-hidden", "false");
     document.body.classList.add("modal-open");
@@ -554,7 +726,9 @@
     if (!modal || !frameEl || !fallbackEl || !fallbackCopyEl || !fallbackLinkEl) return;
     const bodyEl = frameEl.closest(".modal__body");
     const driveRoot = document.getElementById("modal-drive-folder");
-    if (bodyEl) bodyEl.classList.remove("modal__body--drive");
+    APP.resetModalCustomContent();
+    APP.setModalBackButton(options.backLabel || "", options.onBack);
+    if (bodyEl) bodyEl.classList.remove("modal__body--drive", "modal__body--drive-reverse");
     if (driveRoot) {
       driveRoot.hidden = true;
       driveRoot.innerHTML = "";
@@ -578,6 +752,7 @@
 
     const embeddedHref = APP.embedUrlFor(href);
     const modalTitle = options.title || options.label || href;
+    const shouldUseFallbackTimer = !APP.isTrustedEmbedPreview(embeddedHref);
 
     if (titleEl) titleEl.textContent = modalTitle;
     if (eyebrowEl) eyebrowEl.textContent = copy.eyebrow;
@@ -587,6 +762,7 @@
       fallbackLinkEl.href = href;
       fallbackLinkEl.textContent = copy.action;
     }
+    APP.setModalOriginalLink(href, copy.action);
 
     fallbackEl.hidden = true;
     frameEl.hidden = false;
@@ -596,6 +772,7 @@
     };
     frameEl.onerror = () => {
       if (statusEl) statusEl.textContent = "";
+      frameEl.hidden = true;
       fallbackEl.hidden = false;
     };
     frameEl.src = embeddedHref;
@@ -604,11 +781,15 @@
     document.body.classList.add("modal-open");
 
     window.clearTimeout(APP.externalEmbedFallbackTimer);
-    APP.externalEmbedFallbackTimer = window.setTimeout(() => {
-      if (!frameEl.hidden) {
-        fallbackEl.hidden = false;
-      }
-    }, 2200);
+    if (shouldUseFallbackTimer) {
+      APP.externalEmbedFallbackTimer = window.setTimeout(() => {
+        if (!frameEl.hidden) {
+          frameEl.hidden = true;
+          fallbackEl.hidden = false;
+          if (statusEl) statusEl.textContent = "";
+        }
+      }, 2200);
+    }
   };
 
   APP.closeExternalModal = function closeExternalModal() {
@@ -620,15 +801,18 @@
     const bodyEl = frameEl?.closest(".modal__body");
     if (!modal || !frameEl) return;
     window.clearTimeout(APP.externalEmbedFallbackTimer);
+    APP.resetModalCustomContent();
     frameEl.src = "about:blank";
-    frameEl.hidden = false;
+    frameEl.hidden = true;
     if (fallbackEl) fallbackEl.hidden = true;
     if (statusEl) statusEl.textContent = "";
-    if (bodyEl) bodyEl.classList.remove("modal__body--drive");
+    if (bodyEl) bodyEl.classList.remove("modal__body--drive", "modal__body--drive-reverse", "modal__body--custom");
     if (driveRoot) {
       driveRoot.hidden = true;
       driveRoot.innerHTML = "";
     }
+    APP.setModalOriginalLink("", "");
+    APP.setModalBackButton("", null);
     modal.hidden = true;
     modal.setAttribute("aria-hidden", "true");
     document.body.classList.remove("modal-open");
