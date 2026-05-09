@@ -20,15 +20,35 @@
 
   function initLoadingScreen() {
     const screen = document.getElementById("loading-screen");
-    const introKey = "portfolio.intro-seen.20260421v5";
+    const introKey = "portfolio.intro-seen.20260509v1";
     if (!screen) return;
-    if (sessionStorage.getItem(introKey)) {
+
+    const safeSession = {
+      get(key) {
+        try {
+          return window.sessionStorage?.getItem(key);
+        } catch {
+          return null;
+        }
+      },
+      set(key, value) {
+        try {
+          window.sessionStorage?.setItem(key, value);
+        } catch {
+          // Storage can be unavailable in hardened browser contexts.
+        }
+      }
+    };
+
+    if (safeSession.get(introKey)) {
       screen.classList.add("hidden");
       return;
     }
+
     const reducedMotion = APP.prefersReducedMotion?.() ?? window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
-    const minIntroMs = reducedMotion ? 400 : 900;
-    const autoDismissMs = reducedMotion ? 900 : 1600;
+    const minIntroMs = reducedMotion ? 300 : 2200;
+    const autoDismissMs = reducedMotion ? 900 : 4200;
+    const fadeDurationMs = reducedMotion ? 180 : 800;
     let readyToDismiss = false;
     let dismissed = false;
 
@@ -42,12 +62,12 @@
       dismissed = true;
       screen.removeEventListener("click", dismiss);
       document.removeEventListener("keydown", handleKeydown);
-      sessionStorage.setItem(introKey, "1");
+      safeSession.set(introKey, "1");
       screen.classList.add("fade-out");
       setTimeout(() => {
         screen.classList.add("hidden");
         document.body.style.overflow = "";
-      }, 800);
+      }, fadeDurationMs);
     };
 
     const handleKeydown = () => dismiss();

@@ -1043,3 +1043,44 @@ input:focus, textarea:focus, select:focus {
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  #loading-screen {
+    transition: opacity 0.18s ease;
+  }
+
+  #loading-screen.fade-out {
+    transform: none;
+  }
+
+  .loading-logo,
+  .loading-letter,
+  .loading-word,
+  .loading-ar-build,
+  .loading-ar-letter,
+  .loading-ar-connected,
+  .loading-bar,
+  .loading-bar-fill,
+  .loading-hint,
+  .loading-hint::after {
+    animation: none;
+  }
+
+  .loading-letter,
+  .loading-word,
+  .loading-ar-letter,
+  .loading-ar-connected,
+  .loading-bar,
+  .loading-hint {
+    opacity: 1;
+    transform: none;
+  }
+
+  .loading-ar-build {
+    display: none;
+  }
+
+  .loading-bar-fill {
+    width: 100%;
+  }
+}
+
