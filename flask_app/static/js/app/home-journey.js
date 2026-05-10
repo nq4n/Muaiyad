@@ -8,8 +8,8 @@
     const field = document.getElementById("home-journey-field");
     const panel = document.getElementById("home-journey-panel");
     const wordmark = document.getElementById("home-journey-wordmark");
-    const nextWordText = panel?.dataset.dotText || (APP.state.lang === "ar" ? "أهلاً بكم" : "WELCOME");
-    if (!field || !wordmark) return;
+    const nextWordText = wordmark ? panel?.dataset.dotText || "" : "";
+    if (!field) return;
     if (field.dataset.ready === "1") {
       field._journeySetText?.(nextWordText);
       return;
@@ -19,8 +19,8 @@
     const prefersReducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
     const canvas = document.createElement("canvas");
     const context = canvas.getContext("2d", { alpha: true });
-    const wordContext = wordmark.getContext("2d", { alpha: true });
-    if (!context || !wordContext) return;
+    const wordContext = wordmark?.getContext("2d", { alpha: true }) || null;
+    if (!context) return;
     field.appendChild(canvas);
 
     const pointer = { x: 0.5, y: 0.5, tx: 0.5, ty: 0.5 };
@@ -63,9 +63,9 @@
     };
 
     const buildWordPoints = () => {
-      if (!wordSampleContext || !wordWidth || !wordHeight) return;
-      const text = String(wordText || "").trim();
       wordPoints = [];
+      if (!wordmark || !wordContext || !wordSampleContext || !wordWidth || !wordHeight) return;
+      const text = String(wordText || "").trim();
       wordContext.clearRect(0, 0, wordWidth, wordHeight);
       if (!text) return;
 
@@ -109,12 +109,12 @@
       if (!width || !height) resize();
       syncPalette();
       context.clearRect(0, 0, width, height);
-      wordContext.clearRect(0, 0, wordWidth, wordHeight);
+      if (wordContext && wordWidth && wordHeight) wordContext.clearRect(0, 0, wordWidth, wordHeight);
       pointer.x += (pointer.tx - pointer.x) * 0.06;
       pointer.y += (pointer.ty - pointer.y) * 0.06;
       const isLightTheme = themeId === "light";
 
-      if (wordPoints.length) {
+      if (wordContext && wordPoints.length) {
         const localPointerX = pointer.x - wordOffsetX;
         const localPointerY = pointer.y - wordOffsetY;
         const repelRadius = wordWidth < 220 ? 36 : 48;
@@ -236,7 +236,6 @@
 
     const resize = () => {
       const rect = field.getBoundingClientRect();
-      const wordRect = wordmark.getBoundingClientRect();
       syncPalette();
       width = Math.max(Math.floor(rect.width), 1);
       height = Math.max(Math.floor(rect.height), 1);
@@ -247,15 +246,23 @@
       canvas.style.height = `${height}px`;
       context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
 
-      wordWidth = Math.max(Math.floor(wordRect.width), 1);
-      wordHeight = Math.max(Math.floor(wordRect.height), 1);
-      wordOffsetX = wordRect.left - rect.left;
-      wordOffsetY = wordRect.top - rect.top;
-      wordmark.width = wordWidth * pixelRatio;
-      wordmark.height = wordHeight * pixelRatio;
-      wordmark.style.width = `${wordWidth}px`;
-      wordmark.style.height = `${wordHeight}px`;
-      wordContext.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+      if (wordmark && wordContext) {
+        const wordRect = wordmark.getBoundingClientRect();
+        wordWidth = Math.max(Math.floor(wordRect.width), 1);
+        wordHeight = Math.max(Math.floor(wordRect.height), 1);
+        wordOffsetX = wordRect.left - rect.left;
+        wordOffsetY = wordRect.top - rect.top;
+        wordmark.width = wordWidth * pixelRatio;
+        wordmark.height = wordHeight * pixelRatio;
+        wordmark.style.width = `${wordWidth}px`;
+        wordmark.style.height = `${wordHeight}px`;
+        wordContext.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+      } else {
+        wordWidth = 0;
+        wordHeight = 0;
+        wordOffsetX = 0;
+        wordOffsetY = 0;
+      }
 
       cols = width < 700 ? 10 : 14;
       rows = width < 700 ? 6 : 8;

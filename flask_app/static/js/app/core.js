@@ -396,7 +396,10 @@
 
     if (/drive\.google\.com$/i.test(url.hostname)) {
       const folderMatch = url.pathname.match(/\/drive\/folders\/([^/]+)/i);
-      if (folderMatch) return `https://drive.google.com/embeddedfolderview?id=${folderMatch[1]}#grid`;
+      if (folderMatch) {
+        const resourceKey = url.searchParams.get("resourcekey");
+        return `https://drive.google.com/embeddedfolderview?id=${folderMatch[1]}${resourceKey ? `&resourcekey=${encodeURIComponent(resourceKey)}` : ""}#grid`;
+      }
       const fileMatch = url.pathname.match(/\/file\/d\/([^/]+)/i);
       if (fileMatch) return `https://drive.google.com/file/d/${fileMatch[1]}/preview`;
       const docMatch = url.pathname.match(/\/document\/d\/([^/]+)/i);
@@ -607,6 +610,10 @@
         empty: "No public files were found in this folder.",
         error: "The folder files could not be loaded inside the site.",
         openOriginal: "Open Folder In Google Drive",
+        openFile: "Open File In Google Drive",
+        openFolder: "Open folder",
+        backToParent: "Back to parent folder",
+        pathLabel: "Folder path",
         folder: "Folder"
       },
       ar: {
@@ -615,6 +622,10 @@
         empty: "لم يتم العثور على ملفات عامة داخل هذا المجلد.",
         error: "تعذر تحميل ملفات المجلد داخل الموقع.",
         openOriginal: "فتح المجلد في Google Drive",
+        openFile: "فتح الملف في Google Drive",
+        openFolder: "فتح المجلد",
+        backToParent: "العودة إلى المجلد السابق",
+        pathLabel: "مسار المجلد",
         folder: "مجلد"
       }
     }[lang];
@@ -630,30 +641,125 @@
     APP.resetModalCustomContent();
     APP.setModalBackButton(options.backLabel || "", options.onBack);
 
-    const showFallback = (message) => {
+    const resourceKeyFromHref = (value) => {
+      try {
+        return new URL(value, window.location.href).searchParams.get("resourcekey") || "";
+      } catch (error) {
+        return "";
+      }
+    };
+    const rootResourceKey = options.resourceKey || options.resource_key || resourceKeyFromHref(href);
+    const folderHrefFor = (folderId, fallbackHref = href, resourceKey = "") => {
+      if (!folderId) return fallbackHref;
+      const resourceQuery = resourceKey ? `?resourcekey=${encodeURIComponent(resourceKey)}` : "";
+      return `https://drive.google.com/drive/folders/${encodeURIComponent(folderId)}${resourceQuery}`;
+    };
+    const folderPreviewFor = (folderId, fallbackPreview = href, resourceKey = "") => {
+      if (!folderId) return fallbackPreview;
+      const resourceQuery = resourceKey ? `&resourcekey=${encodeURIComponent(resourceKey)}` : "";
+      return `https://drive.google.com/embeddedfolderview?id=${encodeURIComponent(folderId)}${resourceQuery}#grid`;
+    };
+    const rootFolder = {
+      id: options.driveFolderId || "",
+      title: options.title || href,
+      href,
+      resourceKey: rootResourceKey,
+      previewUrl: APP.embedUrlFor(href)
+    };
+    let folderTrail = [rootFolder];
+    let currentFolder = rootFolder;
+    let folderRequestToken = 0;
+
+    const currentFolderHref = () => currentFolder?.href || folderHrefFor(currentFolder?.id, href, currentFolder?.resourceKey || "");
+
+    const showFallback = (message, linkHref = currentFolderHref()) => {
       bodyEl.classList.remove("modal__body--drive", "modal__body--drive-reverse");
       driveRoot.hidden = true;
       frameEl.hidden = true;
       fallbackEl.hidden = false;
       fallbackCopyEl.textContent = message;
-      fallbackLinkEl.href = href;
+      fallbackLinkEl.href = linkHref;
       fallbackLinkEl.textContent = copy.openOriginal;
     };
 
-    const loadFilePreview = (previewUrl, title) => {
+    const showPreviewMessage = (message, linkHref = currentFolderHref()) => {
+      if (statusEl) statusEl.textContent = "";
+      frameEl.hidden = true;
+      fallbackEl.hidden = false;
+      fallbackCopyEl.textContent = message;
+      fallbackLinkEl.href = linkHref;
+      fallbackLinkEl.textContent = copy.openOriginal;
+    };
+
+    const renderFolderHead = (folder) => {
+      const canGoBack = folderTrail.length > 1;
+      return `
+        <div class="modal__drive-folder-head">
+          ${canGoBack ? `<button class="modal__drive-folder-back" type="button" data-drive-folder-back>${U.esc(copy.backToParent)}</button>` : ""}
+          <strong>${U.esc(folder.title || copy.folder)}</strong>
+          <ol class="modal__drive-breadcrumb" aria-label="${U.esc(copy.pathLabel)}">
+            ${folderTrail.map((item, index) => {
+              const label = item.title || copy.folder;
+              if (index === folderTrail.length - 1) {
+                return `<li><span aria-current="page">${U.esc(label)}</span></li>`;
+              }
+              return `<li><button type="button" data-drive-folder-index="${index}">${U.esc(label)}</button></li>`;
+            }).join("")}
+          </ol>
+        </div>
+      `;
+    };
+
+    const setFolderLoading = (folder) => {
+      currentFolder = folder;
+      driveRoot.hidden = false;
+      driveRoot.innerHTML = `
+        ${renderFolderHead(folder)}
+        <p class="modal__drive-loading">${U.esc(copy.loading)}</p>
+      `;
+      if (titleEl) titleEl.textContent = folder.title || options.title || href;
+      if (statusEl) statusEl.textContent = copy.loading;
+      APP.setModalOriginalLink(currentFolderHref(), copy.openOriginal);
+      fallbackEl.hidden = true;
+      frameEl.hidden = true;
+      frameEl.src = "about:blank";
+      bodyEl.classList.add("modal__body--drive");
+      bodyEl.classList.toggle("modal__body--drive-reverse", options.reverseLayout === true);
+    };
+
+    const loadFolderPreview = (folder) => {
+      if (titleEl) titleEl.textContent = folder.title || options.title || href;
+      if (statusEl) statusEl.textContent = "";
+      APP.setModalOriginalLink(currentFolderHref(), copy.openOriginal);
+      fallbackEl.hidden = true;
+      frameEl.hidden = false;
+      frameEl.src = folder.previewUrl || folderPreviewFor(folder.id, APP.embedUrlFor(folder.href || href), folder.resourceKey || "");
+      driveRoot.querySelectorAll(".modal__drive-file").forEach((button) => {
+        button.classList.remove("active");
+      });
+    };
+
+    const loadFilePreview = (previewUrl, title, originalHref) => {
       if (titleEl) titleEl.textContent = title || options.title || href;
       if (statusEl) statusEl.textContent = "";
+      APP.setModalOriginalLink(originalHref || currentFolderHref(), originalHref ? copy.openFile : copy.openOriginal);
       fallbackEl.hidden = true;
       frameEl.hidden = false;
       frameEl.src = previewUrl;
       driveRoot.querySelectorAll(".modal__drive-file").forEach((button) => {
-        button.classList.toggle("active", button.dataset.previewUrl === previewUrl);
+        button.classList.toggle("active", button.dataset.entryType !== "folder" && button.dataset.previewUrl === previewUrl);
       });
     };
 
-    const renderEntries = (entries) => {
+const renderEntries = (entries, folder = currentFolder) => {
+      currentFolder = folder;
       if (!entries.length) {
-        showFallback(copy.empty);
+        driveRoot.hidden = false;
+        driveRoot.innerHTML = `
+          ${renderFolderHead(folder)}
+          <p class="modal__drive-loading">${U.esc(copy.empty)}</p>
+        `;
+        showPreviewMessage(copy.empty);
         return;
       }
 
@@ -663,20 +769,55 @@
       bodyEl.classList.add("modal__body--drive");
       bodyEl.classList.toggle("modal__body--drive-reverse", options.reverseLayout === true);
       driveRoot.innerHTML = `
-        <div class="modal__drive-folder-head">
-          <strong>${U.esc(options.title || href)}</strong>
-        </div>
+        ${renderFolderHead(folder)}
         <div class="modal__drive-file-list">
-          ${entries.map((entry, index) => `
-            <button class="modal__drive-file${index === 0 ? " active" : ""}" type="button" data-preview-url="${U.esc(entry.preview_url || entry.href)}" data-title="${U.esc(entry.title || "")}">
+          ${entries.map((entry) => `
+            <button class="modal__drive-file" type="button" data-entry-type="${U.esc(entry.type || "file")}" data-folder-id="${U.esc(entry.type === "folder" ? entry.id || "" : "")}" data-resource-key="${U.esc(entry.resource_key || "")}" data-preview-url="${U.esc(entry.preview_url || entry.href)}" data-title="${U.esc(entry.title || "")}" data-href="${U.esc(entry.href || "")}"${entry.type === "folder" ? ` aria-label="${U.esc(`${copy.openFolder}: ${entry.title || copy.folder}`)}"` : ""}>
               <span class="modal__drive-file-icon" aria-hidden="true">${entry.type === "folder" ? U.esc(copy.folder) : "PDF"}</span>
               <span class="modal__drive-file-title">${U.esc(entry.title || "")}</span>
+              ${entry.type === "folder" ? '<span class="modal__drive-file-arrow" aria-hidden="true">&#8250;</span>' : ""}
             </button>
           `).join("")}
         </div>
       `;
-      const first = entries[0];
-      loadFilePreview(first.preview_url || first.href, first.title);
+      loadFolderPreview(folder);
+    };
+
+    const loadFolder = (folder) => {
+      const normalizedFolder = {
+        id: folder.id || "",
+        title: folder.title || copy.folder,
+        resourceKey: folder.resourceKey || resourceKeyFromHref(folder.href || ""),
+        href: folder.href || folderHrefFor(folder.id, href, folder.resourceKey || resourceKeyFromHref(folder.href || "")),
+        previewUrl: folder.previewUrl || folderPreviewFor(folder.id, APP.embedUrlFor(folder.href || href), folder.resourceKey || resourceKeyFromHref(folder.href || ""))
+      };
+      const token = ++folderRequestToken;
+      setFolderLoading(normalizedFolder);
+
+      const resourceQuery = normalizedFolder.resourceKey ? `?resourcekey=${encodeURIComponent(normalizedFolder.resourceKey)}` : "";
+      fetch(`/api/drive-folder/${encodeURIComponent(normalizedFolder.id)}${resourceQuery}`)
+        .then((response) => {
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          return response.json();
+        })
+        .then((data) => {
+          if (token !== folderRequestToken) return;
+          renderEntries(Array.isArray(data.entries) ? data.entries : [], normalizedFolder);
+        })
+        .catch(() => {
+          if (token !== folderRequestToken) return;
+          driveRoot.innerHTML = `
+            ${renderFolderHead(normalizedFolder)}
+            <p class="modal__drive-loading">${U.esc(copy.error)}</p>
+          `;
+          showPreviewMessage(copy.error, normalizedFolder.href);
+        });
+    };
+
+    const openFolderAtTrailIndex = (index) => {
+      const safeIndex = Math.max(0, Math.min(Number(index) || 0, folderTrail.length - 1));
+      folderTrail = folderTrail.slice(0, safeIndex + 1);
+      loadFolder(folderTrail[folderTrail.length - 1]);
     };
 
     if (titleEl) titleEl.textContent = options.title || href;
@@ -695,18 +836,43 @@
     document.body.classList.add("modal-open");
 
     driveRoot.onclick = (event) => {
+      const backButton = event.target.closest("[data-drive-folder-back]");
+      if (backButton) {
+        event.preventDefault();
+        openFolderAtTrailIndex(folderTrail.length - 2);
+        return;
+      }
+
+      const pathButton = event.target.closest("[data-drive-folder-index]");
+      if (pathButton) {
+        event.preventDefault();
+        openFolderAtTrailIndex(pathButton.dataset.driveFolderIndex);
+        return;
+      }
+
       const button = event.target.closest(".modal__drive-file");
       if (!button) return;
-      loadFilePreview(button.dataset.previewUrl, button.dataset.title);
+      if (button.dataset.entryType === "folder" && button.dataset.folderId) {
+        const folder = {
+          id: button.dataset.folderId,
+          title: button.dataset.title || copy.folder,
+          resourceKey: button.dataset.resourceKey || resourceKeyFromHref(button.dataset.href || ""),
+          href: button.dataset.href || folderHrefFor(button.dataset.folderId, href, button.dataset.resourceKey || resourceKeyFromHref(button.dataset.href || "")),
+          previewUrl: button.dataset.previewUrl || folderPreviewFor(button.dataset.folderId, href, button.dataset.resourceKey || resourceKeyFromHref(button.dataset.href || ""))
+        };
+        folderTrail = [...folderTrail, folder];
+        loadFolder(folder);
+        return;
+      }
+
+      loadFilePreview(button.dataset.previewUrl, button.dataset.title, button.dataset.href);
     };
 
-    fetch(`/api/drive-folder/${encodeURIComponent(options.driveFolderId)}`)
-      .then((response) => {
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        return response.json();
-      })
-      .then((data) => renderEntries(Array.isArray(data.entries) ? data.entries : []))
-      .catch(() => showFallback(copy.error));
+    if (rootFolder.id) {
+      loadFolder(rootFolder);
+    } else {
+      showFallback(copy.error, href);
+    }
   };
 
   APP.openExternalInModal = function openExternalInModal(href, options = {}) {

@@ -747,6 +747,67 @@ textarea {
   line-height: 1.45;
 }
 
+.modal__drive-folder-back {
+  width: fit-content;
+  border: 1px solid rgba(214, 177, 109, 0.22);
+  border-radius: 0.65rem;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--accent);
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 0.48rem 0.72rem;
+  cursor: pointer;
+}
+
+.modal__drive-folder-back:hover,
+.modal__drive-folder-back:focus-visible {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.modal__drive-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+  list-style: none;
+}
+
+.modal__drive-breadcrumb li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.modal__drive-breadcrumb li:not(:last-child)::after {
+  content: "/";
+  color: var(--border-strong);
+}
+
+.modal__drive-breadcrumb button {
+  border: 0;
+  background: transparent;
+  color: var(--accent);
+  font: inherit;
+  padding: 0;
+  cursor: pointer;
+  text-align: start;
+}
+
+.modal__drive-breadcrumb span,
+.modal__drive-breadcrumb button {
+  max-width: 14rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .modal__drive-file-list {
   display: grid;
   align-content: start;
@@ -768,7 +829,7 @@ textarea {
 
 .modal__drive-file {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto 1fr auto;
   gap: 0.65rem;
   align-items: center;
   padding: 0.75rem;
@@ -800,6 +861,12 @@ textarea {
 .modal__drive-file-title {
   overflow-wrap: anywhere;
   line-height: 1.55;
+}
+
+.modal__drive-file-arrow {
+  color: var(--accent);
+  font-size: 1.25rem;
+  line-height: 1;
 }
 
 .modal__drive-loading {

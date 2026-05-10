@@ -20,9 +20,7 @@
         type: "html",
         html: `
           <div class="section-copy">
-            <p><strong>Appendix (1): Unit lesson plans</strong><br><a class="chip appendix-link appendix-link--drive" href="https://drive.google.com/drive/folders/11V_RGa0mMNH1HdRZ-BBh6eZoInx9to6w?usp=drive_link" data-embed-title="Lesson plans folder" data-drive-folder-id="11V_RGa0mMNH1HdRZ-BBh6eZoInx9to6w"><span class="appendix-link-icon" aria-hidden="true">Drive</span><span>Open lesson plans folder</span></a></p>
-            <p><strong>Appendix (2): Presentations and lesson attachments</strong><br><a class="chip appendix-link appendix-link--powerpoint" href="/unit-2-framework"><span class="appendix-link-icon" aria-hidden="true">PPT</span><span>Open lesson presentations</span></a><br><a class="chip appendix-link appendix-link--attachment" href="/unit-4-assessment"><span class="appendix-link-icon" aria-hidden="true">&#128206;</span><span>Open lesson attachments</span></a></p>
-            <p><strong>Appendix (3): Practical activities and final project</strong><br><a class="chip appendix-link appendix-link--attachment" href="/unit-7-impact"><span class="appendix-link-icon" aria-hidden="true">&#128206;</span><span>Open activities and final project</span></a><br><a class="chip appendix-link appendix-link--attachment" href="/unit-8-reflection"><span class="appendix-link-icon" aria-hidden="true">&#128206;</span><span>Open implementation reflection evidence</span></a></p>
+            <p><strong>Appendix: Unit attachments and presentations</strong><br><a class="chip appendix-link appendix-link--drive" href="https://drive.google.com/drive/folders/19tOYC4sswS_i0aFJ6QZx7KjpHQGTD9jZ?usp=drive_link" data-embed-title="Unit attachments folder" data-drive-folder-id="19tOYC4sswS_i0aFJ6QZx7KjpHQGTD9jZ"><span class="appendix-link-icon" aria-hidden="true">Drive</span><span>Open unit attachments and presentations folder</span></a></p>
           </div>
         `
       },
@@ -53,8 +51,7 @@
         type: "html",
         html: `
           <div class="section-copy">
-            <p><strong>ملحق (1): خطط دروس الوحدة</strong><br><a class="chip appendix-link appendix-link--drive" href="https://drive.google.com/drive/folders/11V_RGa0mMNH1HdRZ-BBh6eZoInx9to6w?usp=drive_link" data-embed-title="مجلد خطط الدروس" data-drive-folder-id="11V_RGa0mMNH1HdRZ-BBh6eZoInx9to6w"><span class="appendix-link-icon" aria-hidden="true">Drive</span><span>رابط مجلد خطط الدروس</span></a></p>
-            <p><strong>ملحق (2): العروض التقديمية والمرفقات الخاصة بالدروس</strong><br><a class="chip appendix-link appendix-link--powerpoint" href="/unit-2-framework"><span class="appendix-link-icon" aria-hidden="true">PPT</span><span>رابط عروض الدروس</span></a><br><a class="chip appendix-link appendix-link--attachment" href="https://drive.google.com/drive/folders/148qGE4YrKEtLJcTjUbJFTkZUHIs67H0Q?usp=drive_link"><span class="appendix-link-icon" aria-hidden="true">&#128206;</span><span>رابط مرفقات الدروس</span></a></p>
+            <p><strong>ملحق: مرفقات الوحدة والعروض التقديمية</strong><br><a class="chip appendix-link appendix-link--drive" href="https://drive.google.com/drive/folders/19tOYC4sswS_i0aFJ6QZx7KjpHQGTD9jZ?usp=drive_link" data-embed-title="مجلد مرفقات الوحدة" data-drive-folder-id="19tOYC4sswS_i0aFJ6QZx7KjpHQGTD9jZ"><span class="appendix-link-icon" aria-hidden="true">Drive</span><span>رابط مجلد مرفقات الوحدة والعروض التقديمية</span></a></p>
           </div>
         `
       },

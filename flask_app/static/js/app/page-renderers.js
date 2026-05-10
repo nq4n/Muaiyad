@@ -43,7 +43,6 @@
     }
 
     if (journeyPanel && aside.paths_aria_label) journeyPanel.setAttribute("aria-label", aside.paths_aria_label);
-    if (journeyPanel) journeyPanel.dataset.dotText = hero.welcome || (APP.state.lang === "ar" ? "أهلاً بكم" : "WELCOME");
     if (aboutTitle) aboutTitle.textContent = about.title || "";
     if (aboutCopy) aboutCopy.innerHTML = APP.toParagraphs(about.body || []);
     if (trainingTitle) trainingTitle.textContent = training.title || "";

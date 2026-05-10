@@ -1,10 +1,13 @@
 from flask import Flask, render_template, jsonify, redirect, request, url_for
 import html
+import mimetypes
 import os
 import re
 from urllib.error import HTTPError, URLError
 from urllib.parse import quote
 from urllib.request import Request, urlopen
+
+mimetypes.add_type("image/webp", ".webp")
 
 app = Flask(
     __name__,
@@ -179,8 +182,15 @@ def api_drive_folder(folder_id):
     if not re.fullmatch(r"[A-Za-z0-9_-]+", folder_id):
         return jsonify({"error": "Invalid folder id"}), 400
 
-    folder_url = f"https://drive.google.com/embeddedfolderview?id={quote(folder_id)}#grid"
-    request = Request(
+    resource_key = request.args.get("resourcekey", "").strip()
+    if resource_key and not re.fullmatch(r"[A-Za-z0-9_-]+", resource_key):
+        return jsonify({"error": "Invalid resource key"}), 400
+
+    folder_url = f"https://drive.google.com/embeddedfolderview?id={quote(folder_id)}"
+    if resource_key:
+        folder_url += f"&resourcekey={quote(resource_key)}"
+    folder_url += "#grid"
+    folder_request = Request(
         folder_url,
         headers={
             "User-Agent": "Mozilla/5.0 (compatible; PortfolioDriveFolderViewer/1.0)"
@@ -188,7 +198,7 @@ def api_drive_folder(folder_id):
     )
 
     try:
-        with urlopen(request, timeout=10) as response:
+        with urlopen(folder_request, timeout=10) as response:
             markup = response.read().decode("utf-8", "replace")
     except (HTTPError, URLError, TimeoutError) as error:
         return jsonify({"error": f"Unable to load Drive folder: {error}"}), 502
@@ -211,6 +221,9 @@ def api_drive_folder(folder_id):
         drive_file = re.search(r"drive\.google\.com/file/d/([^/]+)", href)
         docs_file = re.search(r"docs\.google\.com/(document|presentation|spreadsheets)/d/([^/]+)", href)
         drive_folder = re.search(r"drive\.google\.com/drive/folders/([^/?#]+)", href)
+        embedded_folder = re.search(r"drive\.google\.com/embeddedfolderview\?[^#]*\bid=([^&#]+)", href)
+        resource_key_match = re.search(r"[?&]resourcekey=([^&#]+)", href)
+        entry_resource_key = resource_key_match.group(1) if resource_key_match else ""
 
         if drive_file:
             file_id = drive_file.group(1)
@@ -218,10 +231,13 @@ def api_drive_folder(folder_id):
         elif docs_file:
             doc_type, file_id = docs_file.groups()
             preview_url = f"https://docs.google.com/{doc_type}/d/{file_id}/preview"
-        elif drive_folder:
+        elif drive_folder or embedded_folder:
             entry_type = "folder"
-            file_id = drive_folder.group(1)
-            preview_url = f"https://drive.google.com/embeddedfolderview?id={file_id}#grid"
+            file_id = (drive_folder or embedded_folder).group(1)
+            preview_url = f"https://drive.google.com/embeddedfolderview?id={file_id}"
+            if entry_resource_key:
+                preview_url += f"&resourcekey={entry_resource_key}"
+            preview_url += "#grid"
         else:
             file_id = entry_id
 
@@ -231,6 +247,7 @@ def api_drive_folder(folder_id):
                 "title": title or entry_id,
                 "href": href,
                 "preview_url": preview_url,
+                "resource_key": entry_resource_key,
                 "type": entry_type,
             }
         )

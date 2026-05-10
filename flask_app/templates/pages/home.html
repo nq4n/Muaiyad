@@ -4,25 +4,37 @@
 
 {% block page_content %}
 <div class="home-stack">
-  <section class="section-card home-panel home-card home-card--welcome reveal" data-reveal="fade-up">
+  <section class="home-intro-section reveal" data-reveal="fade-up">
     <div class="home-welcome-layout">
-      <div class="section-block-inner home-welcome-copy">
-        <p class="terminal-path home-kicker" data-home-field="institution"></p>
-        <p class="home-welcome-eyebrow" data-home-field="eyebrow"></p>
-        <div class="section-headline">
-          <h1 data-home-field="title"></h1>
+      <article class="section-card home-panel home-card home-intro-text-card">
+        <div class="section-block-inner home-welcome-copy">
+          <p class="home-intro-card-title">
+            <span class="home-lang-label home-lang-label--en">About Achievement Profile</span>
+            <span class="home-lang-label home-lang-label--ar">نبذة عن ملف الإنجاز</span>
+          </p>
+          <p class="terminal-path home-kicker" data-home-field="institution"></p>
+          <p class="home-welcome-eyebrow" data-home-field="eyebrow"></p>
+          <div class="section-headline">
+            <h1 data-home-field="title"></h1>
+          </div>
+          <div class="section-copy">
+            <p data-home-field="body"></p>
+          </div>
+          <nav class="home-inline-links" id="home-quick-links-nav">
+            <ul class="home-link-list" id="home-quick-links"></ul>
+          </nav>
         </div>
-        <div class="section-copy">
-          <p data-home-field="body"></p>
-        </div>
-        <nav class="home-inline-links" id="home-quick-links-nav">
-          <ul class="home-link-list" id="home-quick-links"></ul>
-        </nav>
-      </div>
+      </article>
 
-      <aside class="home-journey-panel" id="home-journey-panel">
+      <aside class="section-card home-panel home-card home-journey-panel home-journey-panel--portrait" id="home-journey-panel">
+        <p class="home-visual-card-title">
+          <span class="home-lang-label home-lang-label--en">Comprehensive Achievement Profile</span>
+          <span class="home-lang-label home-lang-label--ar">ملف الإنجاز الشامل</span>
+        </p>
         <div class="home-journey-overlay">
-          <canvas class="home-journey-wordmark" id="home-journey-wordmark" aria-hidden="true"></canvas>
+          <figure class="home-journey-portrait-frame" aria-hidden="true">
+            <img class="home-journey-portrait" src="{{ url_for('static', filename='img/personal image.png') }}" alt="" decoding="async" loading="eager" fetchpriority="high">
+          </figure>
         </div>
         <div class="home-journey-field" id="home-journey-field" aria-hidden="true"></div>
       </aside>
