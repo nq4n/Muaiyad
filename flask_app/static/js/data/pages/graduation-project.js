@@ -3,6 +3,7 @@
 
   const liveProjectHref = "https://nq4n.github.io/research-proejct/";
   const repoHref = "https://github.com/nq4n/research-project";
+  const wordReportHref = "https://1drv.ms/w/c/24561fbeb78df5e6/IQCBWKwwCkhnQL0AmtXU2HrdAeF2rTAIXwfZtphE52K8jkM?e=KcnSYK";
   const logoSrc = "/static/img/virtual-lab-logo.svg?v=20260425b";
   const logoFallbackSrc = "/static/img/virtual-lab-logo-fallback.svg?v=20260425a";
 
@@ -32,15 +33,13 @@
           },
           {
             label: "Word Document",
-            href: "#",
-            kind: "document",
-            pending: true
+            href: wordReportHref,
+            kind: "document"
           },
           {
-            label: "PDF Report",
-            href: "#",
-            kind: "document",
-            pending: true
+            label: "Export PDF",
+            href: wordReportHref,
+            kind: "document"
           }
         ],
         panel_label: "Project Identity",
@@ -140,7 +139,7 @@
       resources: {
         title: "Project Links",
         body: [
-          "The live platform and repository are available now. Dedicated Word and PDF report buttons are prepared in this page layout, but the linked repository does not currently expose public report files, so those two buttons are kept ready for final attachment."
+          "The live platform, source repository, and Word report are available now. The PDF action opens the Word report because live PDF conversion from this public OneDrive share requires authenticated Microsoft conversion access; from Word Online, the report can be exported as PDF."
         ],
         items: [
           {
@@ -157,17 +156,15 @@
           },
           {
             kind: "Word",
-            title: "Word document link",
-            note: "Attach the final Word report URL here when it is published.",
-            href: "#",
-            pending: true
+            title: "Open the graduation project report",
+            note: "Open the report in Word Online.",
+            href: wordReportHref
           },
           {
             kind: "PDF",
-            title: "PDF document link",
-            note: "Attach the exported PDF report URL here when it is published.",
-            href: "#",
-            pending: true
+            title: "Export the report as PDF",
+            note: "Open the Word report, then export or download it as PDF from Word Online.",
+            href: wordReportHref
           }
         ]
       }
@@ -197,15 +194,13 @@
           },
           {
             label: "ملف وورد",
-            href: "#",
-            kind: "document",
-            pending: true
+            href: wordReportHref,
+            kind: "document"
           },
           {
-            label: "ملف PDF",
-            href: "#",
-            kind: "document",
-            pending: true
+            label: "تصدير PDF",
+            href: wordReportHref,
+            kind: "document"
           }
         ],
         panel_label: "هوية المشروع",
@@ -305,7 +300,7 @@
       resources: {
         title: "روابط المشروع",
         body: [
-          "المنصة المنشورة والمستودع البرمجي متاحان الآن. وقد جُهز في هذه الصفحة مكان مخصص لزر ملف الوورد وزر ملف PDF، لكن المستودع المرتبط لا يعرض حالياً ملفات تقرير عامة، لذلك تُرك الزران جاهزين لإرفاق الرابط النهائي لاحقاً."
+          "المنصة المنشورة والمستودع البرمجي وتقرير الوورد متاحة الآن. يفتح زر PDF تقرير الوورد لأن التحويل المباشر من رابط OneDrive عام إلى PDF يحتاج إلى صلاحية تحويل موثقة من Microsoft؛ ويمكن تصدير التقرير إلى PDF من داخل Word Online."
         ],
         items: [
           {
@@ -322,17 +317,15 @@
           },
           {
             kind: "وورد",
-            title: "رابط ملف وورد",
-            note: "يمكن إرفاق رابط التقرير النهائي بصيغة وورد هنا عند نشره.",
-            href: "#",
-            pending: true
+            title: "فتح تقرير مشروع التخرج",
+            note: "فتح التقرير داخل Word Online.",
+            href: wordReportHref
           },
           {
             kind: "PDF",
-            title: "رابط ملف PDF",
-            note: "يمكن إرفاق رابط نسخة PDF النهائية هنا عند توفرها.",
-            href: "#",
-            pending: true
+            title: "تصدير التقرير بصيغة PDF",
+            note: "افتح تقرير الوورد ثم صدّره أو نزّله بصيغة PDF من Word Online.",
+            href: wordReportHref
           }
         ]
       }

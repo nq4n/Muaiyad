@@ -360,13 +360,13 @@ body[data-page="other-workshop"] .section-caption {
   text-decoration: none;
 }
 
-.workshop-resource-card:is(button) {
+.workshop-resource-card:is(button, a) {
   cursor: pointer;
   width: 100%;
 }
 
-.workshop-resource-card:is(button):hover,
-.workshop-resource-card:is(button):focus-visible {
+.workshop-resource-card:is(button, a):hover,
+.workshop-resource-card:is(button, a):focus-visible {
   border-color: var(--accent);
   background:
     linear-gradient(135deg, var(--accent-soft), var(--accent-2-soft) 58%, rgba(255, 255, 255, 0.03)),

@@ -13,19 +13,45 @@
     summary: "/static/docs/workshop-summary.html"
   };
 
+  const workshopSnippets = {
+    href: "https://drive.google.com/drive/folders/1DU0Hb5nztl2QzUzL8Fzbelt0z7JStOGk?usp=drive_link",
+    driveFolderId: "1DU0Hb5nztl2QzUzL8Fzbelt0z7JStOGk"
+  };
+
   const resourceGrid = (items) => `
     <div class="workshop-resource-grid">
-      ${items.map((item) => `
-        <button class="workshop-resource-card" type="button" aria-label="${item.label}" data-workshop-modal="${item.modal}">
-          <span class="workshop-resource-dot" aria-hidden="true"></span>
-          <span class="workshop-resource-label">${item.label}</span>
-        </button>
-      `).join("")}
+      ${items.map((item) => {
+        if (item.href) {
+          const driveAttr = item.driveFolderId ? ` data-drive-folder-id="${item.driveFolderId}"` : "";
+          return `
+            <a class="workshop-resource-card workshop-resource-card--link" href="${item.href}" data-embed-title="${item.embedTitle || item.label}"${driveAttr}>
+              <span class="workshop-resource-dot" aria-hidden="true"></span>
+              <span class="workshop-resource-label">${item.label}</span>
+            </a>
+          `;
+        }
+        return `
+          <button class="workshop-resource-card" type="button" aria-label="${item.label}" data-workshop-modal="${item.modal}">
+            <span class="workshop-resource-dot" aria-hidden="true"></span>
+            <span class="workshop-resource-label">${item.label}</span>
+          </button>
+        `;
+      }).join("")}
     </div>
   `;
 
   const modal = ({ slug, title, eyebrow, body, href, linkLabel, lang = "ar" }) => {
     const isAr = lang === "ar";
+    const sourceAction = href
+      ? `
+          <div class="resource-actions resource-actions--single">
+            <a class="resource-action" href="${href}" target="_blank" rel="noopener noreferrer" data-bypass-embed="true">
+              <span class="resource-action__icon" aria-hidden="true">&#8599;</span>
+              <span class="resource-action__label">${linkLabel}</span>
+            </a>
+          </div>
+        `
+      : "";
     return `
       <div class="workshop-inline-modal" id="workshop-modal-${slug}" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="workshop-modal-title-${slug}">
         <div class="workshop-inline-modal__backdrop" data-workshop-modal-close></div>
@@ -38,12 +64,7 @@
             <button class="icon-btn workshop-inline-modal__close" type="button" data-workshop-modal-close aria-label="${isAr ? "إغلاق" : "Close"}">&times;</button>
           </div>
           <div class="workshop-planning-paper">${body}</div>
-          <div class="resource-actions resource-actions--single">
-            <a class="resource-action" href="${href}" target="_blank" rel="noopener noreferrer" data-bypass-embed="true">
-              <span class="resource-action__icon" aria-hidden="true">&#8599;</span>
-              <span class="resource-action__label">${linkLabel}</span>
-            </a>
-          </div>
+          ${sourceAction}
         </div>
       </div>
     `;
@@ -160,12 +181,37 @@
     guide: `
       <section>
         <h4>دليل الورشة</h4>
-        <p>يوضح دليل الورشة خطوات استخدام Google Forms في إنشاء نموذج تقويم إلكتروني، وإضافة الأسئلة، وضبط الإعدادات، ومشاركة الرابط، وقراءة ملخص الاستجابات.</p>
+        <p>يوضح الدليل خطوات إنشاء نموذج تقويم إلكتروني باستخدام Google Forms، وإضافة الأسئلة، وضبط الإعدادات، ومشاركة النموذج، وتحليل الاستجابات.</p>
+        <p>يركز الدليل على تحويل التقويم من نشاط ورقي محدود إلى أداة رقمية تساعد المعلم على جمع الاستجابات بسرعة، ومراجعة النتائج بصورة منظمة، ثم اتخاذ قرارات تعليمية مبنية على بيانات واضحة.</p>
+      </section>
+      <section>
+        <h5>محاور الدليل</h5>
         <ul>
           <li>تعريف التقويم الإلكتروني.</li>
-          <li>خطوات إنشاء النموذج.</li>
-          <li>طرق تحليل الاستجابات.</li>
+          <li>إنشاء نموذج جديد.</li>
+          <li>إضافة أنواع مختلفة من الأسئلة.</li>
+          <li>قراءة الرسوم البيانية وملخص الردود.</li>
           <li>توظيف النتائج في تحسين التدريس.</li>
+        </ul>
+      </section>
+      <section>
+        <h5>خطوات التطبيق داخل الورشة</h5>
+        <ol>
+          <li>الدخول إلى Google Forms من حساب Gmail نشط.</li>
+          <li>اختيار نموذج جديد وتحديد عنوان واضح يرتبط بهدف التقويم.</li>
+          <li>إضافة أسئلة متنوعة مثل الاختيار من متعدد، الإجابة القصيرة، ومربعات الاختيار.</li>
+          <li>ضبط إعدادات النموذج، وجعل الأسئلة المهمة إلزامية، وتحديد آلية جمع الردود.</li>
+          <li>مشاركة رابط النموذج مع المشاركين وتجربة تعبئته بصورة عملية.</li>
+          <li>قراءة ملخص الاستجابات والرسوم البيانية، ثم مناقشة دلالة النتائج تربويا.</li>
+        </ol>
+      </section>
+      <section>
+        <h5>مخرجات متوقعة من الدليل</h5>
+        <ul>
+          <li>قدرة المعلم على بناء أداة تقويم إلكترونية بسيطة ومنظمة.</li>
+          <li>فهم طريقة متابعة الاستجابات وتحليلها دون الحاجة إلى معالجة يدوية طويلة.</li>
+          <li>توظيف البيانات في تحديد مواطن القوة والاحتياج لدى المتعلمين.</li>
+          <li>تحسين التغذية الراجعة وربطها بنتائج التقويم الفعلية.</li>
         </ul>
       </section>
     `,
@@ -179,7 +225,38 @@
     publication: `
       <section>
         <h4>تقرير نشر الورشة</h4>
-        <p>يوثق تقرير النشر تنفيذ الورشة، وأهدافها، والفئة المستهدفة، ومحاور التدريب، وتفاعل المشاركين، والنتائج المهنية المتوقعة من الورشة.</p>
+        <p>يوثق هذا التقرير تنفيذ ورشة التقويم الإلكتروني وتحليل الأداء باستخدام Google Forms، ويعرض هدف الورشة والفئة المستهدفة ومحاور التنفيذ وتفاعل المشاركين والنتائج المهنية المتوقعة.</p>
+        <p>ركزت الورشة على التطبيق العملي، حيث قام المشاركون بإنشاء نماذج إلكترونية وتحليل الاستجابات والرسوم البيانية الناتجة.</p>
+      </section>
+      <section>
+        <h5>بيانات الورشة</h5>
+        <ul>
+          <li><strong>عنوان الورشة:</strong> التقويم الإلكتروني وتحليل الأداء باستخدام Google Forms.</li>
+          <li><strong>الفئة المستهدفة:</strong> معلمو المدرسة من تخصصات مختلفة.</li>
+          <li><strong>نمط التنفيذ:</strong> عرض موجز، شرح تطبيقي، تدريب عملي، ومناقشة ختامية.</li>
+          <li><strong>الأدوات المستخدمة:</strong> أجهزة الحاسوب، جهاز العرض، شبكة الإنترنت، حسابات Gmail، ومنصة Google Forms.</li>
+        </ul>
+      </section>
+      <section>
+        <h5>هدف النشر</h5>
+        <p>يهدف نشر الورشة إلى توثيق نشاط النمو المهني وإبراز أثره في تطوير ممارسات التقويم لدى المعلمين، إضافة إلى مشاركة تجربة قابلة للتطبيق في بيئات صفية مختلفة.</p>
+        <p>كما يوضح التقرير أن الورشة لم تكن مجرد عرض تعريفي بالأداة، بل كانت ممارسة تدريبية مرتبطة باحتياج مهني واضح وبمخرجات يمكن ملاحظتها في تصميم أدوات التقويم وتحليل نتائجها.</p>
+      </section>
+      <section>
+        <h5>محاور التنفيذ</h5>
+        <ol>
+          <li>التمهيد لمفهوم التقويم الإلكتروني وأهميته في التعليم.</li>
+          <li>عرض مزايا Google Forms في جمع البيانات وتنظيمها.</li>
+          <li>شرح خطوات إنشاء نموذج تقويم إلكتروني.</li>
+          <li>تنفيذ نشاط عملي لإنشاء نموذج وتجربة الإجابة عنه.</li>
+          <li>تحليل الاستجابات ومناقشة كيفية الاستفادة من الرسوم البيانية.</li>
+          <li>ربط النتائج بقرارات التدريس والتغذية الراجعة.</li>
+        </ol>
+      </section>
+      <section>
+        <h5>الأثر المهني المتوقع</h5>
+        <p>أسهمت الورشة في دعم توجه المعلمين نحو استخدام أدوات رقمية بسيطة وفعالة في التقويم، وساعدت على توضيح العلاقة بين تصميم السؤال، وجودة البيانات، ودقة القرار التعليمي.</p>
+        <p>ومن المتوقع أن ينعكس أثر الورشة في قدرة المشاركين على إعداد نماذج تقويم إلكترونية أكثر تنظيما، ومتابعة استجابات المتعلمين بصورة أسرع، وتقديم تغذية راجعة مبنية على نتائج واضحة.</p>
       </section>
     `,
     video: `
@@ -197,7 +274,32 @@
     summary: `
       <section>
         <h4>ملخص الورشة</h4>
-        <p>يلخص هذا المرفق فكرة الورشة، أهم محاورها، أثرها المهني، وكيف يمكن للمعلمين توظيف Google Forms في التقويم الإلكتروني وتحسين قرارات التدريس.</p>
+        <p>تناولت الورشة توظيف Google Forms في تصميم أدوات التقويم الإلكتروني وتحليل نتائج الأداء. ساعدت الورشة المعلمين على إنشاء نماذج تقويم رقمية، ومتابعة الاستجابات، وقراءة الرسوم البيانية، والاستفادة من النتائج في تحسين التدريس.</p>
+        <p>تبرز أهمية الورشة في ربط التقويم بالبيانات، وتحويل نتائج المتعلمين إلى مؤشرات تساعد المعلم على اتخاذ قرارات تعليمية أكثر فاعلية.</p>
+      </section>
+      <section>
+        <h5>فكرة الورشة</h5>
+        <p>انطلقت الورشة من حاجة المعلمين إلى أدوات تقويم مرنة وسهلة الاستخدام، تساعدهم على جمع البيانات وتحليلها بسرعة. لذلك ركزت على Google Forms بوصفها أداة متاحة يمكن توظيفها في الاختبارات القصيرة، الاستبانات، أنشطة التحقق من الفهم، والتغذية الراجعة.</p>
+      </section>
+      <section>
+        <h5>أبرز ما تم تناوله</h5>
+        <ul>
+          <li>مفهوم التقويم الإلكتروني ودوره في تحسين التعلم.</li>
+          <li>تصميم نموذج تقويم واضح الهدف ومناسب للفئة المستهدفة.</li>
+          <li>إضافة أنواع متعددة من الأسئلة وربطها بمخرجات التعلم.</li>
+          <li>مشاركة النموذج مع المتعلمين أو المشاركين بطريقة منظمة.</li>
+          <li>قراءة ملخص الردود والرسوم البيانية داخل Google Forms.</li>
+          <li>استخدام النتائج لتحديد نقاط القوة والاحتياج ووضع إجراءات تحسين.</li>
+        </ul>
+      </section>
+      <section>
+        <h5>القيمة التعليمية</h5>
+        <p>تظهر قيمة الورشة في أنها جعلت التقويم أكثر ارتباطا بالقرار التعليمي؛ فالمعلم لا يكتفي بجمع الإجابات، بل يقرأ النتائج، ويقارن بين أنماط الأداء، ثم يحدد ما يحتاج إلى إعادة شرح أو تعزيز أو نشاط علاجي.</p>
+        <p>كما دعمت الورشة جانب النمو المهني من خلال تدريب عملي قابل للتكرار، يمكن للمعلم نقله مباشرة إلى الصف أو استخدامه في أنشطة مدرسية أخرى.</p>
+      </section>
+      <section>
+        <h5>خلاصة التأمل</h5>
+        <p>أكدت الورشة أن الأدوات الرقمية تصبح أكثر فاعلية عندما تستخدم ضمن هدف تربوي واضح، وعندما ترتبط بنتائج قابلة للقراءة والتحليل. لذلك فإن Google Forms لم يكن مجرد منصة لجمع الردود، بل وسيلة لتنظيم التقويم وتحويله إلى ممارسة تعليمية مبنية على الأدلة.</p>
       </section>
     `
   };
@@ -210,12 +312,11 @@
       modal({ slug: "announcement", title: isAr ? "إعلان الورشة" : "Workshop Announcement", eyebrow, body: simpleBody.announcement, href: docs.announcement, linkLabel, lang }),
       modal({ slug: "planning", title: isAr ? "تخطيط الورشة" : "Workshop Planning", eyebrow, body: planningBody, href: docs.planning, linkLabel, lang }),
       modal({ slug: "survey", title: isAr ? "استطلاع الورشة" : "Workshop Survey", eyebrow, body: simpleBody.survey, href: docs.survey, linkLabel, lang }),
-      modal({ slug: "guide", title: isAr ? "دليل الورشة" : "Workshop Guide", eyebrow, body: simpleBody.guide, href: docs.guide, linkLabel, lang }),
+      modal({ slug: "guide", title: isAr ? "دليل الورشة" : "Workshop Guide", eyebrow, body: simpleBody.guide, linkLabel, lang }),
       modal({ slug: "presentation", title: isAr ? "العرض التقديمي للورشة" : "Workshop Presentation", eyebrow, body: simpleBody.presentation, href: docs.presentation, linkLabel, lang }),
-      modal({ slug: "publication", title: isAr ? "تقرير نشر الورشة" : "Workshop Publication Report", eyebrow, body: simpleBody.publication, href: docs.publication, linkLabel, lang }),
-      modal({ slug: "video", title: isAr ? "فيديو الورشة" : "Workshop Video", eyebrow, body: simpleBody.video, href: docs.video, linkLabel, lang }),
+      modal({ slug: "publication", title: isAr ? "تقرير نشر الورشة" : "Workshop Publication Report", eyebrow, body: simpleBody.publication, linkLabel, lang }),
       modal({ slug: "evaluation", title: isAr ? "نموذج تقييم الورشة" : "Workshop Evaluation Form", eyebrow, body: simpleBody.evaluation, href: docs.evaluation, linkLabel, lang }),
-      modal({ slug: "summary", title: isAr ? "ملخص الورشة" : "Workshop Summary", eyebrow, body: simpleBody.summary, href: docs.summary, linkLabel, lang })
+      modal({ slug: "summary", title: isAr ? "ملخص الورشة" : "Workshop Summary", eyebrow, body: simpleBody.summary, linkLabel, lang })
     ].join("");
   };
 
@@ -226,7 +327,7 @@
     { label: "Workshop Guide", modal: "guide" },
     { label: "Workshop Presentation", modal: "presentation" },
     { label: "Workshop Publication Report", modal: "publication" },
-    { label: "Workshop Video", modal: "video" },
+    { label: "Workshop Excerpts", href: workshopSnippets.href, driveFolderId: workshopSnippets.driveFolderId, embedTitle: "Workshop Excerpts" },
     { label: "Workshop Evaluation Form", modal: "evaluation" },
     { label: "Workshop Summary", modal: "summary" }
   ];
@@ -238,7 +339,7 @@
     { label: "دليل الورشة", modal: "guide" },
     { label: "العرض التقديمي للورشة", modal: "presentation" },
     { label: "تقرير نشر الورشة", modal: "publication" },
-    { label: "فيديو الورشة", modal: "video" },
+    { label: "مقتطفات الورشة", href: workshopSnippets.href, driveFolderId: workshopSnippets.driveFolderId, embedTitle: "مقتطفات الورشة" },
     { label: "نموذج تقييم الورشة", modal: "evaluation" },
     { label: "ملخص الورشة", modal: "summary" }
   ];

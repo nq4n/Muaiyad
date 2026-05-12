@@ -797,6 +797,16 @@
     setText("graduation-project-links-title", resources.title || "");
     setParagraphs("graduation-project-links-copy", resources.body || []);
 
+    const shouldBypassEmbed = (href, item = {}) => {
+      if (item.bypassEmbed === true || item.bypass_embed === true) return true;
+      try {
+        const url = new URL(href, window.location.href);
+        return /(^|\.)1drv\.ms$/i.test(url.hostname) || /(^|\.)onedrive\.live\.com$/i.test(url.hostname);
+      } catch {
+        return false;
+      }
+    };
+
     const actionRoot = document.getElementById("graduation-project-actions");
     if (actionRoot) {
       if (hero.actions_label) actionRoot.setAttribute("aria-label", hero.actions_label);
@@ -806,9 +816,10 @@
           const disabled = item.pending || href === "#";
           const external = !disabled && /^https?:\/\//i.test(href);
           const extra = external ? ' target="_blank" rel="noopener noreferrer"' : "";
+          const bypassAttr = !disabled && shouldBypassEmbed(href, item) ? ' data-bypass-embed="true"' : "";
           const disabledAttrs = disabled ? ' aria-disabled="true" tabindex="-1"' : "";
           return `
-            <a class="graduation-project-button graduation-project-button--${U.esc(item.kind || "primary")}${disabled ? " is-disabled" : ""}" href="${U.esc(href)}"${extra}${disabledAttrs}>
+            <a class="graduation-project-button graduation-project-button--${U.esc(item.kind || "primary")}${disabled ? " is-disabled" : ""}" href="${U.esc(href)}"${extra}${bypassAttr}${disabledAttrs}>
               ${U.esc(item.label || "")}
             </a>
           `;
@@ -854,9 +865,10 @@
           const disabled = item.pending || href === "#";
           const external = !disabled && /^https?:\/\//i.test(href);
           const extra = external ? ' target="_blank" rel="noopener noreferrer"' : "";
+          const bypassAttr = !disabled && shouldBypassEmbed(href, item) ? ' data-bypass-embed="true"' : "";
           const disabledAttrs = disabled ? ' aria-disabled="true" tabindex="-1"' : "";
           return `
-            <a class="graduation-project-link-card${disabled ? " is-disabled" : ""}" href="${U.esc(href)}"${extra}${disabledAttrs}>
+            <a class="graduation-project-link-card${disabled ? " is-disabled" : ""}" href="${U.esc(href)}"${extra}${bypassAttr}${disabledAttrs}>
               <span class="graduation-project-link-kind">${U.esc(item.kind || "")}</span>
               <h3 class="graduation-project-link-card-title">${U.esc(item.title || "")}</h3>
               <p class="graduation-project-link-note">${U.esc(item.note || "")}</p>
