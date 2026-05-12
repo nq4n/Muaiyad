@@ -3,13 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  {% set asset_version = "20260509v24" %}
   {% set default_page_title = pages[page_id]["title_ar" if lang == "ar" else "title_en"] if page_id in pages else page_id %}
   <title>{{ default_page_title }} - Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="icon" href="{{ url_for('static', filename='img/squ-logo.webp', v='20260404a') }}" type="image/webp">
-  <link rel="preload" href="{{ url_for('static', filename='img/squ-logo.webp', v='20260404a') }}" as="image" type="image/webp" fetchpriority="high">
+  <link rel="icon" href="{{ url_for('static', filename='img/squ-logo.webp', v=asset_version) }}" type="image/webp">
+  <link rel="preload" href="{{ url_for('static', filename='img/squ-logo.webp', v=asset_version) }}" as="image" type="image/webp" fetchpriority="high">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/shell.css', v=asset_version) }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/content.css', v=asset_version) }}">

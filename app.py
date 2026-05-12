@@ -19,6 +19,40 @@ app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev-key-change-in-produ
 app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 31536000
 
 
+def resolve_asset_version():
+    for env_key in ("RAILWAY_GIT_COMMIT_SHA", "SOURCE_VERSION", "RAILWAY_DEPLOYMENT_ID"):
+        value = os.environ.get(env_key, "").strip()
+        if value:
+            return value[:16]
+
+    watched_paths = [
+        "app.py",
+        "flask_app/templates/base.html",
+        "flask_app/templates/pages/home.html",
+        "flask_app/static/css/shell.css",
+        "flask_app/static/css/content.css",
+        "flask_app/static/css/effects.css",
+        "flask_app/static/css/restored-layouts.css",
+        "flask_app/static/css/style.css",
+        "flask_app/static/js/app.js",
+        "flask_app/static/js/app/core.js",
+        "flask_app/static/js/app/header.js",
+        "flask_app/static/js/app/page-renderers.js",
+        "flask_app/static/js/app/conceptual-axes.js",
+        "flask_app/static/js/data/site.js",
+        "flask_app/static/js/data/pages/home.js",
+    ]
+    existing_paths = [path for path in watched_paths if os.path.exists(path)]
+    if not existing_paths:
+        return "dev"
+
+    latest_mtime = max(int(os.path.getmtime(path)) for path in existing_paths)
+    return str(latest_mtime)
+
+
+ASSET_VERSION = resolve_asset_version()
+
+
 @app.after_request
 def add_static_cache_headers(response):
     if request.path.startswith(f"{app.static_url_path}/"):
@@ -135,6 +169,7 @@ def get_page_context(page_id, lang="ar"):
         "page_id": page_id,
         "lang": lang,
         "dir": "rtl" if lang == "ar" else "ltr",
+        "asset_version": ASSET_VERSION,
         "pages": PAGES,
         "nav_structure": NAV_STRUCTURE,
         "nav_icons": NAV_ICONS,
@@ -256,4 +291,8 @@ def api_drive_folder(folder_id):
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=5000)
+    app.run(
+        debug=os.environ.get("FLASK_DEBUG") == "1",
+        host="0.0.0.0",
+        port=int(os.environ.get("PORT", 5000)),
+    )
