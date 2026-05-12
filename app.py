@@ -15,6 +15,7 @@ app = Flask(
     static_folder="flask_app/static",
     static_url_path="/static",
 )
+
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev-key-change-in-production")
 app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 31536000
 
@@ -42,7 +43,9 @@ def resolve_asset_version():
         "flask_app/static/js/data/site.js",
         "flask_app/static/js/data/pages/home.js",
     ]
+
     existing_paths = [path for path in watched_paths if os.path.exists(path)]
+
     if not existing_paths:
         return "dev"
 
@@ -60,13 +63,16 @@ def add_static_cache_headers(response):
             response.headers["Cache-Control"] = "public, max-age=31536000, immutable"
         else:
             response.headers["Cache-Control"] = "public, max-age=3600"
+
     return response
+
 
 PAGES = {
     "home": {"path": "pages/home.html", "title_en": "Portfolio Introduction", "title_ar": "مقدمة الملف"},
     "philosophy": {"path": "pages/philosophy.html", "title_en": "Educational Philosophy", "title_ar": "الفلسفة التربوية"},
     "cv": {"path": "pages/cv.html", "title_en": "CV", "title_ar": "السيرة الذاتية"},
     "unit-plan": {"path": "pages/unit-plan.html", "title_en": "Unit Plan", "title_ar": "خطة الوحدة"},
+
     "unit-1-intro": {"path": "pages/unit-1-intro.html", "title_en": "1- Unit Introduction", "title_ar": "1- مقدمة الوحدة"},
     "unit-2-framework": {"path": "pages/unit-2-framework.html", "title_en": "2- Theoretical Framework", "title_ar": "2- الإطار النظري"},
     "unit-3-objectives": {"path": "pages/unit-3-objectives.html", "title_en": "3- General & Specific Objectives", "title_ar": "3- الأهداف العامة والخاصة"},
@@ -77,16 +83,19 @@ PAGES = {
     "unit-8-reflection": {"path": "pages/unit-8-reflection.html", "title_en": "8- Reflection on Teaching Practices", "title_ar": "8- التأمل في الممارسات التدريسية"},
     "unit-9-references": {"path": "pages/unit-9-references.html", "title_en": "9- References", "title_ar": "9- المراجع العلمية"},
     "unit-10-appendices": {"path": "pages/unit-10-appendices.html", "title_en": "10- Appendices", "title_ar": "10- الملاحق"},
+
     "conceptual-axes": {"path": "pages/conceptual-axes.html", "title_en": "Conceptual Framework Axes", "title_ar": "محاور الإطار المفاهيمي"},
     "reflection-papers": {"path": "pages/reflection-papers.html", "title_en": "Reflection Papers", "title_ar": "الأوراق التأملية"},
     "graduation-project": {"path": "pages/graduation-project.html", "title_en": "Research Project", "title_ar": "مشروع البحث"},
     "other": {"path": "pages/other.html", "title_en": "Other", "title_ar": "أخرى"},
+
     "other-values": {"path": "pages/other-values.html", "title_en": "Professional Values Scenarios", "title_ar": "سيناريوهات القيم المهنية"},
     "other-workshop": {"path": "pages/other-workshop.html", "title_en": "Workshop", "title_ar": "الورشة"},
     "other-growth": {"path": "pages/other-growth.html", "title_en": "Professional Development Activities Evidence", "title_ar": "أدلة أنشطة النمو المهني"},
     "other-peer-visits": {"path": "pages/other-peer-visits.html", "title_en": "Peer Visit Exchange Evidence", "title_ar": "أدلة تبادل الزيارات"},
     "other-parent-communication": {"path": "pages/other-parent-communication.html", "title_en": "Parent Communication Form", "title_ar": "استمارة تواصل مع أولياء أمور المتعلمين"},
 }
+
 
 NAV_STRUCTURE = [
     {"id": "home"},
@@ -122,6 +131,7 @@ NAV_STRUCTURE = [
     },
 ]
 
+
 NAV_ICONS = {
     "home": "&#8962;",
     "philosophy": "&#9673;",
@@ -133,6 +143,7 @@ NAV_ICONS = {
     "graduation-project": "&#11041;",
     "other": "&#8230;",
 }
+
 
 ROUTE_MAP = {
     "home": "home",
@@ -160,6 +171,7 @@ ROUTE_MAP = {
     "other5": "other-parent-communication",
 }
 
+
 THEMES = ["arabesque", "light"]
 DEFAULT_THEME = "arabesque"
 
@@ -184,10 +196,16 @@ def home():
     return render_template(PAGES["home"]["path"], **get_page_context("home"))
 
 
+@app.route("/health")
+def health():
+    return "OK", 200
+
+
 @app.route("/<page_id>")
 def page(page_id):
     if page_id not in PAGES:
         return redirect(url_for("home"))
+
     return render_template(PAGES[page_id]["path"], **get_page_context(page_id))
 
 
@@ -209,6 +227,7 @@ def api_data():
 def api_lang(lang):
     if lang not in ["en", "ar"]:
         return jsonify({"error": "Invalid language"}), 400
+
     return jsonify({"lang": lang})
 
 
@@ -218,13 +237,17 @@ def api_drive_folder(folder_id):
         return jsonify({"error": "Invalid folder id"}), 400
 
     resource_key = request.args.get("resourcekey", "").strip()
+
     if resource_key and not re.fullmatch(r"[A-Za-z0-9_-]+", resource_key):
         return jsonify({"error": "Invalid resource key"}), 400
 
     folder_url = f"https://drive.google.com/embeddedfolderview?id={quote(folder_id)}"
+
     if resource_key:
         folder_url += f"&resourcekey={quote(resource_key)}"
+
     folder_url += "#grid"
+
     folder_request = Request(
         folder_url,
         headers={
@@ -239,6 +262,7 @@ def api_drive_folder(folder_id):
         return jsonify({"error": f"Unable to load Drive folder: {error}"}), 502
 
     entries = []
+
     entry_pattern = re.compile(
         r'<div class="flip-entry" id="entry-([^"]+)".*?'
         r'<a href="([^"]+)"[^>]*>.*?'
@@ -254,25 +278,36 @@ def api_drive_folder(folder_id):
         entry_type = "file"
 
         drive_file = re.search(r"drive\.google\.com/file/d/([^/]+)", href)
-        docs_file = re.search(r"docs\.google\.com/(document|presentation|spreadsheets)/d/([^/]+)", href)
+        docs_file = re.search(
+            r"docs\.google\.com/(document|presentation|spreadsheets)/d/([^/]+)",
+            href,
+        )
         drive_folder = re.search(r"drive\.google\.com/drive/folders/([^/?#]+)", href)
-        embedded_folder = re.search(r"drive\.google\.com/embeddedfolderview\?[^#]*\bid=([^&#]+)", href)
+        embedded_folder = re.search(
+            r"drive\.google\.com/embeddedfolderview\?[^#]*\bid=([^&#]+)",
+            href,
+        )
         resource_key_match = re.search(r"[?&]resourcekey=([^&#]+)", href)
         entry_resource_key = resource_key_match.group(1) if resource_key_match else ""
 
         if drive_file:
             file_id = drive_file.group(1)
             preview_url = f"https://drive.google.com/file/d/{file_id}/preview"
+
         elif docs_file:
             doc_type, file_id = docs_file.groups()
             preview_url = f"https://docs.google.com/{doc_type}/d/{file_id}/preview"
+
         elif drive_folder or embedded_folder:
             entry_type = "folder"
             file_id = (drive_folder or embedded_folder).group(1)
             preview_url = f"https://drive.google.com/embeddedfolderview?id={file_id}"
+
             if entry_resource_key:
                 preview_url += f"&resourcekey={entry_resource_key}"
+
             preview_url += "#grid"
+
         else:
             file_id = entry_id
 
@@ -291,8 +326,10 @@ def api_drive_folder(folder_id):
 
 
 if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8080))
+
     app.run(
-        debug=os.environ.get("FLASK_DEBUG") == "1",
+        debug=False,
         host="0.0.0.0",
-        port=int(os.environ.get("PORT", 5000)),
+        port=port,
     )
