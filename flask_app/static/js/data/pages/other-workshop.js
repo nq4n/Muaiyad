@@ -124,11 +124,11 @@
       <div class="training-needs-gallery">
         <p class="training-needs-note">توضح الرسوم الآتية نتائج استبانة الاحتياجات التدريبية، وتعرض مستوى الاحتياج في كل محور وتخصصات المشاركين الذين استجابوا للاستبانة.</p>
         <figure class="training-needs-chart training-needs-chart--animated">
-          <img src="/static/img/training-needs/needs-by-axis.png" alt="رسم بياني يوضح الاحتياجات التدريبية حسب المحاور." loading="lazy">
+          <img src="/static/img/training-needs/needs-by-axis.webp" alt="رسم بياني يوضح الاحتياجات التدريبية حسب المحاور." loading="lazy">
           <figcaption>الاحتياجات التدريبية حسب المحاور</figcaption>
         </figure>
         <figure class="training-needs-chart training-needs-chart--animated">
-          <img src="/static/img/training-needs/respondents-by-specialty.png" alt="رسم دائري يوضح تخصصات المشاركين في الاستبانة." loading="lazy">
+          <img src="/static/img/training-needs/respondents-by-specialty.webp" alt="رسم دائري يوضح تخصصات المشاركين في الاستبانة." loading="lazy">
           <figcaption>تخصصات المشاركين في الاستبانة</figcaption>
         </figure>
       </div>
@@ -166,7 +166,7 @@
         <h4>إعلان الورشة</h4>
         <p>يتضمن الإعلان عنوان الورشة، الهدف منها، الفئة المستهدفة، ومحاور التدريب الأساسية. يعرض الإعلان موضوع التقويم الإلكتروني وتحليل الأداء بطريقة مختصرة تساعد المعلمين على معرفة قيمة الحضور.</p>
         <figure class="training-needs-chart training-needs-chart--animated">
-          <img src="/static/img/workshop.png" alt="إعلان الورشة التدريبية" loading="lazy">
+          <img src="/static/img/workshop.webp" alt="إعلان الورشة التدريبية" loading="lazy">
           <figcaption>إعلان الورشة التدريبية</figcaption>
         </figure>
       </section>
@@ -362,7 +362,7 @@
       poster: {
         title: "Workshop Poster",
         type: "image",
-        imageSrc: "/static/img/workshop.png",
+        imageSrc: "/static/img/workshop.webp",
         imageAlt: "Arabic workshop poster about electronic assessment and performance analysis using Google Forms.",
         imageCaption: "Workshop announcement poster."
       },
@@ -404,7 +404,7 @@
       poster: {
         title: "ملصق الورشة",
         type: "image",
-        imageSrc: "/static/img/workshop.png",
+        imageSrc: "/static/img/workshop.webp",
         imageAlt: "ملصق عربي لورشة التقويم الإلكتروني وتحليل الأداء باستخدام Google Forms.",
         imageCaption: "ملصق إعلان الورشة."
       },
